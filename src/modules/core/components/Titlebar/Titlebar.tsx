@@ -18,6 +18,9 @@ const Title = styled.span`
   margin-left: 16px;
   font-size: 0.9em;
 
+  display: flex;
+  justify-content: center;
+
   color: ${getFontColor("muted")};
 `
 
