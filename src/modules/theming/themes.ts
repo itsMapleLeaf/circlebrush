@@ -1,5 +1,6 @@
 import { Theme } from "./types/Theme"
 import * as Styled from "@emotion/styled"
+import { transparentize } from "polished"
 
 export const darkTheme: Theme = {
   colors: {
@@ -14,6 +15,22 @@ export const darkTheme: Theme = {
   transparencies: {
     positive: "rgba(255, 255, 255, 0.05)",
     negative: "rgba(0, 0, 0, 0.6)"
+  }
+}
+
+export const lightTheme: Theme = {
+  colors: {
+    primary: "white",
+    accent: "#ff006b",
+    background: "whitesmoke"
+  },
+  fontColors: {
+    normal: darkTheme.colors.background,
+    muted: transparentize(0.6, darkTheme.colors.background)
+  },
+  transparencies: {
+    positive: "rgba(0, 0, 0, 0.05)",
+    negative: "rgba(0, 0, 0, 0.05)"
   }
 }
 

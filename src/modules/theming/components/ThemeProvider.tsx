@@ -1,7 +1,11 @@
 import React from "react"
 import { ThemeProvider as Provider } from "emotion-theming"
-import { darkTheme } from "../themes"
+import { darkTheme, lightTheme } from "../themes"
 
 export function ThemeProvider(props: { children: any }) {
-  return <Provider theme={darkTheme}>{props.children}</Provider>
+  const dark = true // Remove comment when this is fixed: remote.systemPreferences.isDarkMode()
+
+  return (
+    <Provider theme={dark ? darkTheme : lightTheme}>{props.children}</Provider>
+  )
 }
