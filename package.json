@@ -1,0 +1,17 @@
+{
+  "name": "circlebrush",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Enitoni/circlebrush.git",
+  "author": "Enitoni <enitoni@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build-main": "tsc",
+    "dev": "yarn build-main && electron ./build-main/main.js"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "electron": "^6.0.2",
+    "webpack": "^4.39.2"
+  }
+}
