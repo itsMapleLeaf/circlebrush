@@ -2,12 +2,19 @@
 const path = require("path")
 const webpackMerge = require("webpack-merge")
 
+const HtmlPlugin = require("html-webpack-plugin")
 const CopyPlugin = require("copy-webpack-plugin")
 
 /** @type {import("webpack").Configuration} */
 const baseConfig = {
   mode: "none",
   entry: ["./src/client.tsx"],
+  plugins: [
+    new HtmlPlugin({
+      template: path.resolve(__dirname, "public/index.html"),
+      filename: path.resolve(__dirname, "build/public/index.html")
+    })
+  ],
   module: {
     rules: [
       {
