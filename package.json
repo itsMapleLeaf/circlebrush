@@ -19,6 +19,8 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/node": "^12.7.2",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.8.5",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.4",
     "electron": "^6.0.2",
@@ -27,5 +29,12 @@
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.16",
+    "@emotion/styled": "^10.0.15",
+    "emotion-theming": "^10.0.14",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   }
 }
