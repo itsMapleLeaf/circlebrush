@@ -1,13 +1,21 @@
-import { app, BrowserWindow } from "electron"
+import { app, BrowserWindow, Tray, Menu, nativeImage } from "electron"
 
 let instance: BrowserWindow | null
+let tray: Tray | null
 
 function createWindow() {
   instance = new BrowserWindow({
     frame: false,
-    transparent: true,
     minWidth: 300,
-    minHeight: 200
+    minHeight: 200,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  instance.on("close", event => {
+    event.preventDefault()
+    instance!.hide()
   })
 
   instance.on("closed", () => {
@@ -21,11 +29,17 @@ function createWindow() {
   }
 }
 
-app.on("ready", createWindow)
+function createTray() {
+  tray = new Tray(nativeImage.createEmpty())
+
+  tray.on("click", () => {
+    instance!.show()
+  })
+}
 
 app.on("window-all-closed", () => {
   if (process.env.NODE_ENV !== "production") {
-    createWindow()
+    return createWindow()
   }
 
   if (process.platform !== "darwin") {
@@ -37,4 +51,9 @@ app.on("activate", () => {
   if (instance === null) {
     createWindow()
   }
+})
+
+app.on("ready", () => {
+  createWindow()
+  createTray()
 })

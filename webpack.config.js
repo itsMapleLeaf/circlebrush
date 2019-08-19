@@ -9,6 +9,7 @@ const CopyPlugin = require("copy-webpack-plugin")
 const baseConfig = {
   mode: "none",
   entry: ["./src/client.tsx"],
+  target: "electron-renderer",
   plugins: [
     new HtmlPlugin({
       template: path.resolve(__dirname, "public/index.html"),
