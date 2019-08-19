@@ -26,7 +26,7 @@ const style = (theme: Theme) => css`
     font-family: "Open Sans", sans-serif;
 
     color: ${theme.fontColors.normal};
-    background: transparent;
+    background: ${theme.colors.background};
     overflow: hidden;
   }
 
