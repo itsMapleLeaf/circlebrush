@@ -1,10 +1,14 @@
 import { app, BrowserWindow, Tray, Menu, nativeImage } from "electron"
 
+const logo = nativeImage.createFromPath("./public/logo/icon.ico")
+
 let instance: BrowserWindow | null
 let tray: Tray | null
 
 function createWindow() {
   instance = new BrowserWindow({
+    title: "Circlebrush",
+    icon: logo,
     frame: false,
     minWidth: 300,
     minHeight: 200,
@@ -23,14 +27,14 @@ function createWindow() {
   })
 
   if (process.env.NODE_ENV === "production") {
-    instance.loadFile("../build/index.html")
+    instance.loadFile("./build/index.html")
   } else {
     instance.loadURL(`http://localhost:9000/`)
   }
 }
 
 function createTray() {
-  tray = new Tray(nativeImage.createEmpty())
+  tray = new Tray(logo)
 
   tray.on("click", () => {
     instance!.show()
