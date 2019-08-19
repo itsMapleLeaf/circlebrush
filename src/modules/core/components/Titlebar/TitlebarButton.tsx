@@ -12,7 +12,7 @@ export const TitlebarButton = styled(Button)`
   align-items: center;
 
   > .icon {
-    ${size(24)};
+    ${size(16)};
     opacity: 0.5;
   }
 

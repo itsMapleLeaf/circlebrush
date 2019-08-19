@@ -2,6 +2,7 @@ import { useInstance } from "../../../../common/electron/hooks/useInstance"
 import { useState } from "react"
 import { TitlebarButton } from "./TitlebarButton"
 import React from "react"
+import { useInstanceEvent } from "../../../../common/electron/hooks/useInstanceEvent"
 
 export function MaximizeToggle() {
   const instance = useInstance()
@@ -9,17 +10,18 @@ export function MaximizeToggle() {
 
   const toggle = () => {
     if (maximized) {
-      setMaximized(false)
       instance.restore()
     } else {
-      setMaximized(true)
       instance.maximize()
     }
   }
 
+  useInstanceEvent("maximize", () => setMaximized(true))
+  useInstanceEvent("unmaximize", () => setMaximized(false))
+
   return (
     <TitlebarButton
-      icon={maximized ? "minimize" : "maximize"}
+      icon={maximized ? "restore" : "maximize"}
       onClick={toggle}
     />
   )

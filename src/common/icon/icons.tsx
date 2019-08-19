@@ -1,23 +1,33 @@
 import React from "react"
 
 export const close = (
-  <svg width="24" height="24" viewBox="0 0 24 24">
-    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+  <svg width="16" height="16" viewBox="0 0 16 16">
+    <path d="M13 4.00714L11.9929 3L8 6.99286L4.00714 3L3 4.00714L6.99286 8L3 11.9929L4.00714 13L8 9.00714L11.9929 13L13 11.9929L9.00714 8L13 4.00714Z" />
   </svg>
 )
 
 export const maximize = (
-  <svg width="24" height="24" viewBox="0 0 24 24">
+  <svg width="16" height="16" viewBox="0 0 16 16">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M17 7H7V17H17V7ZM5 5V19H19V5H5Z"
+      d="M12 4H4V12H12V4ZM3 3V13H13V3H3Z"
     />
   </svg>
 )
 
 export const minimize = (
-  <svg width="24" height="24" viewBox="0 0 24 24">
-    <path id="Rectangle" d="M5 17H19V19H5V17Z" />
+  <svg width="16" height="16" viewBox="0 0 16 16">
+    <path d="M4 12H12V13H4V12Z" />
+  </svg>
+)
+
+export const restore = (
+  <svg width="16" height="16" viewBox="0 0 16 16">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M5 2H14V3V11H13V3H5V2ZM4 5H11V12H4V5ZM3 4H4H11H12V5V12V13H11H4H3V12V5V4Z"
+    />
   </svg>
 )

@@ -1,1 +1,1 @@
-export const TITLEBAR_HEIGHT = "48px"
+export const TITLEBAR_HEIGHT = "42px"
