@@ -20,9 +20,17 @@ const Container = styled.button<ButtonVariants>`
     `
     width: 100%;
   `}
+
+  &:focus {
+    outline: none;
+  }
 `
 
-const Inner = styled.span``
+const Inner = styled.span`
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 export function Button(props: ButtonProps) {
   const { stretch, className, icon, label, ...rest } = props
