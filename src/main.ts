@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Tray, Menu, nativeImage } from "electron"
+import { app, BrowserWindow, Tray, nativeImage } from "electron"
 
 const logo = nativeImage.createFromPath("./public/logo/icon.ico")
 
