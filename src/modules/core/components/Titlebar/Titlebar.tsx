@@ -33,7 +33,9 @@ const Grabbable = styled.div`
   flex: 1;
 `
 
-const Buttons = styled.div``
+const Buttons = styled.div`
+  flex-shrink: 0;
+`
 
 export function Titlebar() {
   const instance = useInstance()
