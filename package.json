@@ -6,12 +6,26 @@
   "author": "Enitoni <enitoni@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build-main": "tsc",
-    "dev": "yarn build-main && electron ./build-main/main.js"
+    "main:build": "tsc",
+    "main:start": "electron ./build-main/main.js",
+    "main:dev": "yarn main:build && yarn main:start",
+    "client:dev": "webpack-dev-server --config webpack.config.js",
+    "client:build": "webpack",
+    "dev": "npm-run-all --parallel --race main:dev client:dev"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/node": "^12.7.2",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.4",
     "electron": "^6.0.2",
-    "webpack": "^4.39.2"
+    "npm-run-all": "^4.1.5",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.1"
   }
 }
