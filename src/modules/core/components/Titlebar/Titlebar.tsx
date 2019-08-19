@@ -1,21 +1,24 @@
 import { styled } from "../../../theming/themes"
 import React from "react"
-import { getColor } from "../../../theming/helpers"
+import { getColor, getFontColor } from "../../../theming/helpers"
 import { TITLEBAR_HEIGHT } from "./constants"
-import { useWindow } from "../../../../common/electron/hooks/useWindow"
+import { useInstance } from "../../../../common/electron/hooks/useInstance"
 import { TitlebarButton } from "./TitlebarButton"
+import { MaximizeToggle } from "./MaximizeToggle"
 
 const Container = styled.header`
   display: flex;
   align-items: center;
   height: ${TITLEBAR_HEIGHT};
 
-  font-size: 0.8em;
   background: ${getColor("primary")};
 `
 
 const Title = styled.span`
   margin-left: 16px;
+  font-size: 0.9em;
+
+  color: ${getFontColor("muted")};
 `
 
 const Grabbable = styled.div`
@@ -26,7 +29,7 @@ const Grabbable = styled.div`
 const Buttons = styled.div``
 
 export function Titlebar() {
-  const instance = useWindow()
+  const instance = useInstance()
 
   return (
     <Container>
@@ -34,6 +37,8 @@ export function Titlebar() {
         <Title>{document.title}</Title>
       </Grabbable>
       <Buttons>
+        <TitlebarButton icon="minimize" onClick={() => instance.minimize()} />
+        <MaximizeToggle />
         <TitlebarButton icon="close" onClick={() => instance.hide()} />
       </Buttons>
     </Container>

@@ -12,10 +12,15 @@ export const TitlebarButton = styled(Button)`
   align-items: center;
 
   > .icon {
-    ${size(22)};
+    ${size(24)};
+    opacity: 0.5;
   }
 
   &:hover {
     background: ${getTransparency("negative")};
+
+    > .icon {
+      opacity: 1;
+    }
   }
 `
