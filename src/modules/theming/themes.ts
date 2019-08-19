@@ -10,6 +10,10 @@ export const darkTheme: Theme = {
   fontColors: {
     normal: "rgba(255, 255, 255, 0.8)",
     muted: "rgba(255, 255, 255, 0.6)"
+  },
+  transparencies: {
+    positive: "rgba(255, 255, 255, 0.6)",
+    negative: "rgba(0, 0, 0, 0.4)"
   }
 }
 

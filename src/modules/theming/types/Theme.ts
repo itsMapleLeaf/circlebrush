@@ -8,4 +8,8 @@ export interface Theme {
     normal: string
     muted: string
   }
+  transparencies: {
+    positive: string
+    negative: string
+  }
 }
