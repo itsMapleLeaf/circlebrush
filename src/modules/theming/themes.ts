@@ -12,7 +12,7 @@ export const darkTheme: Theme = {
     muted: "rgba(255, 255, 255, 0.6)"
   },
   transparencies: {
-    positive: "rgba(255, 255, 255, 0.6)",
+    positive: "rgba(255, 255, 255, 0.05)",
     negative: "rgba(0, 0, 0, 0.4)"
   }
 }
