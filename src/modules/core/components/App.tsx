@@ -2,7 +2,7 @@ import React from "react"
 
 import { ThemeProvider } from "../../theming/components/ThemeProvider"
 import { GlobalStyles } from "../../theming/components/GlobalStyles"
-import { Titlebar } from "./Titlebar"
+import { Titlebar } from "./Titlebar/Titlebar"
 import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
 

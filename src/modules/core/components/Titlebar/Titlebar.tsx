@@ -1,6 +1,6 @@
-import { styled } from "../../theming/themes"
+import { styled } from "../../../theming/themes"
 import React from "react"
-import { getColor } from "../../theming/helpers"
+import { getColor } from "../../../theming/helpers"
 
 const Container = styled.header`
   -webkit-app-region: drag;
