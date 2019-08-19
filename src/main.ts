@@ -10,8 +10,8 @@ function createWindow() {
     title: "Circlebrush",
     icon: logo,
     frame: false,
-    minWidth: 300,
-    minHeight: 200,
+    minWidth: 500,
+    minHeight: 400,
     webPreferences: {
       nodeIntegration: true
     }
