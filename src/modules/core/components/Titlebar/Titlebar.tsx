@@ -1,10 +1,15 @@
-import { styled } from "../../../theming/themes"
 import React from "react"
-import { getColor, getFontColor } from "../../../theming/helpers"
-import { TITLEBAR_HEIGHT } from "./constants"
 import { useInstance } from "../../../../common/electron/hooks/useInstance"
+
+import { styled } from "../../../theming/themes"
+import { TITLEBAR_HEIGHT } from "./constants"
+import { getColor, getFontColor } from "../../../theming/helpers"
+
 import { TitlebarButton } from "./TitlebarButton"
 import { MaximizeToggle } from "./MaximizeToggle"
+
+import { MenuBar } from "../MenuBar/MenuBar"
+import { MenuButton } from "../MenuBar/MenuButton"
 
 const Container = styled.header`
   display: flex;
@@ -15,7 +20,6 @@ const Container = styled.header`
 `
 
 const Title = styled.span`
-  margin-left: 16px;
   font-size: 0.9em;
 
   display: flex;
@@ -36,6 +40,11 @@ export function Titlebar() {
 
   return (
     <Container>
+      <MenuBar>
+        <MenuButton name="file" label="File" />
+        <MenuButton name="skin" label="Skin" />
+        <MenuButton name="help" label="Help" />
+      </MenuBar>
       <Grabbable>
         <Title>{document.title}</Title>
       </Grabbable>
