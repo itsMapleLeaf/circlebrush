@@ -7,7 +7,6 @@ import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
 
 const Container = styled.div`
-  border-radius: 3px;
   background: ${getColor("background")};
 
   overflow: hidden;
