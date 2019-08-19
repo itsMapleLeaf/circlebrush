@@ -49,6 +49,10 @@ const style = (theme: Theme) => css`
 
     -webkit-appearance: none;
   }
+
+  svg {
+    fill: ${theme.fontColors.normal};
+  }
 `
 
 export function GlobalStyles() {
