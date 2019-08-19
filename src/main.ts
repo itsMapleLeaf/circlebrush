@@ -3,7 +3,10 @@ import { app, BrowserWindow } from "electron"
 let instance: BrowserWindow | null
 
 function createWindow() {
-  instance = new BrowserWindow()
+  instance = new BrowserWindow({
+    frame: false,
+    transparent: true
+  })
 
   instance.on("closed", () => {
     instance = null

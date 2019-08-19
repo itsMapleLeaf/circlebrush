@@ -1,4 +1,5 @@
 import { Theme } from "./types/Theme"
+import * as Styled from "@emotion/styled"
 
 export const darkTheme: Theme = {
   colors: {
@@ -11,3 +12,5 @@ export const darkTheme: Theme = {
     muted: "rgba(255, 255, 255, 0.6)"
   }
 }
+
+export const styled = Styled.default as Styled.CreateStyled<Theme>

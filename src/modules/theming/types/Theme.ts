@@ -1,11 +1,11 @@
 export interface Theme {
   colors: {
-    primary: string,
-    accent: string,
-    background: string,
-  },
+    primary: string
+    accent: string
+    background: string
+  }
   fontColors: {
-    normal: string,
-    muted: string,
+    normal: string
+    muted: string
   }
 }
