@@ -58,7 +58,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
   return (
     <Container>
       <Content>{renderContent()}</Content>
-      <PrimaryInfo>Element</PrimaryInfo>
+      <PrimaryInfo>{element.name}</PrimaryInfo>
     </Container>
   )
 }
