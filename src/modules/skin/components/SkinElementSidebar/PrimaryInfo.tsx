@@ -21,7 +21,9 @@ const Subtitle = styled.h2`
   font-size: 0.9em;
 `
 
-const Description = styled.p``
+const Description = styled.p`
+  font-size: 0.9em;
+`
 
 export function PrimaryInfo(props: PrimaryInfoProps) {
   const { element } = props
