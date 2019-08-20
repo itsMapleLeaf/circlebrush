@@ -5,6 +5,7 @@ import { ImagePreview } from "../../../imagery/components/ImagePreview"
 import React from "react"
 import { ImageElement } from "../../../imagery/classes/ImageElement"
 import { PrimaryInfo } from "./PrimaryInfo"
+import { PrimaryActions } from "./PrimaryActions"
 
 export interface SkinElementSidebarProps {
   element: SkinElementLike
@@ -38,6 +39,7 @@ export function SkinElementSidebar(props: SkinElementSidebarProps) {
       {renderPreview()}
       <Sections>
         <PrimaryInfo element={element} />
+        <PrimaryActions element={element} />
       </Sections>
     </Container>
   )
