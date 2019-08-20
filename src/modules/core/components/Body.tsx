@@ -2,7 +2,7 @@ import { styled } from "../../theming/themes"
 import { useStores } from "../../../common/state/hooks/useStores"
 import React from "react"
 import { useObserver } from "mobx-react-lite"
-import { SkinElementList } from "../../skin/components/SkinElementList"
+import { ProjectRenderer } from "../../project/components/ProjectRenderer"
 
 const Container = styled.main`
   flex: 1;
@@ -14,5 +14,5 @@ export function Body() {
   const { projectStore } = useStores()
   const project = useObserver(() => projectStore.project)
 
-  return <Container>{project ? <SkinElementList /> : null}</Container>
+  return <Container>{project ? <ProjectRenderer /> : null}</Container>
 }
