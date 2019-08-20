@@ -3,7 +3,7 @@ import { IN_PRODUCTION, LOGO_PATH } from "../constants"
 
 const logo = nativeImage.createFromPath(LOGO_PATH)
 
-export function createWindow() {
+export function createBrowserWindow() {
   const instance = new BrowserWindow({
     title: "Circlebrush",
     icon: logo,
