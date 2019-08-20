@@ -4,6 +4,8 @@ import React, { useContext } from "react"
 import { TITLEBAR_HEIGHT } from "../Titlebar/constants"
 import { MenuBar } from "./MenuBar"
 import { getColor } from "../../../theming/helpers"
+import { MenuItem, MenuItemList } from "../../types/MenuItem"
+import { MenuList } from "./MenuList"
 
 const Container = styled.div`
   position: relative;
@@ -46,17 +48,16 @@ const PopoverContainer = styled.div`
 
   top: ${TITLEBAR_HEIGHT};
   left: 0px;
-
-  background: ${getColor("primary")};
 `
 
 export interface MenuButtonProps {
   name: string
   label: string
+  items: MenuItemList
 }
 
 export function MenuButton(props: MenuButtonProps) {
-  const { label, name } = props
+  const { label, name, items } = props
 
   const context = useContext(MenuBar.context)
   if (!context) throw new Error("Cannot use MenuButton outside MenuBar")
@@ -67,7 +68,11 @@ export function MenuButton(props: MenuButtonProps) {
   const renderPopover = () => {
     if (!isActive) return
 
-    return <PopoverContainer>Hi!</PopoverContainer>
+    return (
+      <PopoverContainer>
+        <MenuList items={items} />
+      </PopoverContainer>
+    )
   }
 
   return (

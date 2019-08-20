@@ -3,6 +3,7 @@ export interface Theme {
     primary: string
     accent: string
     background: string
+    divider: string
   }
   fontColors: {
     normal: string

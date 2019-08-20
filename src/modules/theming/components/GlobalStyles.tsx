@@ -53,6 +53,19 @@ const style = (theme: Theme) => css`
   svg {
     fill: ${theme.fontColors.normal};
   }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ul,
+  ul li,
+  ul ul li {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    list-style-type: 0;
+  }
 `
 
 export function GlobalStyles() {

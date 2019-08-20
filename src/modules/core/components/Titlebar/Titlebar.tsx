@@ -10,6 +10,7 @@ import { MaximizeToggle } from "./MaximizeToggle"
 
 import { MenuBar } from "../MenuBar/MenuBar"
 import { MenuButton } from "../MenuBar/MenuButton"
+import { getFileMenuItems } from "../../helpers/getFileMenuItems"
 
 const Container = styled.header`
   display: flex;
@@ -43,9 +44,9 @@ export function Titlebar() {
   return (
     <Container>
       <MenuBar>
-        <MenuButton name="file" label="File" />
-        <MenuButton name="skin" label="Skin" />
-        <MenuButton name="help" label="Help" />
+        <MenuButton name="file" label="File" items={getFileMenuItems()} />
+        <MenuButton name="skin" label="Skin" items={[]} />
+        <MenuButton name="help" label="Help" items={[]} />
       </MenuBar>
       <Grabbable>
         <Title>{document.title}</Title>

@@ -1,33 +1,35 @@
-import { MenuItem } from "../../types/MenuItem"
-import { styled } from "../../../theming/themes"
-import { getColor } from "../../../theming/helpers"
 import React from "react"
 
+import { MenuItemList } from "../../types/MenuItem"
+import { MenuItemRenderer } from "./MenuItemRenderer"
+
+import { styled } from "../../../theming/themes"
+import { getColor } from "../../../theming/helpers"
+
 export interface MenuListProps {
-  items: (MenuItem | null)[]
+  items: MenuItemList
 }
 
 const Container = styled.ul`
-  background: ${getColor("background")};
+  background: ${getColor("primary")};
+  padding 8px 0px;
 `
 
-const Item = styled.li``
+const Divider = styled.li`
+  background: ${getColor("divider")};
+  height: 1px;
 
-const Divider = styled.li``
+  margin: 8px 16px;
+  display: block;
+`
 
 export function MenuList(props: MenuListProps) {
   const { items } = props
 
-  const renderItem = (item: MenuItem) => {
-    const { label, name } = item
-
-    return <Item key={name}>{label}</Item>
-  }
-
   const renderList = () => {
     return items.map((item, i) => {
       if (item !== null) {
-        return renderItem(item)
+        return <MenuItemRenderer item={item} />
       } else {
         return <Divider key={i} />
       }
