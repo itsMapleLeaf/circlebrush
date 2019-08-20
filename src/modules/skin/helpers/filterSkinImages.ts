@@ -10,7 +10,7 @@ export const fileSkinImages = (directory: string, names: string[]) => {
     const double = name.includes(UPSCALED_TO_DOUBLE_IDENTIFIER)
 
     if (ext === ".png" && double) {
-      result.push(`${directory}/${name}`)
+      result.push(`${directory.replace(/\\/g, "/")}/${name}`)
     }
   }
 
