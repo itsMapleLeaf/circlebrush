@@ -66,6 +66,17 @@ const style = (theme: Theme) => css`
     text-indent: 0;
     list-style-type: 0;
   }
+
+  ::-webkit-scrollbar {
+    background: ${theme.colors.primary};
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.colors.accent};
+    border-radius: 3px;
+  }
 `
 
 export function GlobalStyles() {
