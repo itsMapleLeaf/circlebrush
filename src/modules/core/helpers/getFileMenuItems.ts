@@ -1,4 +1,5 @@
 import { MenuItemList } from "../types/MenuItem"
+import { exit } from "../actions/exit"
 
 export const getFileMenuItems = (): MenuItemList => [
   {
@@ -53,6 +54,7 @@ export const getFileMenuItems = (): MenuItemList => [
   {
     name: "exit",
     label: "Exit",
-    shortcut: "Alt + F4"
+    shortcut: "Alt + F4",
+    action: exit
   }
 ]
