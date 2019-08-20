@@ -13,7 +13,7 @@ const Container = styled.div``
 
 const Title = styled.h1`
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.1em;
 `
 
 const Subtitle = styled.h2`
