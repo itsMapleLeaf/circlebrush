@@ -5,6 +5,7 @@ import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
 import { cover } from "polished"
 import { ImagePreview } from "../../imagery/components/ImagePreview"
+import { humanizeFilename } from "../helpers/humanizeFilename"
 
 export interface SkinElementItemProps {
   element: SkinElementLike
@@ -58,7 +59,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
   return (
     <Container>
       <Content>{renderContent()}</Content>
-      <PrimaryInfo>{element.name}</PrimaryInfo>
+      <PrimaryInfo>{humanizeFilename(element.name)}</PrimaryInfo>
     </Container>
   )
 }
