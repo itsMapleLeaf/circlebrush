@@ -1,10 +1,16 @@
-import { Skin } from "../../skin/classes/Skin"
+import { Skin, SerializedSkin } from "../../skin/classes/Skin"
 import { observable } from "mobx"
 
 export interface ProjectOptions {
   name: string
   description: string
   skin: Skin
+}
+
+export interface SerializedProject {
+  name: string
+  description: string
+  skin: SerializedSkin
 }
 
 /** Represents a Circlebrush project */
@@ -29,5 +35,15 @@ export class Project {
     this.name = name
     this.description = description
     this.skin = skin
+  }
+
+  public serialize(): SerializedProject {
+    const { name, description, skin } = this
+
+    return {
+      name,
+      description,
+      skin: skin.serialize()
+    }
   }
 }

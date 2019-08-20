@@ -1,4 +1,4 @@
-import { SkinConfiguration } from "./SkinConfiguration"
+import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
 import { promises as fs } from "fs"
 import { fileSkinImages } from "../helpers/filterSkinImages"
 import { SkinElementLike } from "../types/SkinElementLike"
@@ -7,6 +7,11 @@ import { ImageElement } from "../../imagery/classes/ImageElement"
 export interface SkinOptions {
   config: SkinConfiguration
   elements: SkinElementLike[]
+}
+
+export interface SerializedSkin {
+  config: SkinConfigurationData
+  elements: string[]
 }
 
 /** Represents a skin */
@@ -36,5 +41,12 @@ export class Skin {
 
     this.config = config
     this.elements = elements
+  }
+
+  public serialize(): SerializedSkin {
+    return {
+      config: this.config.data,
+      elements: this.elements.map(element => element.path)
+    }
   }
 }
