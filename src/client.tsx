@@ -11,9 +11,11 @@ async function init() {
   const manager = createManager()
 
   const storeData = remote.getGlobal("__SERIALIZED_STORES__")
-
   await manager.init()
-  manager.hydrate(storeData)
+
+  if (storeData) {
+    manager.hydrate(storeData)
+  }
 
   ReactDOM.render(
     <managerContext.Provider value={manager}>

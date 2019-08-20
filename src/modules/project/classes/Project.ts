@@ -29,6 +29,17 @@ export class Project {
     })
   }
 
+  public static createFromHydration(data: SerializedProject) {
+    const { name, description } = data
+    const skin = Skin.createFromHydration(data.skin)
+
+    return new Project({
+      name,
+      description,
+      skin
+    })
+  }
+
   constructor(options: ProjectOptions) {
     const { name, description, skin } = options
 

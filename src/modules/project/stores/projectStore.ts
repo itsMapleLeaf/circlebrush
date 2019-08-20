@@ -22,6 +22,12 @@ class ProjectStore implements Store<SerializedProjectStore> {
       project: project ? project.serialize() : undefined
     }
   }
+
+  public hydrate(data: SerializedProjectStore) {
+    if (data.project) {
+      this.project = Project.createFromHydration(data.project)
+    }
+  }
 }
 
 export const projectStore = () => new ProjectStore()

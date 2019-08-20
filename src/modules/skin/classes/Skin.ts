@@ -33,6 +33,13 @@ export class Skin {
     })
   }
 
+  public static createFromHydration(data: SerializedSkin) {
+    return new Skin({
+      config: new SkinConfiguration(data.config),
+      elements: data.elements.map(path => new ImageElement(path))
+    })
+  }
+
   public config: SkinConfiguration
   public elements: SkinElementLike[]
 
