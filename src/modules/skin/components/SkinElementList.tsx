@@ -11,15 +11,22 @@ const Container = styled.ul`
 
 export interface SkinElementListProps {
   elements: SkinElementLike[]
+  onSelect: (element: SkinElementLike) => void
+  selected: string
 }
 
 export function SkinElementList(props: SkinElementListProps) {
-  const { elements } = props
+  const { elements, onSelect, selected } = props
 
   return (
     <Container>
       {elements.map(element => (
-        <SkinElementItem key={element.path} element={element} />
+        <SkinElementItem
+          onClick={() => onSelect(element)}
+          active={selected === element.name}
+          key={element.path}
+          element={element}
+        />
       ))}
     </Container>
   )

@@ -2,16 +2,18 @@ import { SkinElementLike } from "../types/SkinElementLike"
 import { ImageElement } from "../../imagery/classes/ImageElement"
 import React from "react"
 import { styled } from "../../theming/themes"
-import { getColor } from "../../theming/helpers"
+import { getColor, getTransparency } from "../../theming/helpers"
 import { cover, ellipsis } from "polished"
 import { ImagePreview } from "../../imagery/components/ImagePreview"
 import { humanizeFilename } from "../helpers/humanizeFilename"
 
 export interface SkinElementItemProps {
   element: SkinElementLike
+  onClick?: () => void
+  active?: boolean
 }
 
-const Container = styled.li`
+const Container = styled.li<{ active?: boolean }>`
   background: ${getColor("primary")};
   border-radius: 3px;
 
@@ -22,6 +24,19 @@ const Container = styled.li`
   overflow: hidden;
 
   box-shadow: 9px 8px 9px -9px rgba(0, 0, 0, 0.51);
+  border: solid 1px transparent;
+
+  ${props =>
+    props.active
+      ? `
+    border-color: ${props.theme.colors.accent};
+  `
+      : `
+    &:hover {
+      cursor: pointer;
+      border-color: ${props.theme.transparencies.negative};
+    }
+  `}
 `
 
 const Content = styled.div`
@@ -50,7 +65,7 @@ const PrimaryInfo = styled.div`
 `
 
 export function SkinElementItem(props: SkinElementItemProps) {
-  const { element } = props
+  const { element, onClick, active } = props
 
   const renderContent = () => {
     if (element instanceof ImageElement) {
@@ -61,7 +76,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
   }
 
   return (
-    <Container>
+    <Container active={active} onClick={onClick}>
       <Content>{renderContent()}</Content>
       <PrimaryInfo>{humanizeFilename(element.displayName)}</PrimaryInfo>
     </Container>
