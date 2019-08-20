@@ -7,10 +7,18 @@ export const fileSkinImages = (directory: string, names: string[]) => {
 
   for (const name of names) {
     const ext = path.extname(name)
+    const baseName = path.basename(name, ext)
+
     const double = name.includes(UPSCALED_TO_DOUBLE_IDENTIFIER)
 
-    if (ext === ".png" && double) {
-      result.push(`${directory.replace(/\\/g, "/")}/${name}`)
+    const shouldInclude = double
+      ? true
+      : !names.find(name => name === `${baseName}${UPSCALED_TO_DOUBLE_IDENTIFIER}${ext}`)
+
+    if (ext === ".png") {
+      if (double || shouldInclude) {
+        result.push(`${directory.replace(/\\/g, "/")}/${name}`)
+      }
     }
   }
 
