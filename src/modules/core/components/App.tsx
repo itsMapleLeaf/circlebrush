@@ -5,12 +5,16 @@ import { GlobalStyles } from "../../theming/components/GlobalStyles"
 import { Titlebar } from "./Titlebar/Titlebar"
 import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
+import { Body } from "./Body"
 
 const Container = styled.div`
   background: ${getColor("background")};
 
   overflow: hidden;
   height: 100vh;
+
+  display: flex;
+  flex-direction: column;
 `
 
 export function App() {
@@ -19,6 +23,7 @@ export function App() {
       <GlobalStyles />
       <Container>
         <Titlebar />
+        <Body />
       </Container>
     </ThemeProvider>
   )
