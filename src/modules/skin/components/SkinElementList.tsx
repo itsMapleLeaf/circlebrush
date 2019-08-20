@@ -7,13 +7,13 @@ import { getColor } from "../../theming/helpers"
 
 const Grid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-gap: 32px;
 `
 
 const Category = styled.div`
   & + & {
-    margin-top: 32px;
+    margin-top: 64px;
   }
 `
 
@@ -22,7 +22,7 @@ const Title = styled.h1`
   font-size: 0.9em;
 
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 
   display: flex;
   align-items: center;
@@ -53,21 +53,23 @@ export function SkinElementList(props: SkinElementListProps) {
     element => element.data.category || "Uncategorized"
   )
 
-  return Object.entries(categories).map(([category, elements]) => {
-    return (
-      <Category key={category}>
-        <Title>{category}</Title>
-        <Grid>
-          {elements.map(element => (
-            <SkinElementItem
-              onClick={() => onSelect(element)}
-              active={selected === element.name}
-              key={element.path}
-              element={element}
-            />
-          ))}
-        </Grid>
-      </Category>
-    )
-  })
+  return (
+    <>
+      {Object.entries(categories).map(([category, elements]) => (
+        <Category key={category}>
+          <Title>{category}</Title>
+          <Grid>
+            {elements.map(element => (
+              <SkinElementItem
+                onClick={() => onSelect(element)}
+                active={selected === element.name}
+                key={element.path}
+                element={element}
+              />
+            ))}
+          </Grid>
+        </Category>
+      ))}
+    </>
+  )
 }

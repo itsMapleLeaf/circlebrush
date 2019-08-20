@@ -13,6 +13,7 @@ const Container = styled.div`
 
 const List = styled.div`
   padding: 32px;
+  flex: 1;
 
   max-height: 100%;
   overflow-y: scroll;
