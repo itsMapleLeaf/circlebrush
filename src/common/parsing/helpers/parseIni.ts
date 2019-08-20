@@ -20,7 +20,7 @@ export const parseIni = (ini: string) => {
       continue
     }
 
-    const option = /(\w+):\s*(.*)/.exec(line)
+    const option = /(\w+)\s*:\s*(.*)/.exec(line)
 
     if (!option) throw Error(`Malformed line: ${line}`)
     if (!current) throw Error("A value started before a section")
