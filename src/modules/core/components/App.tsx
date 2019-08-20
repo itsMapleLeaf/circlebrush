@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import { ThemeProvider } from "../../theming/components/ThemeProvider"
 import { GlobalStyles } from "../../theming/components/GlobalStyles"
@@ -6,6 +6,7 @@ import { Titlebar } from "./Titlebar/Titlebar"
 import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
 import { Body } from "./Body"
+import { useTitle } from "../hooks/useTitle"
 
 const Container = styled.div`
   background: ${getColor("background")};
@@ -18,6 +19,12 @@ const Container = styled.div`
 `
 
 export function App() {
+  const title = useTitle()
+
+  useEffect(() => {
+    document.title = title
+  }, [title])
+
   return (
     <ThemeProvider>
       <GlobalStyles />

@@ -14,6 +14,9 @@ import { MenuButton } from "../MenuBar/MenuButton"
 import { getFileMenuItems } from "../../helpers/getFileMenuItems"
 import { getHelpMenuItems } from "../../helpers/getHelpMenuItems"
 import { exit } from "../../actions/exit"
+import { useStores } from "../../../../common/state/hooks/useStores"
+import { useObserver } from "mobx-react-lite"
+import { useTitle } from "../../hooks/useTitle"
 
 const Container = styled.header`
   position: relative;
@@ -46,15 +49,16 @@ const Buttons = styled.div`
 
 export function Titlebar() {
   const instance = useInstance()
+  const title = useTitle()
 
-  return (
+  return useObserver(() => (
     <Container>
       <MenuBar>
         <MenuButton name="file" label="File" items={getFileMenuItems()} />
         <MenuButton name="help" label="Help" items={getHelpMenuItems()} />
       </MenuBar>
       <Grabbable>
-        <Title>{document.title}</Title>
+        <Title>{title}</Title>
       </Grabbable>
       <Buttons>
         <TitlebarButton icon="minimize" onClick={() => instance.minimize()} />
@@ -62,5 +66,5 @@ export function Titlebar() {
         <TitlebarButton icon="close" onClick={() => exit()} />
       </Buttons>
     </Container>
-  )
+  ))
 }
