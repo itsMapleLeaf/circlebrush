@@ -3,11 +3,40 @@ import { SkinElementItem } from "./SkinElementItem"
 import { styled } from "../../theming/themes"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { categorize } from "../../../common/lang/array/categorize"
+import { getColor } from "../../theming/helpers"
 
-const Container = styled.ul`
+const Grid = styled.ul`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 32px;
+`
+
+const Category = styled.div`
+  & + & {
+    margin-top: 32px;
+  }
+`
+
+const Title = styled.h1`
+  font-weight: 600;
+  font-size: 0.9em;
+
+  text-transform: uppercase;
+  margin-bottom: 16px;
+
+  display: flex;
+  align-items: center;
+
+  &::after {
+    display: block;
+    content: "";
+
+    margin-left: 16px;
+    height: 1px;
+    flex: 1;
+
+    background: ${getColor("divider")};
+  }
 `
 
 export interface SkinElementListProps {
@@ -24,18 +53,21 @@ export function SkinElementList(props: SkinElementListProps) {
     element => element.data.category || "Uncategorized"
   )
 
-  console.log(categories)
-
-  return (
-    <Container>
-      {elements.map(element => (
-        <SkinElementItem
-          onClick={() => onSelect(element)}
-          active={selected === element.name}
-          key={element.path}
-          element={element}
-        />
-      ))}
-    </Container>
-  )
+  return Object.entries(categories).map(([category, elements]) => {
+    return (
+      <Category key={category}>
+        <Title>{category}</Title>
+        <Grid>
+          {elements.map(element => (
+            <SkinElementItem
+              onClick={() => onSelect(element)}
+              active={selected === element.name}
+              key={element.path}
+              element={element}
+            />
+          ))}
+        </Grid>
+      </Category>
+    )
+  })
 }
