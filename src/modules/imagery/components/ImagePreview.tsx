@@ -27,6 +27,7 @@ const Image = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  image-rendering: auto;
 `
 
 export function ImagePreview(props: ImagePreviewProps) {
