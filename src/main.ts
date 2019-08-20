@@ -24,5 +24,5 @@ app.on("ready", () => {
 })
 
 ipcMain.on("stores", (_, data) => {
-  console.log(data)
+  ;(global as any).__SERIALIZED_STORES__ = data
 })
