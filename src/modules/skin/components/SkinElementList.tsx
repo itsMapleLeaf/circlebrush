@@ -2,6 +2,7 @@ import React from "react"
 import { SkinElementItem } from "./SkinElementItem"
 import { styled } from "../../theming/themes"
 import { SkinElementLike } from "../types/SkinElementLike"
+import { categorize } from "../../../common/lang/array/categorize"
 
 const Container = styled.ul`
   display: grid;
@@ -17,6 +18,13 @@ export interface SkinElementListProps {
 
 export function SkinElementList(props: SkinElementListProps) {
   const { elements, onSelect, selected } = props
+
+  const categories = categorize(
+    elements,
+    element => element.data.category || "Uncategorized"
+  )
+
+  console.log(categories)
 
   return (
     <Container>

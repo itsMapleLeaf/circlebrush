@@ -2,7 +2,7 @@ import * as path from "path"
 
 export const UPSCALED_TO_DOUBLE_IDENTIFIER = "@2x"
 
-export const fileSkinImages = (directory: string, names: string[]) => {
+export const filterSkinImages = (directory: string, names: string[]) => {
   const result: string[] = []
 
   for (const name of names) {

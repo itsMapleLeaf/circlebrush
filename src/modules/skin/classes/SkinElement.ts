@@ -1,36 +1,32 @@
 import * as path from "path"
 import { BuiltInElement } from "../types/BuiltInElement"
 import { builtInMeta } from "../builtins"
+import { observable, computed } from "mobx"
 
-export interface SkinElementData {}
+export interface SkinElementData {
+  name: string
+  alias?: string
+  description?: string
+  category?: string
+  tags?: string[]
+  upscaled?: boolean
+}
 
 /** Represents an element in a skin */
 export abstract class SkinElement {
-  public metadata: BuiltInElement
+  @observable public data: SkinElementData
 
-  constructor(public path: string) {
-    const meta = builtInMeta.find(meta => meta.name === this.name)
-
-    if (meta) {
-      this.metadata = meta
-    } else {
-      this.metadata = {
-        description: "No description available",
-        name: this.name,
-        alias: this.name
-      }
-    }
+  constructor(public path: string, data: SkinElementData) {
+    this.data = data
   }
 
+  @computed
   public get name() {
-    const ext = path.extname(this.path)
-    const name = path.basename(this.path, ext)
-
-    return name
+    return this.data.name
   }
 
   public get displayName() {
-    const { alias, name } = this.metadata
+    const { alias, name } = this.data
     return alias ? alias : name
   }
 }
