@@ -3,7 +3,7 @@ import { ImageElement } from "../../imagery/classes/ImageElement"
 import React from "react"
 import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
-import { cover } from "polished"
+import { cover, ellipsis } from "polished"
 import { ImagePreview } from "../../imagery/components/ImagePreview"
 import { humanizeFilename } from "../helpers/humanizeFilename"
 
@@ -42,7 +42,11 @@ const Image = styled(ImagePreview)`
 
 const PrimaryInfo = styled.div`
   padding: 16px;
+
+  font-size: 0.8em;
   font-weight: 600;
+
+  ${ellipsis()}
 `
 
 export function SkinElementItem(props: SkinElementItemProps) {
