@@ -8,7 +8,7 @@ const CopyPlugin = require("copy-webpack-plugin")
 /** @type {import("webpack").Configuration} */
 const baseConfig = {
   mode: "none",
-  entry: ["./src/client.tsx"],
+  entry: ["regenerator-runtime/runtime", "./src/client.tsx"],
   target: "electron-renderer",
   plugins: [
     new HtmlPlugin({
