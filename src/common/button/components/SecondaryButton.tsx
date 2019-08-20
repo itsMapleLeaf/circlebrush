@@ -1,6 +1,6 @@
 import { styled } from "../../../modules/theming/themes"
 import { Button } from "./Button"
-import { getColor, getTransparency } from "../../../modules/theming/helpers"
+import { getColor, getTransparency, getFontColor } from "../../../modules/theming/helpers"
 
 export const SecondaryButton = styled(Button)`
   display: inline-flex;
@@ -8,19 +8,20 @@ export const SecondaryButton = styled(Button)`
 
   padding: 8px;
 
-  border: solid 2px ${getTransparency("positive")};
+  border: solid 2px ${getFontColor("muted")};
   border-radius: 3px;
 
   > .label {
     font-weight: bold;
     font-size: 0.9em;
 
-    color: ${getTransparency("positive")};
+    color: ${getFontColor("muted")};
     text-transform: uppercase;
   }
 
   &:hover {
-    background: ${getTransparency("positive")};
+    background: ${getFontColor("muted")};
+    border-color: transparent;
 
     > .label {
       color: ${getColor("primary")};
