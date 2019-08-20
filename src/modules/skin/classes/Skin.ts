@@ -1,7 +1,7 @@
 import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
 import { promises as fs } from "fs"
 import * as path from "path"
-import { filterSkinImages } from "../helpers/filterSkinImages"
+import { filterSkinImages } from "../../imagery/helpers/filterSkinImages"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { ImageElement } from "../../imagery/classes/ImageElement"
 
@@ -28,14 +28,14 @@ export class Skin {
 
     return new Skin({
       config,
-      elements: ImageElement.createFromPathList(imagePaths)
+      elements: ImageElement.createFromPathList(imagePaths),
     })
   }
 
   public static createFromHydration(data: SerializedSkin) {
     return new Skin({
       config: new SkinConfiguration(data.config),
-      elements: ImageElement.createFromPathList(data.elements)
+      elements: ImageElement.createFromPathList(data.elements),
     })
   }
 
@@ -52,7 +52,7 @@ export class Skin {
   public serialize(): SerializedSkin {
     return {
       config: this.config.data,
-      elements: this.elements.map(element => element.path)
+      elements: this.elements.map(element => element.path),
     }
   }
 }

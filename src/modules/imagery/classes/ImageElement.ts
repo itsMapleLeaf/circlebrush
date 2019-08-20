@@ -1,5 +1,5 @@
 import { SkinElement, SkinElementData } from "../../skin/classes/SkinElement"
-import { UPSCALED_TO_DOUBLE_IDENTIFIER } from "../../skin/helpers/filterSkinImages"
+import { UPSCALED_TO_DOUBLE_IDENTIFIER } from "../helpers/filterSkinImages"
 import { builtInMeta } from "../../skin/builtins"
 import { basename, extname } from "path"
 
@@ -18,7 +18,7 @@ export class ImageElement extends SkinElement {
       const finalData: SkinElementData = {
         name: nameWithoutUpscale,
         upscaled: name !== nameWithoutUpscale,
-        ...builtinData
+        ...builtinData,
       }
 
       result.push(new ImageElement(path, finalData))
