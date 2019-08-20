@@ -11,7 +11,7 @@ export interface PrimaryActionsProps {
 }
 
 const Container = styled.div`
-  margin-top: 16px;
+  margin-top: 32px;
 `
 
 export function PrimaryActions(props: PrimaryActionsProps) {

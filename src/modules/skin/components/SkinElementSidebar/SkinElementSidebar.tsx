@@ -13,12 +13,13 @@ export interface SkinElementSidebarProps {
 
 const Container = styled.div`
   background: ${getColor("primary")};
-  width: 450px;
+  width: 380px;
+  flex-shrink: 0;
 `
 
 const Sections = styled.div`
-  margin-top: 16px;
-  padding: 0px 16px;
+  margin-top: 32px;
+  padding: 0px 32px;
 `
 
 const Image = styled(ImagePreview)`
