@@ -1,13 +1,9 @@
-import React from "react"
-import { MenuItem } from "../../types/MenuItem"
-import { styled } from "../../../theming/themes"
-import {
-  getFontColor,
-  getTransparency,
-  getColor
-} from "../../../theming/helpers"
+import React from "react";
+import { MenuItem } from "../../types/MenuItem";
+import { styled } from "../../../theming/themes";
+import { getFontColor, getTransparency, getColor } from "../../../theming/helpers";
 
-const Container = styled.li`
+const Container = styled.li<{ disabled: boolean }>`
   display: flex;
 
   white-space: nowrap;
@@ -19,31 +15,40 @@ const Container = styled.li`
     background: ${getTransparency("negative")};
     color: ${getColor("accent")};
   }
-`
 
-const Label = styled.span``
+  ${props =>
+    props.disabled &&
+    `
+    opacity: 0.2;
+    pointer-events: none;
+  `}
+`;
+
+const Label = styled.span``;
 
 const Spacing = styled.div`
   flex: 1;
   width: 64px;
-`
+`;
 
 const Shortcut = styled.span`
   color: ${getFontColor("muted")};
-`
+`;
 
 export interface MenuItemProps {
-  item: MenuItem
+  item: MenuItem;
 }
 
 export function MenuItemRenderer(props: MenuItemProps) {
-  const { label, shortcut, name } = props.item
+  const { label, shortcut, name, action, children } = props.item;
+
+  const disabled = !action && !children;
 
   return (
-    <Container key={name}>
+    <Container disabled={disabled} key={name}>
       <Label>{label}</Label>
       <Spacing />
       <Shortcut>{shortcut}</Shortcut>
     </Container>
-  )
+  );
 }
