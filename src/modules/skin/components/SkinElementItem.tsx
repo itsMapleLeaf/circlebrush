@@ -63,7 +63,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
   return (
     <Container>
       <Content>{renderContent()}</Content>
-      <PrimaryInfo>{humanizeFilename(element.name)}</PrimaryInfo>
+      <PrimaryInfo>{humanizeFilename(element.displayName)}</PrimaryInfo>
     </Container>
   )
 }
