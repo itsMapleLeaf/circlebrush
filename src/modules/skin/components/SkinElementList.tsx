@@ -1,15 +1,26 @@
-import { useSkin } from "../hooks/useSkin"
 import React from "react"
 import { SkinElementItem } from "./SkinElementItem"
+import { styled } from "../../theming/themes"
+import { SkinElementLike } from "../types/SkinElementLike"
 
-export function SkinElementList() {
-  const skin = useSkin()
+const Container = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 32px;
+`
+
+export interface SkinElementListProps {
+  elements: SkinElementLike[]
+}
+
+export function SkinElementList(props: SkinElementListProps) {
+  const { elements } = props
 
   return (
-    <>
-      {skin.elements.map(element => (
-        <SkinElementItem element={element} />
+    <Container>
+      {elements.map(element => (
+        <SkinElementItem key={element.path} element={element} />
       ))}
-    </>
+    </Container>
   )
 }
