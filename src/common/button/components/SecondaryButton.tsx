@@ -8,19 +8,18 @@ export const SecondaryButton = styled(Button)`
 
   padding: 8px;
 
-  border: solid 2px ${getFontColor("muted")};
-  border-radius: 3px;
+  background: ${getTransparency("negative")};
 
   > .label {
     font-weight: bold;
-    font-size: 0.9em;
+    font-size: 0.8em;
 
-    color: ${getFontColor("muted")};
+    color: ${getFontColor("normal")};
     text-transform: uppercase;
   }
 
   &:hover {
-    background: ${getFontColor("muted")};
+    background: ${getFontColor("normal")};
     border-color: transparent;
 
     > .label {

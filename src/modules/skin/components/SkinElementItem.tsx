@@ -15,7 +15,6 @@ export interface SkinElementItemProps {
 
 const Container = styled.li<{ active?: boolean }>`
   background: ${getColor("primary")};
-  border-radius: 3px;
 
   display: flex;
   flex-direction: column;
@@ -23,7 +22,6 @@ const Container = styled.li<{ active?: boolean }>`
   position: relative;
   overflow: hidden;
 
-  box-shadow: 9px 8px 9px -9px rgba(0, 0, 0, 0.51);
   border: solid 1px transparent;
 
   ${props =>

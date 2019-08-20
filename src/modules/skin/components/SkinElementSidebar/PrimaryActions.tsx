@@ -19,7 +19,7 @@ export function PrimaryActions(props: PrimaryActionsProps) {
 
   return (
     <Container>
-      <ButtonList>
+      <ButtonList horizontal>
         <PrimaryButton
           stretch
           label="Edit element"

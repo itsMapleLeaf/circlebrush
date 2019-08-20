@@ -13,6 +13,8 @@ export const ButtonList = styled.div<{ horizontal?: boolean }>`
     `
 
     const horizontalStyle = css`
+      display: flex;
+
       * + * {
         margin-left: 16px;
       }
