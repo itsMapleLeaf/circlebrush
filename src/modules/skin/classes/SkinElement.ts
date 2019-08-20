@@ -13,10 +13,10 @@ export interface SkinElementData {
 }
 
 /** Represents an element in a skin */
-export abstract class SkinElement {
-  @observable public data: SkinElementData
+export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
+  @observable public data: T
 
-  constructor(public path: string, data: SkinElementData) {
+  constructor(public path: string, data: T) {
     this.data = data
   }
 
