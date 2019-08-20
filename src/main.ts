@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeImage, ipcMain } from "electron"
+import { app, BrowserWindow, ipcMain } from "electron"
 import { createBrowserWindow } from "./modules/core/helpers/createBrowserWindow"
 
 let instance: BrowserWindow | null
