@@ -12,7 +12,7 @@ export class StoreManager<T extends Record<string, Store> = Stores> {
 
   public async init() {
     for (const store of Object.values(this.stores)) {
-      if (store.init) await store.init(this)
+      if (store.init) await store.init(this as any)
     }
   }
 }
