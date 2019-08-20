@@ -14,16 +14,27 @@ const Container = styled.div`
 
   background-image: url("/img/checkers.png");
   background-attachment: fixed;
+  background-size: 10%;
+
+  image-rendering: -webkit-optimize-contrast;
+  padding: 32px;
 `
 
-const Image = styled.img``
+const Image = styled.div`
+  width: 100%;
+  height: 100%;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+`
 
 export function ImagePreview(props: ImagePreviewProps) {
   const { src, className } = props
 
   return (
     <Container className={className}>
-      <Image src={src} />
+      <Image style={{ backgroundImage: `url("${src}")` }} />
     </Container>
   )
 }
