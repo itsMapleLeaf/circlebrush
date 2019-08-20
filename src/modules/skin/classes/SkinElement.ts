@@ -1,10 +1,12 @@
 import * as path from "path"
-import { SkinElementMeta } from "../types/SkinElementMeta"
-import { builtInMeta } from "../meta"
+import { BuiltInElement } from "../types/BuiltInElement"
+import { builtInMeta } from "../builtins"
+
+export interface SkinElementData {}
 
 /** Represents an element in a skin */
 export abstract class SkinElement {
-  public metadata: SkinElementMeta
+  public metadata: BuiltInElement
 
   constructor(public path: string) {
     const meta = builtInMeta.find(meta => meta.name === this.name)
@@ -28,7 +30,7 @@ export abstract class SkinElement {
   }
 
   public get displayName() {
-    const { alias } = this.metadata
-    return alias
+    const { alias, name } = this.metadata
+    return alias ? alias : name
   }
 }

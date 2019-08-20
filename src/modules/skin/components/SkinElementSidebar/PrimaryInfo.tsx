@@ -28,15 +28,14 @@ const Description = styled.p`
 export function PrimaryInfo(props: PrimaryInfoProps) {
   const { element } = props
 
-  const { name, alias, description } = useObserver(() => ({
+  const { name, description } = useObserver(() => ({
     name: element.metadata.name,
-    alias: element.metadata.alias,
     description: element.metadata.description
   }))
 
   return (
     <Container>
-      <Title>{humanizeFilename(alias)}</Title>
+      <Title>{humanizeFilename(element.displayName)}</Title>
       <Subtitle>{name}.png</Subtitle>
       <Description>{description}</Description>
     </Container>
