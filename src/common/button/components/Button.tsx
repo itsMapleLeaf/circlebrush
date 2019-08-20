@@ -26,10 +26,16 @@ const Container = styled.button<ButtonVariants>`
   }
 `
 
-const Inner = styled.span`
+const Inner = styled.span<ButtonVariants>`
   &:hover {
     cursor: pointer;
   }
+
+  ${props =>
+    props.stretch &&
+    `
+    width: 100%;
+  `}
 `
 
 export function Button(props: ButtonProps) {
@@ -49,7 +55,7 @@ export function Button(props: ButtonProps) {
 
   return (
     <Container stretch={stretch} {...rest}>
-      <Inner className={className}>
+      <Inner stretch={stretch} className={className}>
         {renderIcon()}
         {renderLabel()}
       </Inner>
