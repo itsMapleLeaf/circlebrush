@@ -29,7 +29,7 @@ export function MenuList(props: MenuListProps) {
   const renderList = () => {
     return items.map((item, i) => {
       if (item !== null) {
-        return <MenuItemRenderer item={item} />
+        return <MenuItemRenderer key={item.name} item={item} />
       } else {
         return <Divider key={i} />
       }
