@@ -1,9 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./modules/core/components/App"
-import { remote } from "electron"
+import { remote, ipcRenderer } from "electron"
 import { createManager } from "./common/state/manager"
 import { managerContext } from "./common/state/contexts/managerContext"
+import { autorun } from "mobx"
 
 async function init() {
   const element = document.querySelector(".app")
@@ -17,6 +18,11 @@ async function init() {
     </managerContext.Provider>,
     element
   )
+
+  autorun(() => {
+    const serialized = manager.serialize()
+    ipcRenderer.send("stores", serialized)
+  })
 
   remote.getCurrentWindow().show()
 }
