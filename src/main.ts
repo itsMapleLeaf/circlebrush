@@ -1,5 +1,7 @@
 import { app, BrowserWindow, nativeImage } from "electron"
 
+const production = process.env.NODE_ENV === "production"
+
 const logo = nativeImage.createFromPath("./public/logo/icon.ico")
 let instance: BrowserWindow | null
 
@@ -13,6 +15,7 @@ function createWindow() {
     minHeight: 400,
     backgroundColor: "#000",
     webPreferences: {
+      webSecurity: production,
       nodeIntegration: true
     }
   })
@@ -21,7 +24,7 @@ function createWindow() {
     instance = null
   })
 
-  if (process.env.NODE_ENV === "production") {
+  if (production) {
     instance.loadFile("./build/index.html")
   } else {
     instance.loadURL(`http://localhost:9000/`)
