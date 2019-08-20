@@ -1,18 +1,19 @@
-import React from "react";
-import { useInstance } from "../../../../common/electron/hooks/useInstance";
+import React from "react"
+import { useInstance } from "../../../../common/electron/hooks/useInstance"
 
-import { styled } from "../../../theming/themes";
-import { TITLEBAR_HEIGHT } from "./constants";
-import { getColor, getFontColor } from "../../../theming/helpers";
+import { styled } from "../../../theming/themes"
+import { TITLEBAR_HEIGHT } from "./constants"
+import { getColor, getFontColor } from "../../../theming/helpers"
 
-import { TitlebarButton } from "./TitlebarButton";
-import { MaximizeToggle } from "./MaximizeToggle";
+import { TitlebarButton } from "./TitlebarButton"
+import { MaximizeToggle } from "./MaximizeToggle"
 
-import { MenuBar } from "../MenuBar/MenuBar";
-import { MenuButton } from "../MenuBar/MenuButton";
+import { MenuBar } from "../MenuBar/MenuBar"
+import { MenuButton } from "../MenuBar/MenuButton"
 
-import { getFileMenuItems } from "../../helpers/getFileMenuItems";
-import { getHelpMenuItems } from "../../helpers/getHelpMenuItems";
+import { getFileMenuItems } from "../../helpers/getFileMenuItems"
+import { getHelpMenuItems } from "../../helpers/getHelpMenuItems"
+import { exit } from "../../actions/exit"
 
 const Container = styled.header`
   display: flex;
@@ -20,7 +21,7 @@ const Container = styled.header`
   height: ${TITLEBAR_HEIGHT};
 
   background: ${getColor("primary")};
-`;
+`
 
 const Title = styled.span`
   font-size: 0.9em;
@@ -29,19 +30,19 @@ const Title = styled.span`
   justify-content: center;
 
   color: ${getFontColor("muted")};
-`;
+`
 
 const Grabbable = styled.div`
   -webkit-app-region: drag;
   flex: 1;
-`;
+`
 
 const Buttons = styled.div`
   flex-shrink: 0;
-`;
+`
 
 export function Titlebar() {
-  const instance = useInstance();
+  const instance = useInstance()
 
   return (
     <Container>
@@ -55,8 +56,8 @@ export function Titlebar() {
       <Buttons>
         <TitlebarButton icon="minimize" onClick={() => instance.minimize()} />
         <MaximizeToggle />
-        <TitlebarButton icon="close" onClick={() => instance.hide()} />
+        <TitlebarButton icon="close" onClick={() => exit()} />
       </Buttons>
     </Container>
-  );
+  )
 }

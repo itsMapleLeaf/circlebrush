@@ -1,25 +1,19 @@
-import { app, BrowserWindow, Tray, nativeImage } from "electron"
+import { app, BrowserWindow, nativeImage } from "electron"
 
 const logo = nativeImage.createFromPath("./public/logo/icon.ico")
-
 let instance: BrowserWindow | null
-let tray: Tray | null
 
 function createWindow() {
   instance = new BrowserWindow({
     title: "Circlebrush",
     icon: logo,
+    show: false,
     frame: false,
     minWidth: 500,
     minHeight: 400,
     webPreferences: {
       nodeIntegration: true
     }
-  })
-
-  instance.on("close", event => {
-    event.preventDefault()
-    instance!.hide()
   })
 
   instance.on("closed", () => {
@@ -31,14 +25,6 @@ function createWindow() {
   } else {
     instance.loadURL(`http://localhost:9000/`)
   }
-}
-
-function createTray() {
-  tray = new Tray(logo)
-
-  tray.on("click", () => {
-    instance!.show()
-  })
 }
 
 app.on("window-all-closed", () => {
@@ -59,5 +45,4 @@ app.on("activate", () => {
 
 app.on("ready", () => {
   createWindow()
-  createTray()
 })
