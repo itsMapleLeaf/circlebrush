@@ -63,3 +63,5 @@ export const ANIMATABLE_IMAGE_NAMES = [
   "mania-hit300g",
   ...ANIMATION_NAMING_EDGECASES,
 ]
+
+export const HD_SUFFIX = "@2x"
