@@ -1,4 +1,6 @@
 import { MenuItemList } from "../types/MenuItem"
+
+import { importSkin } from "../../skin/actions/importSkin"
 import { exit } from "../actions/exit"
 
 export const getFileMenuItems = (): MenuItemList => [
@@ -32,7 +34,8 @@ export const getFileMenuItems = (): MenuItemList => [
   {
     name: "import",
     label: "Import",
-    shortcut: "Ctrl + I"
+    shortcut: "Ctrl + I",
+    action: importSkin
   },
   null,
   {
