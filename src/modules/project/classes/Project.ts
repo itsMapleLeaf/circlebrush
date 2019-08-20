@@ -21,10 +21,11 @@ export class Project {
 
   public static async createFromSkinFolder(path: string) {
     const skin = await Skin.createFromPath(path)
+    const { name } = skin.config.data
 
     return new Project({
       skin,
-      name: "Project",
+      name,
       description: "A Circlebrush project"
     })
   }
