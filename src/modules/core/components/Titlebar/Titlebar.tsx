@@ -16,6 +16,9 @@ import { getHelpMenuItems } from "../../helpers/getHelpMenuItems"
 import { exit } from "../../actions/exit"
 
 const Container = styled.header`
+  position: relative;
+  z-index: 2;
+
   display: flex;
   align-items: center;
   height: ${TITLEBAR_HEIGHT};
