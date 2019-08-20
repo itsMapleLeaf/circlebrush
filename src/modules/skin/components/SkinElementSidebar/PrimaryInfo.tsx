@@ -23,6 +23,7 @@ const Subtitle = styled.h2`
 
 const Description = styled.p`
   font-size: 0.9em;
+  margin-bottom: 0px;
 `
 
 export function PrimaryInfo(props: PrimaryInfoProps) {

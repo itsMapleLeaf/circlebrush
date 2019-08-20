@@ -26,6 +26,14 @@ const Image = styled(ImagePreview)`
   height: 350px;
 `
 
+const Divider = styled.div`
+  height: 1px;
+  width: 100%;
+
+  background: ${getColor("divider")};
+  margin: 16px 0px;
+`
+
 export function SkinElementSidebar(props: SkinElementSidebarProps) {
   const { element } = props
 
@@ -40,6 +48,7 @@ export function SkinElementSidebar(props: SkinElementSidebarProps) {
       {renderPreview()}
       <Sections>
         <PrimaryInfo element={element} />
+        <Divider />
         <PrimaryActions element={element} />
       </Sections>
     </Container>

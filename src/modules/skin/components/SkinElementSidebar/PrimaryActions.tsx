@@ -10,9 +10,7 @@ export interface PrimaryActionsProps {
   element: SkinElementLike
 }
 
-const Container = styled.div`
-  margin-top: 32px;
-`
+const Container = styled.div``
 
 export function PrimaryActions(props: PrimaryActionsProps) {
   const { element } = props
