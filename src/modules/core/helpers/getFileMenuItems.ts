@@ -1,6 +1,6 @@
 import { MenuItemList } from "../types/MenuItem"
 
-import { importSkin } from "../../skin/actions/importSkin"
+import { importSkinFolder } from "../../project/actions/importSkinFolder"
 import { exit } from "../actions/exit"
 
 export const getFileMenuItems = (): MenuItemList => [
@@ -33,9 +33,9 @@ export const getFileMenuItems = (): MenuItemList => [
   null,
   {
     name: "import",
-    label: "Import",
+    label: "Import skin folder...",
     shortcut: "Ctrl + I",
-    action: importSkin
+    action: importSkinFolder
   },
   null,
   {

@@ -1,8 +1,9 @@
 import { remote } from "electron"
-import { Skin } from "../classes/Skin"
+import { getManager } from "../../../common/state/helpers/getManager"
 
-export const importSkin = async () => {
+export const importSkinFolder = async () => {
   const { dialog } = remote
+  const { projectStore } = getManager().stores
 
   try {
     const result = await dialog.showOpenDialog({
@@ -12,9 +13,7 @@ export const importSkin = async () => {
     const { filePaths } = result
 
     if (filePaths) {
-      const skin = await Skin.createFromPath(filePaths[0])
-
-      console.log({ skin })
+      await projectStore.createFromSkinFolder(filePaths[0])
     }
   } catch {
     return

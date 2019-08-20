@@ -2,6 +2,8 @@ import React from "react"
 import { MenuItem } from "../../types/MenuItem"
 import { styled } from "../../../theming/themes"
 import { getFontColor, getTransparency, getColor } from "../../../theming/helpers"
+import { exposeManager } from "../../../../common/state/helpers/exposeManager"
+import { useManager } from "../../../../common/state/hooks/useManager"
 
 const Container = styled.li<{ disabled: boolean }>`
   display: flex;
@@ -41,10 +43,16 @@ export interface MenuItemProps {
 
 export function MenuItemRenderer(props: MenuItemProps) {
   const { label, shortcut, name, action, children } = props.item
+
   const disabled = !action && !children
+  const manager = useManager()
 
   const handleClick = () => {
-    if (action) action()
+    if (action) {
+      exposeManager(manager, () => {
+        action()
+      })
+    }
   }
 
   return (
