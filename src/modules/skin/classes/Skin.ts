@@ -1,5 +1,6 @@
 import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
 import { promises as fs } from "fs"
+import * as path from "path"
 import { fileSkinImages } from "../helpers/filterSkinImages"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { ImageElement } from "../../imagery/classes/ImageElement"
@@ -16,16 +17,14 @@ export interface SerializedSkin {
 
 /** Represents a skin */
 export class Skin {
-  public static async createFromPath(path: string) {
-    const files = await fs.readdir(path)
-    const imagePaths = fileSkinImages(path, files)
+  public static async createFromPath(dir: string) {
+    const files = await fs.readdir(dir)
+    const imagePaths = fileSkinImages(dir, files)
 
-    /** Temporary */
-    //const iniPath = files.find(x => x === "skin.ini")
-    const config = new SkinConfiguration({
-      name: "Skin",
-      version: "latest"
-    })
+    const iniName = files.find(x => x === "skin.ini")
+    if (!iniName) throw new Error("A skin.ini file was not found")
+
+    const config = await SkinConfiguration.createFromPath(path.join(dir, iniName))
 
     return new Skin({
       config,
