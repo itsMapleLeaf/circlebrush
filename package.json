@@ -38,6 +38,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.16",
     "@emotion/styled": "^10.0.15",
+    "adm-zip": "^0.4.13",
     "chokidar": "^3.0.2",
     "emotion-theming": "^10.0.14",
     "fs-extra": "^8.1.0",
@@ -46,6 +47,7 @@
     "polished": "^3.4.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "sanitize-filename": "^1.6.2"
+    "sanitize-filename": "^1.6.2",
+    "sharp": "^0.23.0"
   }
 }
