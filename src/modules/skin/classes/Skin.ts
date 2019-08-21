@@ -18,6 +18,7 @@ export interface SerializedSkin {
 export class Skin {
   public static async createFromPath(dir: string) {
     const files = await fs.readdir(dir)
+    const paths = files.map(f => path.join(dir, f))
 
     const iniName = files.find(x => x === "skin.ini")
     if (!iniName) throw new Error("A skin.ini file was not found")
@@ -26,7 +27,7 @@ export class Skin {
 
     return new Skin({
       config,
-      elements: ImageElement.createFromPathList(files),
+      elements: ImageElement.createFromPathList(paths),
     })
   }
 

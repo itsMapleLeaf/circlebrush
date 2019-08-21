@@ -16,12 +16,6 @@ export interface ImageParseData {
  * Returns a string of the canonical if the image is a valid frame
  */
 export const getFrameFor = (name: string): string | undefined => {
-  console.log(name)
-
-  if (!ANIMATABLE_IMAGE_NAMES.includes(name)) {
-    return
-  }
-
   const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(name)
   const regex = new RegExp(isEdgecase ? `\\d+` : `-\\d+`)
 
@@ -39,6 +33,7 @@ export const parseImagePath = (path: string) => {
   const name = basename(path, ext).replace(HD_SUFFIX, "")
 
   const frameFor = getFrameFor(name)
+
   return { name, path, frameFor }
 }
 
@@ -65,7 +60,10 @@ export const createDataFromParse = (
 /**
  * Returns true or false depending on if the element is a redundant non @2x
  */
-export const filterScaling = (name: string, _: any, others: string[]) => {
+export const filterScaling = (path: string, _: any, others: string[]) => {
+  const ext = extname(path)
+  const name = basename(path, ext)
+
   const isDouble = name.includes(HD_SUFFIX)
   if (isDouble) return true
 

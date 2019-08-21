@@ -1,6 +1,5 @@
-import { SkinElement, SkinElementData } from "../../skin/classes/SkinElement"
+import { SkinElement } from "../../skin/classes/SkinElement"
 import { builtInMeta } from "../../skin/builtins"
-import { basename, extname } from "path"
 import { parseImagePaths } from "../helpers/parseImagePaths"
 
 export class ImageElement extends SkinElement {

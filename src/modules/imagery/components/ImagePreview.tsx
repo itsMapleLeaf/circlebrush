@@ -35,7 +35,7 @@ export function ImagePreview(props: ImagePreviewProps) {
 
   return (
     <Container className={className}>
-      <Image style={{ backgroundImage: `url("${src}")` }} />
+      <Image style={{ backgroundImage: `url("${CSS.escape(src)}")` }} />
     </Container>
   )
 }
