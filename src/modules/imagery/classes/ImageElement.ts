@@ -8,8 +8,11 @@ import { builtInMeta } from "../../skin/builtins"
 import { parseImagePaths } from "../helpers/parseImagePaths"
 import { ASSET_FOLDER, PREVIEW_FOLDER } from "../../project/constants"
 import { getHash } from "../../../common/lang/string/getHash"
+import { observable } from "mobx"
 
 export class ImageElement extends SkinElement<ImageElementData> {
+  @observable public preview: string = ""
+
   public static async createFromPathList(paths: string[], options: SkinElementOptions) {
     const { temp } = options
     const result: ImageElement[] = []

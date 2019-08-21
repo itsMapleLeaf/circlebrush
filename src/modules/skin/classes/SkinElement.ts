@@ -21,14 +21,10 @@ export interface SkinElementOptions {
 /** Represents an element in a skin */
 export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
   @observable public data: T
-  @observable public preview: string = ""
 
   constructor(data: T, protected options: SkinElementOptions) {
     this.data = data
   }
-
-  public abstract async updatePreview(): Promise<void>
-
   @computed
   public get path() {
     return this.data.path
