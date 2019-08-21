@@ -5,6 +5,7 @@ import {
 } from "../constants"
 import { extname, basename } from "path"
 import { ImageElementData } from "../types/ImageElementData"
+import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
 
 export interface ImageParseData {
   name: string
@@ -29,9 +30,7 @@ export const getFrameFor = (name: string): string | undefined => {
  * Parses the path and attempts to guess what the image is for
  */
 export const parseImagePath = (path: string) => {
-  const ext = extname(path)
-  const name = basename(path, ext).replace(HD_SUFFIX, "")
-
+  const name = getStrippedFilename(path).replace(HD_SUFFIX, "")
   const frameFor = getFrameFor(name)
 
   return { name, path, frameFor }
