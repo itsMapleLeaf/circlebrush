@@ -3,11 +3,14 @@ import { useObserver } from "mobx-react-lite"
 
 export const useTitle = () => {
   const { projectStore } = useStores()
-  const project = useObserver(() => projectStore.project)
 
-  if (project) {
-    return `${project.name} - Circlebrush`
-  }
+  return useObserver(() => {
+    const { project } = projectStore
 
-  return "Circlebrush"
+    if (project) {
+      return `${project.data.name} - Circlebrush`
+    }
+
+    return "Circlebrush"
+  })
 }

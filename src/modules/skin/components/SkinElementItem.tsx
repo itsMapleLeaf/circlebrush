@@ -67,8 +67,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
 
   const renderContent = () => {
     if (element instanceof ImageElement) {
-      const { path } = element
-      return <Image src={path} />
+      return <Image src={element.preview} />
     }
   }
 

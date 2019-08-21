@@ -1,61 +1,71 @@
 import { Skin, SerializedSkin } from "../../skin/classes/Skin"
 import { observable } from "mobx"
+import { ensureTempFolder } from "../helpers/ensureTempFolder"
+import { join } from "path"
+import { TEMP_ROOT } from "../constants"
 
-export interface ProjectOptions {
+export interface ProjectData {
   name: string
+  tempName: string
   description: string
   skin: Skin
 }
 
 export interface SerializedProject {
   name: string
+  tempName: string
   description: string
   skin: SerializedSkin
 }
 
 /** Represents a Circlebrush project */
 export class Project {
-  @observable public name: string
-  @observable public description: string
-  @observable public skin: Skin
+  @observable data: ProjectData
 
   public static async createFromSkinFolder(path: string) {
-    const skin = await Skin.createFromPath(path)
+    const [tempName, tempPath] = await ensureTempFolder(path)
+    const skin = await Skin.createFromPath(path, tempPath)
+
     const { name } = skin.config.data
 
     return new Project({
       skin,
       name,
-      description: "A Circlebrush project"
+      tempName,
+      description: "A Circlebrush project",
     })
   }
 
-  public static createFromHydration(data: SerializedProject) {
-    const { name, description } = data
-    const skin = Skin.createFromHydration(data.skin)
+  public static async createFromHydration(data: SerializedProject) {
+    const { name, description, tempName } = data
+
+    const tempPath = join(TEMP_ROOT, tempName)
+    const skin = await Skin.createFromHydration(data.skin, tempPath)
 
     return new Project({
+      skin,
       name,
+      tempName,
       description,
-      skin
     })
   }
 
-  constructor(options: ProjectOptions) {
-    const { name, description, skin } = options
-
-    this.name = name
-    this.description = description
-    this.skin = skin
+  constructor(data: ProjectData) {
+    this.data = data
   }
 
   public serialize(): SerializedProject {
-    const { name, description, skin } = this
+    const { name, description, skin, tempName } = this.data
 
     return {
       name,
+      tempName,
       description,
-      skin: skin.serialize()
+      skin: skin.serialize(),
     }
+  }
+
+  public get skin() {
+    return this.data.skin
   }
 }

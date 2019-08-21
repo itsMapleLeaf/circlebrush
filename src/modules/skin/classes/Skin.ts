@@ -16,25 +16,29 @@ export interface SerializedSkin {
 
 /** Represents a skin */
 export class Skin {
-  public static async createFromPath(dir: string) {
+  public static async createFromPath(dir: string, temp: string) {
     const files = await fs.readdir(dir)
     const paths = files.map(f => path.join(dir, f))
 
     const iniName = files.find(x => x === "skin.ini")
     if (!iniName) throw new Error("A skin.ini file was not found")
 
-    const config = await SkinConfiguration.createFromPath(path.join(dir, iniName))
+    const config = await SkinConfiguration.createFromPath(path.join(dir, iniName), temp)
+    const elements = await ImageElement.createFromPathList(paths, { temp })
 
     return new Skin({
       config,
-      elements: ImageElement.createFromPathList(paths),
+      elements,
     })
   }
 
-  public static createFromHydration(data: SerializedSkin) {
+  public static async createFromHydration(data: SerializedSkin, temp: string) {
+    const config = new SkinConfiguration(data.config)
+    const elements = await ImageElement.createFromPathList(data.elements, { temp })
+
     return new Skin({
-      config: new SkinConfiguration(data.config),
-      elements: ImageElement.createFromPathList(data.elements),
+      config,
+      elements,
     })
   }
 

@@ -13,13 +13,21 @@ export interface SkinElementData {
   upscaled?: boolean
 }
 
+export interface SkinElementOptions {
+  /** The temp folder path for the loaded project */
+  temp: string
+}
+
 /** Represents an element in a skin */
 export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
   @observable public data: T
+  @observable public preview: string = ""
 
-  constructor(data: T) {
+  constructor(data: T, protected options: SkinElementOptions) {
     this.data = data
   }
+
+  public abstract async updatePreview(): Promise<void>
 
   @computed
   public get path() {
@@ -29,6 +37,12 @@ export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
   @computed
   public get name() {
     return this.data.name
+  }
+
+  @computed
+  public get alias() {
+    const { alias, name } = this.data
+    return alias || name
   }
 
   public get displayName() {

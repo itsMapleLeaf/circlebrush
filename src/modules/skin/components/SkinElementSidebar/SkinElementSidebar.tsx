@@ -39,7 +39,7 @@ export function SkinElementSidebar(props: SkinElementSidebarProps) {
 
   const renderPreview = () => {
     if (element instanceof ImageElement) {
-      return <Image src={element.path} />
+      return <Image src={element.preview} />
     }
   }
 

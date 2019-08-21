@@ -21,13 +21,13 @@ class ProjectStore implements Store<SerializedProjectStore> {
     const { project } = this
 
     return {
-      project: project ? project.serialize() : undefined
+      project: project ? project.serialize() : undefined,
     }
   }
 
-  public hydrate(data: SerializedProjectStore) {
+  public async hydrate(data: SerializedProjectStore) {
     if (data.project) {
-      this.project = Project.createFromHydration(data.project)
+      // this.project = await Project.createFromHydration(data.project)
     }
   }
 }
