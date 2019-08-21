@@ -2,10 +2,11 @@ import { SkinElementLike } from "../types/SkinElementLike"
 import { ImageElement } from "../../imagery/classes/ImageElement"
 import React from "react"
 import { styled } from "../../theming/themes"
-import { getColor, getTransparency } from "../../theming/helpers"
+import { getColor } from "../../theming/helpers"
 import { cover, ellipsis } from "polished"
 import { ImagePreview } from "../../imagery/components/ImagePreview"
 import { humanizeFilename } from "../helpers/humanizeFilename"
+import { ImageElementThumbnail } from "../../imagery/components/ImageElementThumbnail"
 
 export interface SkinElementItemProps {
   element: SkinElementLike
@@ -49,7 +50,7 @@ const Content = styled.div`
   align-items: center;
 `
 
-const Image = styled(ImagePreview)`
+const Image = styled(ImageElementThumbnail)`
   ${cover()}
 `
 
@@ -67,7 +68,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
 
   const renderContent = () => {
     if (element instanceof ImageElement) {
-      return <Image src={element.preview} />
+      return <Image element={element} />
     }
   }
 

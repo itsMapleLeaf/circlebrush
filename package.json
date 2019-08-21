@@ -38,6 +38,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.16",
     "@emotion/styled": "^10.0.15",
+    "chokidar": "^3.0.2",
     "emotion-theming": "^10.0.14",
     "fs-extra": "^8.1.0",
     "mobx": "^5.13.0",

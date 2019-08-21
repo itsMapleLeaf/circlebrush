@@ -26,16 +26,15 @@ export class ImageElement extends SkinElement<ImageElementData> {
         ...builtinData,
       }
 
-      result.push(new ImageElement(finalData, options))
-    }
+      const element = new ImageElement(finalData, options)
 
-    /** Copy to assets */
-    for (const element of result) {
       const newPath = join(temp, ASSET_FOLDER, `${element.alias}.png`)
       await copy(element.path, newPath)
 
       element.data.path = newPath
       await element.updatePreview()
+
+      result.push(element)
     }
 
     return result

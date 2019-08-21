@@ -1,11 +1,11 @@
 import { styled } from "../../../theming/themes"
 import { getColor } from "../../../theming/helpers"
 import { SkinElementLike } from "../../types/SkinElementLike"
-import { ImagePreview } from "../../../imagery/components/ImagePreview"
 import React from "react"
 import { ImageElement } from "../../../imagery/classes/ImageElement"
 import { PrimaryInfo } from "./PrimaryInfo"
 import { PrimaryActions } from "./PrimaryActions"
+import { ImageElementThumbnail } from "../../../imagery/components/ImageElementThumbnail"
 
 export interface SkinElementSidebarProps {
   element: SkinElementLike
@@ -22,7 +22,7 @@ const Sections = styled.div`
   padding: 0px 32px;
 `
 
-const Image = styled(ImagePreview)`
+const Image = styled(ImageElementThumbnail)`
   height: 350px;
 `
 
@@ -39,7 +39,7 @@ export function SkinElementSidebar(props: SkinElementSidebarProps) {
 
   const renderPreview = () => {
     if (element instanceof ImageElement) {
-      return <Image src={element.preview} />
+      return <Image element={element} />
     }
   }
 

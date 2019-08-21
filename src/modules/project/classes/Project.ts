@@ -28,6 +28,8 @@ export class Project {
 
     const { name } = skin.config.data
 
+    skin.watch()
+
     return new Project({
       skin,
       name,
