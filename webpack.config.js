@@ -13,9 +13,12 @@ const baseConfig = {
   plugins: [
     new HtmlPlugin({
       template: path.resolve(__dirname, "public/index.html"),
-      filename: path.resolve(__dirname, "build/public/index.html")
-    })
+      filename: path.resolve(__dirname, "build/public/index.html"),
+    }),
   ],
+  externals: {
+    sharp: `require('sharp')`,
+  },
   module: {
     rules: [
       {
@@ -26,31 +29,31 @@ const baseConfig = {
             presets: [
               "@babel/preset-env",
               "@babel/preset-react",
-              "@babel/preset-typescript"
+              "@babel/preset-typescript",
             ],
             plugins: [
               ["@babel/plugin-proposal-decorators", { legacy: true }],
-              ["@babel/plugin-proposal-class-properties", { loose: true }]
-            ]
-          }
-        }
-      }
-    ]
+              ["@babel/plugin-proposal-class-properties", { loose: true }],
+            ],
+          },
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
   },
   optimization: {
     splitChunks: {
-      chunks: "all"
-    }
+      chunks: "all",
+    },
   },
   output: {
     filename: "[name].js?q=[chunkhash]",
     chunkFilename: "[name].js?q=[chunkhash]",
     path: path.resolve(__dirname, "build/public"),
-    publicPath: "/"
-  }
+    publicPath: "/",
+  },
 }
 
 /** @type {import("webpack").Configuration} */
@@ -61,8 +64,8 @@ const devConfig = {
     contentBase: path.join(__dirname, "public"),
     historyApiFallback: true,
     compress: true,
-    port: 9000
-  }
+    port: 9000,
+  },
 }
 
 /** @type {import("webpack").Configuration} */
@@ -72,14 +75,14 @@ const prodConfig = {
     new CopyPlugin([
       {
         from: "./public",
-        ignore: ["./public/index.html"]
-      }
-    ])
+        ignore: ["./public/index.html"],
+      },
+    ]),
   ],
   optimization: {
     minimize: true,
-    nodeEnv: "production"
-  }
+    nodeEnv: "production",
+  },
 }
 
 module.exports = (() => {
