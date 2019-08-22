@@ -1,12 +1,12 @@
-import { remote, OpenDialogReturnValue } from "electron"
-import { getManager } from "../../../common/state/helpers/getManager"
+import { remote } from "electron"
+import { StoreManager } from "../../../common/state/classes/StoreManager"
 
-export const importSkinFolder = async () => {
+export const importSkinFolder = async (manager: StoreManager) => {
   const { dialog } = remote
-  const { projectStore } = getManager().stores
+  const { projectStore } = manager.stores
 
   const result = await dialog.showOpenDialog({
-    properties: ["openDirectory"]
+    properties: ["openDirectory"],
   })
 
   const { filePaths } = result
