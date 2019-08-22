@@ -1,10 +1,10 @@
 import { styled } from "../../../theming/themes"
-import { getColor, getTransparency } from "../../../theming/helpers"
+import { getColor } from "../../../theming/helpers"
 import React from "react"
 
 const Container = styled.div`
-  background: ${getTransparency("negative")};
-  padding: 16px;
+  background: ${getColor("background")};
+  padding: 32px;
 `
 
 export function FilterOptions() {

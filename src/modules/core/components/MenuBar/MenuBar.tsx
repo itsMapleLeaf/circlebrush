@@ -12,6 +12,9 @@ export interface MenuBarContext {
 
 const Container = styled.div`
   display: flex;
+
+  position: relative;
+  z-index: 2;
 `
 
 export function MenuBar(props: PropsWithChildren<{}>) {
@@ -24,7 +27,7 @@ export function MenuBar(props: PropsWithChildren<{}>) {
     toggle: () => setActive(!active),
     setSelected: (name: string) => setSelected(name),
     selected,
-    active
+    active,
   }
 
   useWindowEvent("click", event => {

@@ -20,7 +20,7 @@ import { useTitle } from "../../hooks/useTitle"
 
 const Container = styled.header`
   position: relative;
-  z-index: 2;
+  z-index: 1;
 
   display: flex;
   align-items: center;
