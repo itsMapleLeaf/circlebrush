@@ -38,7 +38,7 @@ const Inner = styled.span<ButtonVariants>`
   `}
 `
 
-export function Button(props: ButtonProps) {
+export function Button<T extends object = {}>(props: ButtonProps & T) {
   const { stretch, className, icon, label, ...rest } = props
 
   const renderIcon = () => {
@@ -62,3 +62,5 @@ export function Button(props: ButtonProps) {
     </Container>
   )
 }
+
+export type ButtonWithProps<T extends object> = (props: ButtonProps & T) => JSX.Element
