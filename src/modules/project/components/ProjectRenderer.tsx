@@ -5,10 +5,18 @@ import { SkinElementList } from "../../skin/components/SkinElementList"
 import { useStores } from "../../../common/state/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import { SkinElementSidebar } from "../../skin/components/SkinElementSidebar/SkinElementSidebar"
+import { FilterOptions } from "./ElementListView/FilterOptions"
 
 const Container = styled.div`
   display: flex;
   height: 100%;
+`
+
+const Main = styled.div`
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
 `
 
 const List = styled.div`
@@ -32,13 +40,16 @@ export function ProjectRenderer() {
 
   return (
     <Container>
-      <List>
-        <SkinElementList
-          selected={selected ? selected.name : ""}
-          onSelect={element => (projectStore.selectedElement = element)}
-          elements={skin.elements}
-        />
-      </List>
+      <Main>
+        <FilterOptions />
+        <List>
+          <SkinElementList
+            selected={selected ? selected.name : ""}
+            onSelect={element => (projectStore.selectedElement = element)}
+            elements={skin.elements}
+          />
+        </List>
+      </Main>
       {renderSidebar()}
     </Container>
   )
