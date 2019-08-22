@@ -1,9 +1,9 @@
 import { styled } from "../../../theming/themes"
-import { getColor } from "../../../theming/helpers"
+import { getColor, getTransparency } from "../../../theming/helpers"
 import React from "react"
 
 const Container = styled.div`
-  background: ${getColor("primary")};
+  background: ${getTransparency("negative")};
   padding: 16px;
 `
 
