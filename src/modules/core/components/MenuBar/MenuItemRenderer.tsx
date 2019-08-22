@@ -2,7 +2,6 @@ import React from "react"
 import { MenuItem } from "../../types/MenuItem"
 import { styled } from "../../../theming/themes"
 import { getFontColor, getTransparency, getColor } from "../../../theming/helpers"
-import { exposeManager } from "../../../../common/state/helpers/exposeManager"
 import { useManager } from "../../../../common/state/hooks/useManager"
 
 const Container = styled.li<{ disabled: boolean }>`
