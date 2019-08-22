@@ -47,6 +47,12 @@ const Buttons = styled.div`
   flex-shrink: 0;
 `
 
+const CloseButton = styled(TitlebarButton)`
+  &:hover {
+    background: rgba(190, 0, 0, 1);
+  }
+`
+
 export function Titlebar() {
   const instance = useInstance()
   const title = useTitle()
@@ -63,7 +69,7 @@ export function Titlebar() {
       <Buttons>
         <TitlebarButton icon="minimize" onClick={() => instance.minimize()} />
         <MaximizeToggle />
-        <TitlebarButton icon="close" onClick={() => exit()} />
+        <CloseButton icon="close" onClick={() => exit()} />
       </Buttons>
     </Container>
   ))
