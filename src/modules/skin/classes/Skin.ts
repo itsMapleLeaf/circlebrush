@@ -1,11 +1,15 @@
 import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
-import { promises as fs } from "fs"
-import * as path from "path"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { ImageElement } from "../../imagery/classes/ImageElement"
+
+import { join } from "path"
+import { copy, readdir } from "fs-extra"
+import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
+import sanitizeFileName from "sanitize-filename"
+
 import { FSWatcher } from "chokidar"
 import { createSkinWatcher } from "../helpers/createSkinWatcher"
-import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
+import { BUILD_FOLDER } from "../../project/constants"
 
 export interface SkinOptions {
   config: SkinConfiguration
@@ -24,13 +28,13 @@ export class Skin {
    * Create a Skin instance from an existing osu! skin folder
    */
   public static async createFromPath(dir: string, temp: string) {
-    const files = await fs.readdir(dir)
-    const paths = files.map(f => path.join(dir, f))
+    const files = await readdir(dir)
+    const paths = files.map(f => join(dir, f))
 
     const iniName = files.find(x => x === "skin.ini")
     if (!iniName) throw new Error("A skin.ini file was not found")
 
-    const config = await SkinConfiguration.createFromPath(path.join(dir, iniName), temp)
+    const config = await SkinConfiguration.createFromPath(join(dir, iniName), temp)
     const elements = await ImageElement.createFromPathList(paths, { temp })
 
     return new Skin({
@@ -98,6 +102,16 @@ export class Skin {
     for (const element of this.elements) {
       await element.build()
     }
+  }
+
+  /**
+   * Export the skin to a folder
+   */
+  public async exportToFolder(path: string) {
+    const { name } = this.config.data
+
+    await this.build()
+    await copy(join(this.temp, BUILD_FOLDER), join(path, sanitizeFileName(name)))
   }
 
   public serialize(): SerializedSkin {
