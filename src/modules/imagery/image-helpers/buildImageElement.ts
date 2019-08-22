@@ -13,15 +13,15 @@ export interface ExportImageElementOptions {
 /**
  * Exports the image to the destination and adds the downscaled version if needed
  */
-export const exportImageElement = async (options: ExportImageElementOptions) => {
+export const buildImageElement = async (options: ExportImageElementOptions) => {
   const { path, dest, name, downscale = true } = options
 
   const image = sharp(path)
   const meta = await image.metadata()
 
   if (downscale) {
-    const width = Math.floor(meta.width! / 2)
-    const height = Math.floor(meta.height! / 2)
+    const width = Math.floor(meta.width! / 2) || 1
+    const height = Math.floor(meta.height! / 2) || 1
 
     await image
       .clone()

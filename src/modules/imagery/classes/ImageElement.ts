@@ -9,7 +9,7 @@ import { parseImagePaths } from "../helpers/parseImagePaths"
 import { ASSET_FOLDER, PREVIEW_FOLDER, BUILD_FOLDER } from "../../project/constants"
 import { getHash } from "../../../common/lang/string/getHash"
 import { observable } from "mobx"
-import { exportImageElement } from "../image-helpers/exportImageElement"
+import { buildImageElement } from "../image-helpers/buildImageElement"
 
 /**
  * Represents a skin image element, such as a .png
@@ -78,6 +78,6 @@ export class ImageElement extends SkinElement<ImageElementData> {
 
     const dest = join(temp, BUILD_FOLDER)
 
-    await exportImageElement({ path, name, dest })
+    await buildImageElement({ path, name, dest })
   }
 }
