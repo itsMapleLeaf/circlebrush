@@ -1,0 +1,33 @@
+import sharp from "sharp"
+import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
+import { join } from "path"
+import { HD_SUFFIX } from "../constants"
+
+export interface ExportImageElementOptions {
+  path: string
+  dest: string
+  name: string
+  downscale?: boolean
+}
+
+/**
+ * Exports the image to the destination and adds the downscaled version if needed
+ */
+export const exportImageElement = async (options: ExportImageElementOptions) => {
+  const { path, dest, name, downscale = true } = options
+
+  const image = sharp(path)
+  const meta = await image.metadata()
+
+  if (downscale) {
+    const width = Math.floor(meta.width! / 2)
+    const height = Math.floor(meta.height! / 2)
+
+    await image
+      .clone()
+      .resize(width, height)
+      .toFile(join(dest, `${name}.png`))
+  }
+
+  await image.toFile(join(dest, `${name}${downscale ? HD_SUFFIX : ""}.png`))
+}

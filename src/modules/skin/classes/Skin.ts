@@ -20,6 +20,9 @@ export interface SerializedSkin {
 
 /** Represents a skin */
 export class Skin {
+  /**
+   * Create a Skin instance from an existing osu! skin folder
+   */
   public static async createFromPath(dir: string, temp: string) {
     const files = await fs.readdir(dir)
     const paths = files.map(f => path.join(dir, f))
@@ -62,6 +65,10 @@ export class Skin {
     this.temp = temp
   }
 
+  /**
+   * Watch the asset directory for changes
+   * and automatically update the elements in memory
+   */
   public watch() {
     if (this.watcher) {
       throw new Error("A watcher already exists!")
@@ -82,6 +89,15 @@ export class Skin {
     if (element) return element
 
     return this.elements.find(element => element.alias === name)
+  }
+
+  /**
+   * Build the skin's final files
+   */
+  public async build() {
+    for (const element of this.elements) {
+      await element.build()
+    }
   }
 
   public serialize(): SerializedSkin {
