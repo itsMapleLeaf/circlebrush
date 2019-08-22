@@ -49,9 +49,7 @@ export function MenuItemRenderer(props: MenuItemProps) {
 
   const handleClick = () => {
     if (action) {
-      exposeManager(manager, () => {
-        action()
-      })
+      action(manager)
     }
   }
 
