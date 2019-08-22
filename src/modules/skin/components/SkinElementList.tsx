@@ -4,6 +4,8 @@ import { styled } from "../../theming/themes"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { categorize } from "../../../common/lang/array/categorize"
 import { getColor } from "../../theming/helpers"
+import { useStores } from "../../../common/state/hooks/useStores"
+import { useObserver } from "mobx-react-lite"
 
 const Grid = styled.ul`
   display: grid;
@@ -41,13 +43,13 @@ const Title = styled.h1`
 
 export interface SkinElementListProps {
   elements: SkinElementLike[]
-  onSelect: (element: SkinElementLike) => void
-  selected: string
 }
 
 export function SkinElementList(props: SkinElementListProps) {
-  const { elements, onSelect, selected } = props
+  const { elements } = props
+  const { projectStore } = useStores()
 
+  const selected = useObserver(() => projectStore.selectedElement)
   const categories = categorize(
     elements,
     element => element.data.category || "Uncategorized"
@@ -61,8 +63,8 @@ export function SkinElementList(props: SkinElementListProps) {
           <Grid>
             {elements.map(element => (
               <SkinElementItem
-                onClick={() => onSelect(element)}
-                active={selected === element.name}
+                onClick={() => (projectStore.selectedElement = element)}
+                active={selected === element}
                 key={element.path}
                 element={element}
               />

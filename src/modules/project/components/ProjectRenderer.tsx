@@ -6,6 +6,7 @@ import { useStores } from "../../../common/state/hooks/useStores"
 import { useObserver } from "mobx-react-lite"
 import { SkinElementSidebar } from "../../skin/components/SkinElementSidebar/SkinElementSidebar"
 import { FilterOptions } from "./ElementListView/FilterOptions"
+import { ElementListView } from "./ElementListView/ElementListView"
 
 const Container = styled.div`
   display: flex;
@@ -28,7 +29,6 @@ const List = styled.div`
 `
 
 export function ProjectRenderer() {
-  const skin = useSkin()
   const { projectStore } = useStores()
   const selected = useObserver(() => projectStore.selectedElement)
 
@@ -41,13 +41,8 @@ export function ProjectRenderer() {
   return (
     <Container>
       <Main>
-        <FilterOptions />
         <List>
-          <SkinElementList
-            selected={selected ? selected.name : ""}
-            onSelect={element => (projectStore.selectedElement = element)}
-            elements={skin.elements}
-          />
+          <ElementListView skin={projectStore.project!.skin} />
         </List>
       </Main>
       {renderSidebar()}
