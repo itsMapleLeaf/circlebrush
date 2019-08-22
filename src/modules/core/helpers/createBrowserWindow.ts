@@ -7,15 +7,15 @@ export function createBrowserWindow() {
   const instance = new BrowserWindow({
     title: "Circlebrush",
     icon: logo,
-    show: false,
+    show: true,
     frame: false,
     minWidth: 500,
     minHeight: 400,
     backgroundColor: "#000",
     webPreferences: {
       webSecurity: IN_PRODUCTION,
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   })
 
   if (IN_PRODUCTION) {
