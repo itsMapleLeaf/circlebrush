@@ -1,9 +1,9 @@
 import { join } from "path"
-import sharp from "sharp"
+import sharp, { Sharp } from "sharp"
 import { HD_SUFFIX } from "../constants"
 
 export type ExportImageElementOptions = {
-  path: string
+  image: Sharp
   dest: string
   name: string
   downscale?: boolean
@@ -13,9 +13,8 @@ export type ExportImageElementOptions = {
  * Exports the image to the destination and adds the downscaled version if needed
  */
 export const buildImageElement = async (options: ExportImageElementOptions) => {
-  const { path, dest, name, downscale = true } = options
+  const { image, dest, name, downscale = true } = options
 
-  const image = sharp(path)
   const meta = await image.metadata()
 
   if (downscale) {

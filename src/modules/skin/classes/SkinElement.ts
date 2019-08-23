@@ -30,7 +30,7 @@ export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
     const { temp } = this.options
     const { name } = this.data
 
-    return join(temp, ASSET_FOLDER, `${name}.png`)
+    return join(temp, ASSET_FOLDER, `${name}.png`).replace(/\\/g, "/")
   }
 
   @computed

@@ -1,8 +1,12 @@
-import { basename, extname } from "path";
-import { isNonNil } from "../../../common/lang/isNonNil";
-import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename";
-import { ANIMATION_NAMING_EDGECASES, HD_SUFFIX } from "../constants";
-import { ImageElementData } from "../types/ImageElementData";
+import { basename, extname } from "path"
+import { isNonNil } from "../../../common/lang/isNonNil"
+import { ImageElementData } from "../types/ImageElementData"
+import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
+import {
+  ANIMATION_NAMING_EDGECASES,
+  HD_SUFFIX,
+  ANIMATABLE_IMAGE_NAMES,
+} from "../constants"
 
 export type FrameData = {
   canonical: string
@@ -15,17 +19,21 @@ export type ImageParseData = {
   frame?: FrameData
 }
 
+export type ImageDataFromParse = Omit<ImageElementData, "width" | "height">
+
 /**
  * Returns a frame data if the image is a valid frame
  */
 export const getFrameFor = (name: string): FrameData | undefined => {
+  const safeName = name.replace(/\-?\d/, "")
+
   /**
    * Check if this frame is one of the edgecases
    * where the frame number is not prefixed with a hyphen,
    * we remove the number from the frame so that
    * it'll match the edgecase list
    */
-  const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(name.replace(/\d+/, ""))
+  const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(safeName)
 
   const regex = new RegExp(isEdgecase ? /\d+/ : /-\d+/)
   const match = name.match(regex)
@@ -46,7 +54,7 @@ export const getFrameFor = (name: string): FrameData | undefined => {
 export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
   return items.filter(item => {
     /** Remove the number, so this can match */
-    return item.frame && item.frame.canonical === element.name.replace(/\d+/, "")
+    return item.frame && item.frame.canonical === element.name.replace(/\-?\d/, "")
   })
 }
 
@@ -66,7 +74,7 @@ export const parseImagePath = (path: string) => {
 export const createDataFromParse = (
   data: ImageParseData,
   others: ImageParseData[],
-): ImageElementData | undefined => {
+): ImageDataFromParse | undefined => {
   const { name, path, frame } = data
 
   /** Get the amount of frames associated with this element */
@@ -112,11 +120,9 @@ export const filterScaling = (path: string, _: any, others: string[]) => {
   return !others.find(other => other.includes(`${name}${HD_SUFFIX}`))
 }
 
-export const parseImagePaths = (paths: string[]): ImageElementData[] => {
+export const parseImagePaths = (paths: string[]): ImageDataFromParse[] => {
   const filteredPaths = paths.filter(filterScaling)
   const parsed = filteredPaths.map(parseImagePath)
-
-  console.log(parsed)
 
   return parsed.map(p => createDataFromParse(p, parsed)).filter(isNonNil)
 }

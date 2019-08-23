@@ -27,6 +27,6 @@ export const copyImageAsset = async (data: ImageElementData, temp: string) => {
       return copy(framePath, join(temp, ASSET_FOLDER, `${name}-${frame}.png`))
     })
 
-    await promises
+    await Promise.all(promises)
   }
 }
