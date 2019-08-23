@@ -43,12 +43,12 @@ export const getStandardBultins = (): BuiltInElement[] => {
     create({
       name: "approachcircle",
       alias: "approach-circle",
-      description: "A hitcircle's approach circle",
+      description: "A hit circle's approach circle",
     }),
     create({
       name: "hitcircleselect",
       alias: "hitcircle-selected",
-      description: "Shown on a selected hitcircle in the editor.",
+      description: "Shown on a selected hit circle in the editor.",
     }),
     create({
       name: "sliderfollowcircle",
@@ -64,6 +64,16 @@ export const getStandardBultins = (): BuiltInElement[] => {
       name: "reversearrow",
       alias: "slider-reverse-arrow",
       description: "The arrow displayed on a reversed slider.",
+    }),
+    create({
+      name: "sliderb",
+      alias: "slider-ball",
+      description: "The ball displayed inside the slider body.",
+    }),
+    create({
+      name: "default",
+      alias: "combo-number",
+      description: "The current combo number displayed in a hit circle.",
     }),
     ...createCircleGroup("hit"),
     ...createCircleGroup("sliderstart", "slider-start"),
