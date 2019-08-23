@@ -9,7 +9,7 @@ const create = (name: string, alias = name): BuiltInElement => ({
   category: CATEGORY,
 })
 
-const mods: ([string] | [string, string])[] = [
+const mods: [string, string?][] = [
   ["autoplay"],
   ["cinema"],
   ["easy"],

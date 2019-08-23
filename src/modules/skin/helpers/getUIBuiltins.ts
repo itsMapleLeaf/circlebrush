@@ -7,6 +7,19 @@ const create = (data: Omit<BuiltInElement, "category">): BuiltInElement => ({
   category: CATEGORY,
 })
 
+const createSelectionButton = (name: string, alias = name) => [
+  create({
+    name: `selection-${name}`,
+    alias: `${alias}-button`,
+    description: `The button for ${alias} on the song select screen.`,
+  }),
+  create({
+    name: `selection-${name}-over`,
+    alias: `hovered-${alias}-button`,
+    description: `The hover state for the ${alias} button on the song select screen.`,
+  }),
+]
+
 export const getUIBuiltins = (): BuiltInElement[] => {
   return [
     /** Menu button */
@@ -47,24 +60,6 @@ export const getUIBuiltins = (): BuiltInElement[] => {
         "An image displayed in the center on top of the cursor. When this image is present, the trail will be long.",
     }),
 
-    /** Health bar */
-    create({
-      name: "scorebar-bg",
-      alias: "healthbar",
-      description: "The healthbar background.",
-    }),
-    create({
-      name: "scorebar-colour",
-      alias: "healthbar-fill",
-      description:
-        "The fill inside the healthbar. Gets clipped based on how much health the player has.",
-    }),
-    create({
-      name: "scorebar-marker",
-      alias: "Healthbar knob",
-      description: "Image positioned at the right end of the clipped fill.",
-    }),
-
     /** Misc */
     create({
       name: "menu-back",
@@ -73,9 +68,26 @@ export const getUIBuiltins = (): BuiltInElement[] => {
     }),
     create({
       name: "menu-button-background",
-      alias: "song-button",
+      alias: "menu-button",
       description:
-        "The song button image used in the list of beatmaps on the song select screen.",
+        "The button image used in the list of beatmaps on the song select screen, and in score lists.",
     }),
+    create({
+      name: "selection-tab",
+      description: "The image used for the filtering tabs on the song select screen.",
+    }),
+    create({
+      name: "menu-background",
+      alias: "main-menu-background",
+      description:
+        "Image displayed as the background on the main menu if the user has supporter.",
+    }),
+
+    /** Selection */
+    ...createSelectionButton("mode"),
+    ...createSelectionButton("mods"),
+    ...createSelectionButton("random"),
+    ...createSelectionButton("options"),
+    ...createSelectionButton("selectoptions", "selection-options"),
   ]
 }

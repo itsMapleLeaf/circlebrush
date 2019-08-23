@@ -1,6 +1,9 @@
 import { BuiltInElement } from "./types/BuiltInElement"
 import { getUIBuiltins } from "./helpers/getUIBuiltins"
 import { getModBuiltins } from "./helpers/getModBuiltins"
+import { getGameplayBuiltins } from "./helpers/getGameplayBuiltins"
+import { getRankingBuiltins } from "./helpers/getRankingBuiltins"
+import { getStandardBultins } from "./helpers/getStandardBuiltins"
 
 /**
  * Built in skin elements
@@ -8,9 +11,7 @@ import { getModBuiltins } from "./helpers/getModBuiltins"
 export const builtInMeta: BuiltInElement[] = [
   ...getUIBuiltins(),
   ...getModBuiltins(),
-  {
-    name: "approachcircle",
-    alias: "approach-circle",
-    description: "A hitcircle's approach circle",
-  },
+  ...getGameplayBuiltins(),
+  ...getRankingBuiltins(),
+  ...getStandardBultins(),
 ]
