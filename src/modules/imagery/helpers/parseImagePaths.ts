@@ -22,10 +22,15 @@ export type ImageParseData = {
 export type ImageDataFromParse = Omit<ImageElementData, "width" | "height">
 
 /**
+ * Get the canonical element name from a frame name
+ */
+export const getCanonicalName = (name: string) => name.replace(/\-?\d*$/, "")
+
+/**
  * Returns a frame data if the image is a valid frame
  */
 export const getFrameFor = (name: string): FrameData | undefined => {
-  const safeName = name.replace(/\-?\d/g, "")
+  const safeName = getCanonicalName(name)
 
   /**
    * Check if this frame is one of the edgecases
@@ -36,10 +41,10 @@ export const getFrameFor = (name: string): FrameData | undefined => {
   const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(safeName)
   const isAnimation = ANIMATABLE_IMAGE_NAMES.includes(safeName)
 
-  console.log({ isAnimation, safeName })
-
-  const regex = new RegExp(isEdgecase ? /\d+/ : /-\d+/)
+  const regex = isEdgecase ? /(?<=[^-\d])\d*$/ : /-\d+$/
   const match = name.match(regex)
+
+  console.log({ safeName, match, isAnimation })
 
   if (match && isAnimation) {
     const canonical = name.replace(regex, "")
@@ -57,7 +62,7 @@ export const getFrameFor = (name: string): FrameData | undefined => {
 export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
   return items.filter(item => {
     /** Remove the number, so this can match */
-    return item.frame && item.frame.canonical === element.name.replace(/\-?\d/g, "")
+    return item.frame && item.frame.canonical === getCanonicalName(element.name)
   })
 }
 
@@ -65,7 +70,10 @@ export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
  * Parses the path and attempts to guess what the image is for
  */
 export const parseImagePath = (path: string) => {
-  const name = getStrippedFilename(path).replace(HD_SUFFIX, "")
+  const name = getStrippedFilename(path)
+    .replace(HD_SUFFIX, "")
+    .toLowerCase()
+
   const frame = getFrameFor(name)
 
   return { name, path, frame }
