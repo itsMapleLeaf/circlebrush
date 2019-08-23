@@ -116,6 +116,10 @@ export const getStandardBultins = (): BuiltInElement[] => {
 
     /** Misc */
     create({
+      name: "followpoint",
+      alias: "follow-point",
+    }),
+    create({
       name: "comboburst",
       alias: "standard-comboburst",
       description:
