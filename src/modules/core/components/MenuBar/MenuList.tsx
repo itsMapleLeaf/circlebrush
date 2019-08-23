@@ -1,8 +1,8 @@
-import React from "react";
-import { getColor } from "../../../theming/helpers";
-import { styled } from "../../../theming/themes";
-import { MenuItemList } from "../../types/MenuItem";
-import { MenuItemRenderer } from "./MenuItemRenderer";
+import React from "react"
+import { getColor } from "../../../theming/helpers"
+import { styled } from "../../../theming/themes"
+import { MenuItemList } from "../../types/MenuItem"
+import { MenuItemRenderer } from "./MenuItemRenderer"
 
 export interface MenuListProps {
   items: MenuItemList
