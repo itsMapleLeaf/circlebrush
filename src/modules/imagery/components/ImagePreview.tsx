@@ -52,7 +52,7 @@ const Image = styled.div<{ animation?: SpriteAnimation }>`
       animation-name: ${createKeyFrames(width)};
       animation-timing-function: steps(${count});
       animation-iteration-count: infinite;
-      animation-duration: ${count * 60}ms;
+      animation-duration: ${count * 32}ms;
 
       background-position: left center;
       background-size: auto;
