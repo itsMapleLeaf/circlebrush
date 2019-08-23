@@ -25,7 +25,7 @@ export type ImageDataFromParse = Omit<ImageElementData, "width" | "height">
  * Returns a frame data if the image is a valid frame
  */
 export const getFrameFor = (name: string): FrameData | undefined => {
-  const safeName = name.replace(/\-?\d/, "")
+  const safeName = name.replace(/\-?\d/g, "")
 
   /**
    * Check if this frame is one of the edgecases
@@ -34,11 +34,14 @@ export const getFrameFor = (name: string): FrameData | undefined => {
    * it'll match the edgecase list
    */
   const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(safeName)
+  const isAnimation = ANIMATABLE_IMAGE_NAMES.includes(safeName)
+
+  console.log({ isAnimation, safeName })
 
   const regex = new RegExp(isEdgecase ? /\d+/ : /-\d+/)
   const match = name.match(regex)
 
-  if (match) {
+  if (match && isAnimation) {
     const canonical = name.replace(regex, "")
 
     return {
@@ -54,7 +57,7 @@ export const getFrameFor = (name: string): FrameData | undefined => {
 export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
   return items.filter(item => {
     /** Remove the number, so this can match */
-    return item.frame && item.frame.canonical === element.name.replace(/\-?\d/, "")
+    return item.frame && item.frame.canonical === element.name.replace(/\-?\d/g, "")
   })
 }
 
