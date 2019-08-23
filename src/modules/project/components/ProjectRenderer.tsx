@@ -1,11 +1,8 @@
 import React from "react"
-import { useSkin } from "../../skin/hooks/useSkin"
-import { styled } from "../../theming/themes"
-import { SkinElementList } from "../../skin/components/SkinElementList"
-import { useStores } from "../../../common/state/hooks/useStores"
-import { useObserver } from "mobx-react-lite"
+import { useObservedStore } from "../../../common/state/hooks/useObservedStore"
+import { Skin } from "../../skin/classes/Skin"
 import { SkinElementSidebar } from "../../skin/components/SkinElementSidebar/SkinElementSidebar"
-import { FilterOptions } from "./ElementListView/FilterOptions"
+import { styled } from "../../theming/themes"
 import { ElementListView } from "./ElementListView/ElementListView"
 
 const Container = styled.div`
@@ -28,9 +25,12 @@ const List = styled.div`
   overflow-y: scroll;
 `
 
-export function ProjectRenderer() {
-  const { projectStore } = useStores()
-  const selected = useObserver(() => projectStore.selectedElement)
+export interface ProjectRendererProps {
+  skin: Skin
+}
+
+export function ProjectRenderer({ skin }: ProjectRendererProps) {
+  const selected = useObservedStore(({ projectStore }) => projectStore.selectedElement)
 
   const renderSidebar = () => {
     if (selected) {
@@ -42,7 +42,7 @@ export function ProjectRenderer() {
     <Container>
       <Main>
         <List>
-          <ElementListView skin={projectStore.project!.skin} />
+          <ElementListView skin={skin} />
         </List>
       </Main>
       {renderSidebar()}

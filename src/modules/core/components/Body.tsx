@@ -1,8 +1,8 @@
-import { styled } from "../../theming/themes"
-import { useStores } from "../../../common/state/hooks/useStores"
-import React from "react"
 import { useObserver } from "mobx-react-lite"
+import React from "react"
+import { useStores } from "../../../common/state/hooks/useStores"
 import { ProjectRenderer } from "../../project/components/ProjectRenderer"
+import { styled } from "../../theming/themes"
 import { NavigationSidebar } from "./Navigation/NavigationSidebar"
 
 const Container = styled.div`
@@ -23,7 +23,7 @@ export function Body() {
   return (
     <Container>
       <NavigationSidebar />
-      <Main>{project ? <ProjectRenderer /> : null}</Main>
+      <Main>{project ? <ProjectRenderer skin={project.skin} /> : null}</Main>
     </Container>
   )
 }
