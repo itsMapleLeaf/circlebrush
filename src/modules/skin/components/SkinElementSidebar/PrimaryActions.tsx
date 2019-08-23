@@ -21,12 +21,12 @@ export function PrimaryActions(props: PrimaryActionsProps) {
         <PrimaryButton
           stretch
           label="Edit element"
-          onClick={() => shell.openItem(element.path)}
+          onClick={() => shell.openItem(element.assetPath)}
         />
         <SecondaryButton
           stretch
           label="Show in folder"
-          onClick={() => shell.showItemInFolder(element.path)}
+          onClick={() => shell.showItemInFolder(element.assetPath)}
         />
       </ButtonList>
     </Container>

@@ -10,6 +10,7 @@ import { ASSET_FOLDER, PREVIEW_FOLDER, BUILD_FOLDER } from "../../project/consta
 import { getHash } from "../../../common/lang/string/getHash"
 import { observable } from "mobx"
 import { buildImageElement } from "../image-helpers/buildImageElement"
+import { copyImageAsset } from "../helpers/copyImageAsset"
 
 /**
  * Represents a skin image element, such as a .png
@@ -22,30 +23,28 @@ export class ImageElement extends SkinElement<ImageElementData> {
    */
   public static async createFromPathList(paths: string[], options: SkinElementOptions) {
     const { temp } = options
-    const result: ImageElement[] = []
 
     const imagePaths = paths.filter(p => p.endsWith(".png"))
     const parsed = parseImagePaths(imagePaths)
 
-    for (const data of parsed) {
-      const { name } = data
-      const builtinData = builtInMeta.find(data => data.name === name) || {}
+    const result = await Promise.all(
+      parsed.map(async data => {
+        const { name } = data
 
-      const finalData = {
-        ...data,
-        ...builtinData,
-      }
+        const builtinData = builtInMeta.find(data => data.name === name) || {}
+        const finalData = {
+          ...data,
+          ...builtinData,
+        }
 
-      const element = new ImageElement(finalData, options)
+        await copyImageAsset(finalData, temp)
 
-      const newPath = join(temp, ASSET_FOLDER, `${element.name}.png`)
-      await copy(element.path, newPath)
+        const element = new ImageElement(finalData, options)
+        await element.updatePreview()
 
-      element.data.path = newPath
-      await element.updatePreview()
-
-      result.push(element)
-    }
+        return element
+      })
+    )
 
     return result
   }
@@ -64,8 +63,7 @@ export class ImageElement extends SkinElement<ImageElementData> {
     const name = `${this.alias}-${hash}.png`
     const newPath = join(temp, PREVIEW_FOLDER, name)
 
-    await copy(this.path, join(temp, PREVIEW_FOLDER, name))
-
+    await copy(this.assetPath, join(temp, PREVIEW_FOLDER, name))
     this.preview = newPath
   }
 
@@ -74,10 +72,9 @@ export class ImageElement extends SkinElement<ImageElementData> {
    */
   public async build() {
     const { temp } = this.options
-    const { path, name } = this.data
+    const { name } = this.data
 
     const dest = join(temp, BUILD_FOLDER)
-
-    await buildImageElement({ path, name, dest })
+    await buildImageElement({ path: this.assetPath, name, dest })
   }
 }

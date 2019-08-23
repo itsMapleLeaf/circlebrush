@@ -1,7 +1,8 @@
-import * as path from "path"
 import { BuiltInElement } from "../types/BuiltInElement"
 import { builtInMeta } from "../builtins"
 import { observable, computed } from "mobx"
+import { join } from "path"
+import { ASSET_FOLDER } from "../../project/constants"
 
 export interface SkinElementData {
   path: string
@@ -25,9 +26,13 @@ export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
   constructor(data: T, protected options: SkinElementOptions) {
     this.data = data
   }
+
   @computed
-  public get path() {
-    return this.data.path
+  public get assetPath() {
+    const { temp } = this.options
+    const { name } = this.data
+
+    return join(temp, ASSET_FOLDER, `${name}.png`)
   }
 
   @computed

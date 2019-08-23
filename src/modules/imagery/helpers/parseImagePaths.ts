@@ -44,6 +44,16 @@ export const getFrameFor = (name: string): FrameData | undefined => {
 }
 
 /**
+ * Get the frame elements for an element
+ */
+export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
+  return items.filter(item => {
+    /** Remove the number, so this can match */
+    return item.frame && item.frame.canonical === element.name.replace(/\d+/, "")
+  })
+}
+
+/**
  * Parses the path and attempts to guess what the image is for
  */
 export const parseImagePath = (path: string) => {
@@ -63,9 +73,7 @@ export const createDataFromParse = (
   const { name, path, frame } = data
 
   /** Get the amount of frames associated with this element */
-  const frameCount = others.filter(
-    other => other.frame && other.frame.canonical === data.name
-  ).length
+  const frameCount = getFrames(data, others).length
 
   /** Include this if it's the first frame and there is not a static variant */
   if (frame) {
@@ -85,15 +93,17 @@ export const createDataFromParse = (
     }
   }
 
+  const frames = frameCount
+    ? {
+        count: frameCount,
+        static: true,
+      }
+    : undefined
+
   return {
     name,
     path,
-    frames: frameCount
-      ? {
-          count: frameCount,
-          static: true,
-        }
-      : undefined,
+    frames,
   }
 }
 
@@ -113,6 +123,8 @@ export const filterScaling = (path: string, _: any, others: string[]) => {
 export const parseImagePaths = (paths: string[]): ImageElementData[] => {
   const filteredPaths = paths.filter(filterScaling)
   const parsed = filteredPaths.map(parseImagePath)
+
+  console.log(parsed)
 
   return parsed.map(p => createDataFromParse(p, parsed)).filter(x => x) as any
 }

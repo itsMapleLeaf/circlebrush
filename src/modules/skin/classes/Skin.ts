@@ -117,7 +117,7 @@ export class Skin {
   public serialize(): SerializedSkin {
     return {
       config: this.config.data,
-      elements: this.elements.map(element => element.path),
+      elements: this.elements.map(element => element.assetPath),
     }
   }
 }
