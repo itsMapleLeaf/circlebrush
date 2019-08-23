@@ -13,7 +13,7 @@ export const ensureTempFolder = async (folder: string) => {
   const sanitized = sanitizeFileName(name)
 
   const temp = join(remote.app.getPath("temp"), TEMP_ROOT)
-  const fullPath = join(temp, sanitized).replace(/\\/g, "/")
+  const fullPath = join(temp, sanitized)
 
   await remove(fullPath)
   await mkdirp(fullPath)
