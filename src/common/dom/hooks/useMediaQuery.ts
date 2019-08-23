@@ -4,7 +4,7 @@ export const useMediaQuery = <T extends readonly (string | number)[]>(
   ...breakpoints: T
 ): boolean[] => {
   const safeBreakpoints = breakpoints.map(x =>
-    typeof x === "number" ? `(max-width: ${x}px)` : x
+    typeof x === "number" ? `(max-width: ${x}px)` : x,
   )
 
   const queries = safeBreakpoints.map(b => window.matchMedia(b))

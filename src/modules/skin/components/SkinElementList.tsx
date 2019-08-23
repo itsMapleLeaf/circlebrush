@@ -52,7 +52,7 @@ export function SkinElementList(props: SkinElementListProps) {
   const selected = useObserver(() => projectStore.selectedElement)
   const categories = categorize(
     elements,
-    element => element.data.category || "Uncategorized"
+    element => element.data.category || "Uncategorized",
   )
 
   return (

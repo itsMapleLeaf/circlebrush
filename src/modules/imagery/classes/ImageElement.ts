@@ -43,7 +43,7 @@ export class ImageElement extends SkinElement<ImageElementData> {
         await element.updatePreview()
 
         return element
-      })
+      }),
     )
 
     return result

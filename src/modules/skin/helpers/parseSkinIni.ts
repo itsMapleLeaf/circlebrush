@@ -10,7 +10,7 @@ const generalMap: Record<string, string> = {
   CursorCentre: "centeredCursorHotspot",
   CursorExpand: "expandCursorOnClick",
   CursorRotate: "cursorRotate",
-  CursorTrailRotate: "cursorTrailRotate"
+  CursorTrailRotate: "cursorTrailRotate",
 }
 
 const flattenGeneral = (block: ParsedIniBlock) => {
@@ -36,6 +36,6 @@ export const parseSkinIni = (data: string) => {
   if (!general) throw new Error("Missing [General] block")
 
   return {
-    ...flattenGeneral(general)
+    ...flattenGeneral(general),
   }
 }

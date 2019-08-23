@@ -50,5 +50,5 @@ export function MenuBar(props: PropsWithChildren<{}>) {
 }
 
 const { Provider } = (MenuBar.context = React.createContext<MenuBarContext | undefined>(
-  undefined
+  undefined,
 ))

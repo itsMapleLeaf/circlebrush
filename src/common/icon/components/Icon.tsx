@@ -15,6 +15,6 @@ export function Icon(props: IconProps) {
   return React.cloneElement(icons[name], {
     className,
     width: "100%",
-    height: "100%"
+    height: "100%",
   })
 }

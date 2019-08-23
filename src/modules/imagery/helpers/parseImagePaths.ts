@@ -65,7 +65,7 @@ export const parseImagePath = (path: string) => {
  */
 export const createDataFromParse = (
   data: ImageParseData,
-  others: ImageParseData[]
+  others: ImageParseData[],
 ): ImageElementData | undefined => {
   const { name, path, frame } = data
 

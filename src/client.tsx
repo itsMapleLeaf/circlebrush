@@ -21,7 +21,7 @@ async function init() {
     <managerContext.Provider value={manager}>
       <App />
     </managerContext.Provider>,
-    element
+    element,
   )
 
   autorun(() => {
