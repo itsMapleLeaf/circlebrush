@@ -28,5 +28,7 @@ export const buildAnimationPreview = async (options: BuildAnimationPreviewOption
     },
   }).composite(composites)
 
-  await image.toFile(dest)
+  try {
+    await image.toFile(dest)
+  } catch {}
 }
