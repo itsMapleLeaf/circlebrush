@@ -1,10 +1,8 @@
 import React from "react"
-
+import { getColor } from "../../../theming/helpers"
+import { styled } from "../../../theming/themes"
 import { MenuItemList } from "../../types/MenuItem"
 import { MenuItemRenderer } from "./MenuItemRenderer"
-
-import { styled } from "../../../theming/themes"
-import { getColor } from "../../../theming/helpers"
 
 export interface MenuListProps {
   items: MenuItemList
@@ -12,7 +10,7 @@ export interface MenuListProps {
 
 const Container = styled.ul`
   background: ${getColor("primary")};
-  padding 8px 0px;
+  padding: 8px 0px;
 `
 
 const Divider = styled.li`
