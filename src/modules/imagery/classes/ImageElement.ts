@@ -104,6 +104,9 @@ export class ImageElement extends SkinElement<ImageElementData> {
     await buildImageElement({ image, name, dest })
   }
 
+  /**
+   * Returns the calculated paths to each frame
+   */
   public get framePaths() {
     const { temp } = this.options
     const { name, frames } = this.data
