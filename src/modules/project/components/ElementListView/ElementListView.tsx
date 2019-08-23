@@ -1,8 +1,7 @@
+import React, { useState } from "react"
 import { Skin } from "../../../skin/classes/Skin"
-import { useState } from "react"
-import React from "react"
-import { FilterOptions } from "./FilterOptions"
 import { SkinElementList } from "../../../skin/components/SkinElementList"
+import { FilterOptions } from "./FilterOptions"
 
 export interface ElementListViewProps {
   skin: Skin
@@ -25,7 +24,7 @@ export function ElementListView(props: ElementListViewProps) {
 
   return (
     <>
-      <FilterOptions filter={filter} onChange={filter => setFilter(filter)} />
+      <FilterOptions filter={filter} onChange={setFilter} />
       <SkinElementList elements={elements} />
     </>
   )
