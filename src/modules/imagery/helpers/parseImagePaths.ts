@@ -16,6 +16,7 @@ export type FrameData = {
 export type ImageParseData = {
   name: string
   path: string
+  highDefinition: boolean
   frame?: FrameData
 }
 
@@ -44,8 +45,6 @@ export const getFrameFor = (name: string): FrameData | undefined => {
   const regex = isEdgecase ? /(?<=[^-\d])\d*$/ : /-\d+$/
   const match = name.match(regex)
 
-  console.log({ safeName, match, isAnimation })
-
   if (match && isAnimation) {
     const canonical = name.replace(regex, "")
 
@@ -70,13 +69,16 @@ export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
  * Parses the path and attempts to guess what the image is for
  */
 export const parseImagePath = (path: string) => {
-  const name = getStrippedFilename(path)
-    .replace(HD_SUFFIX, "")
-    .toLowerCase()
+  const strippedName = getStrippedFilename(path).toLowerCase()
+
+  const highDefinition = strippedName.includes(HD_SUFFIX)
+  const name = strippedName.replace(HD_SUFFIX, "")
+
+  console.log(highDefinition)
 
   const frame = getFrameFor(name)
 
-  return { name, path, frame }
+  return { name, path, frame, highDefinition }
 }
 
 /**
@@ -86,7 +88,7 @@ export const createDataFromParse = (
   data: ImageParseData,
   others: ImageParseData[],
 ): ImageDataFromParse | undefined => {
-  const { name, path, frame } = data
+  const { name, path, frame, highDefinition } = data
 
   /** Get the amount of frames associated with this element */
   const frameCount = getFrames(data, others).length
@@ -102,6 +104,7 @@ export const createDataFromParse = (
     return {
       path,
       name: canonical,
+      highDefinition,
       frames: {
         count: frameCount,
         static: false,
@@ -112,6 +115,7 @@ export const createDataFromParse = (
   const frames = frameCount ? { count: frameCount, static: true } : undefined
 
   return {
+    highDefinition,
     name,
     path,
     frames,

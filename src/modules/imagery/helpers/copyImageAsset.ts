@@ -1,8 +1,8 @@
 import { ImageElementData } from "../types/ImageElementData"
 import { ASSET_FOLDER } from "../../project/constants"
 import { join, parse } from "path"
-import { ANIMATION_NAMING_EDGECASES } from "../constants"
-import { copy } from "fs-extra"
+import { ANIMATION_NAMING_EDGECASES, HD_SUFFIX } from "../constants"
+import { copy, pathExists } from "fs-extra"
 import { range } from "../../../common/lang/array/range"
 
 /**
@@ -10,7 +10,7 @@ import { range } from "../../../common/lang/array/range"
  * accounting for frames.
  */
 export const copyImageAsset = async (data: ImageElementData, temp: string) => {
-  const { name, path, frames } = data
+  const { name, path, frames, highDefinition } = data
   const { dir } = parse(path)
 
   const newPath = join(temp, ASSET_FOLDER, `${name}.png`)
@@ -18,11 +18,19 @@ export const copyImageAsset = async (data: ImageElementData, temp: string) => {
 
   if (frames) {
     const { count } = frames
+
     const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(name)
 
-    const promises = range(count).map(frame => {
+    const promises = range(count).map(async frame => {
+      /** Part of the path without suffix */
+      const pathFragment = join(dir, `${name}${isEdgecase ? "" : "-"}${frame}`)
+
+      /** Only copy the HD frame if the static image is HD and the frame exists */
+      const hasHD = await pathExists(`${pathFragment}${HD_SUFFIX}.png`)
+      const conditionalHdSuffix = highDefinition && hasHD ? HD_SUFFIX : ""
+
       /** Where the frame is located */
-      const framePath = join(dir, `${name}${isEdgecase ? "" : "-"}${frame}.png`)
+      const framePath = `${pathFragment}${conditionalHdSuffix}.png`
 
       return copy(framePath, join(temp, ASSET_FOLDER, `${name}-${frame}.png`))
     })
