@@ -1,7 +1,7 @@
-import { styled } from "../../theming/themes"
 import React from "react"
+import { styled } from "../../theming/themes"
 
-export interface ImagePreviewProps {
+export type ImagePreviewProps = {
   src: string
   className?: string
 }

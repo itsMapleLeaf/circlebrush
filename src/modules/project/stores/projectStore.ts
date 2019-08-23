@@ -1,9 +1,9 @@
-import { observable } from "mobx"
-import { Project, SerializedProject } from "../classes/Project"
-import { Store } from "../../../common/state/types/Store"
-import { SkinElementLike } from "../../skin/types/SkinElementLike"
+import { observable } from "mobx";
+import { Store } from "../../../common/state/types/Store";
+import { SkinElementLike } from "../../skin/types/SkinElementLike";
+import { Project, SerializedProject } from "../classes/Project";
 
-export interface SerializedProjectStore {
+export type SerializedProjectStore = {
   project?: SerializedProject
 }
 class ProjectStore implements Store<SerializedProjectStore> {

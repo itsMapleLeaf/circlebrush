@@ -1,13 +1,13 @@
-import { MenuItemList } from "../types/MenuItem";
+import { MenuItemList } from "../types/MenuItem"
 
 export const getHelpMenuItems = (): MenuItemList => [
   {
     name: "about",
-    label: "About"
+    label: "About",
   },
   null,
   {
     name: "getting-started",
-    label: "Getting started"
-  }
-];
+    label: "Getting started",
+  },
+]

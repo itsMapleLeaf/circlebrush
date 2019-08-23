@@ -1,17 +1,17 @@
-import { Skin, SerializedSkin } from "../../skin/classes/Skin"
 import { observable } from "mobx"
-import { ensureTempFolder } from "../helpers/ensureTempFolder"
 import { join } from "path"
+import { SerializedSkin, Skin } from "../../skin/classes/Skin"
 import { TEMP_ROOT } from "../constants"
+import { ensureTempFolder } from "../helpers/ensureTempFolder"
 
-export interface ProjectData {
+export type ProjectData = {
   name: string
   tempName: string
   description: string
   skin: Skin
 }
 
-export interface SerializedProject {
+export type SerializedProject = {
   name: string
   tempName: string
   description: string

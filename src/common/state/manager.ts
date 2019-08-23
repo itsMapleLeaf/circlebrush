@@ -5,7 +5,7 @@ import { StoreManager } from "./classes/StoreManager"
 import { projectStore } from "../../modules/project/stores/projectStore"
 
 const stores = {
-  projectStore
+  projectStore,
 }
 
 export type Stores = StoreMapReturn<typeof stores>

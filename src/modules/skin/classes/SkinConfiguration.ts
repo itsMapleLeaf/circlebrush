@@ -1,10 +1,10 @@
 import { promises as fs } from "fs"
-import { parseSkinIni } from "../helpers/parseSkinIni"
-import { observable } from "mobx"
 import { copy } from "fs-extra"
+import { observable } from "mobx"
 import { join } from "path"
+import { parseSkinIni } from "../helpers/parseSkinIni"
 
-export interface SkinConfigurationData {
+export type SkinConfigurationData = {
   name: string
   version: string
 }

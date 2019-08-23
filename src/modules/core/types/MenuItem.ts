@@ -1,6 +1,6 @@
 import { StoreManager } from "../../../common/state/classes/StoreManager"
 
-export interface MenuItem {
+export type MenuItem = {
   label: string
   name: string
   shortcut?: string

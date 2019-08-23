@@ -9,7 +9,7 @@ const create = (name: string, alias = name): BuiltInElement => ({
   category: CATEGORY,
 })
 
-const mods: [string, string?][] = [
+const mods: (readonly [string, string?])[] = [
   ["autoplay"],
   ["cinema"],
   ["easy"],
@@ -30,7 +30,7 @@ const mods: [string, string?][] = [
   ["target", "target-practice"],
   ["scorev2", "score-v2"],
   ["keycoop", "co-op"],
-  ...([1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => [`key${n}`, `${n}K`]) as any),
+  ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => [`key${n}`, `${n}K`] as const),
 ]
 
 export const getModBuiltins = (): BuiltInElement[] =>

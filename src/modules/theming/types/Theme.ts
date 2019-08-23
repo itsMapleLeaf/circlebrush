@@ -1,4 +1,4 @@
-export interface Theme {
+export type Theme = {
   colors: {
     primary: string
     accent: string

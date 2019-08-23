@@ -1,16 +1,16 @@
-import { styled } from "../../../theming/themes"
 import React from "react"
 import { TextInput } from "../../../../common/input/components/TextInput"
+import { styled } from "../../../theming/themes"
 
 const Container = styled.div`
   margin-bottom: 32px;
 `
 
-export interface Filter {
+export type Filter = {
   search: string
 }
 
-export interface FilterOptionsProps {
+export type FilterOptionsProps = {
   filter: Filter
   onChange: (filter: Filter) => void
 }

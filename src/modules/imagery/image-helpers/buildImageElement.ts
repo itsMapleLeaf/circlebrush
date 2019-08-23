@@ -1,9 +1,8 @@
-import sharp from "sharp"
-import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
 import { join } from "path"
+import sharp from "sharp"
 import { HD_SUFFIX } from "../constants"
 
-export interface ExportImageElementOptions {
+export type ExportImageElementOptions = {
   path: string
   dest: string
   name: string

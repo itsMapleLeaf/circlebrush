@@ -1,11 +1,11 @@
+import { useObserver } from "mobx-react-lite"
 import React from "react"
-import { SkinElementItem } from "./SkinElementItem"
+import { categorize } from "../../../common/lang/array/categorize"
+import { useStores } from "../../../common/state/hooks/useStores"
+import { getColor } from "../../theming/helpers"
 import { styled } from "../../theming/themes"
 import { SkinElementLike } from "../types/SkinElementLike"
-import { categorize } from "../../../common/lang/array/categorize"
-import { getColor } from "../../theming/helpers"
-import { useStores } from "../../../common/state/hooks/useStores"
-import { useObserver } from "mobx-react-lite"
+import { SkinElementItem } from "./SkinElementItem"
 
 const Grid = styled.ul`
   display: grid;
@@ -41,7 +41,7 @@ const Title = styled.h1`
   }
 `
 
-export interface SkinElementListProps {
+export type SkinElementListProps = {
   elements: SkinElementLike[]
 }
 
@@ -52,7 +52,7 @@ export function SkinElementList(props: SkinElementListProps) {
   const selected = useObserver(() => projectStore.selectedElement)
   const categories = categorize(
     elements,
-    element => element.data.category || "Uncategorized"
+    element => element.data.category || "Uncategorized",
   )
 
   return (

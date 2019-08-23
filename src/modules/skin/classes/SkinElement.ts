@@ -1,10 +1,8 @@
-import { BuiltInElement } from "../types/BuiltInElement"
-import { builtInMeta } from "../builtins"
-import { observable, computed } from "mobx"
+import { computed, observable } from "mobx"
 import { join } from "path"
 import { ASSET_FOLDER } from "../../project/constants"
 
-export interface SkinElementData {
+export type SkinElementData = {
   path: string
   name: string
   alias?: string
@@ -14,7 +12,7 @@ export interface SkinElementData {
   upscaled?: boolean
 }
 
-export interface SkinElementOptions {
+export type SkinElementOptions = {
   /** The temp folder path for the loaded project */
   temp: string
 }

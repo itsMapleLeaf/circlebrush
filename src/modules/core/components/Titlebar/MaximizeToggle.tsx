@@ -19,10 +19,5 @@ export function MaximizeToggle() {
   useInstanceEvent("maximize", () => setMaximized(true))
   useInstanceEvent("unmaximize", () => setMaximized(false))
 
-  return (
-    <TitlebarButton
-      icon={maximized ? "restore" : "maximize"}
-      onClick={toggle}
-    />
-  )
+  return <TitlebarButton icon={maximized ? "restore" : "maximize"} onClick={toggle} />
 }

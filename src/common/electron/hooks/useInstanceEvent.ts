@@ -5,7 +5,7 @@ export type BrowserWindowEvents = "will-resize" | "maximize" | "unmaximize"
 
 export const useInstanceEvent = (
   type: BrowserWindowEvents,
-  callback: (event: any) => void
+  callback: (event: any) => void,
 ) => {
   const instance = useInstance()
 
