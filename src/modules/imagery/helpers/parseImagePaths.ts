@@ -74,10 +74,7 @@ export const parseImagePath = (path: string) => {
   const highDefinition = strippedName.includes(HD_SUFFIX)
   const name = strippedName.replace(HD_SUFFIX, "")
 
-  console.log(highDefinition)
-
   const frame = getFrameFor(name)
-
   return { name, path, frame, highDefinition }
 }
 
