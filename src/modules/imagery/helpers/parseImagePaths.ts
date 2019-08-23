@@ -1,11 +1,8 @@
-import {
-  ANIMATION_NAMING_EDGECASES,
-  ANIMATABLE_IMAGE_NAMES,
-  HD_SUFFIX,
-} from "../constants"
-import { extname, basename } from "path"
-import { ImageElementData } from "../types/ImageElementData"
+import { basename, extname } from "path"
+import { isNonNil } from "../../../common/lang/isNonNil"
 import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
+import { ANIMATION_NAMING_EDGECASES, HD_SUFFIX } from "../constants"
+import { ImageElementData } from "../types/ImageElementData"
 
 export interface FrameData {
   canonical: string
@@ -93,12 +90,7 @@ export const createDataFromParse = (
     }
   }
 
-  const frames = frameCount
-    ? {
-        count: frameCount,
-        static: true,
-      }
-    : undefined
+  const frames = frameCount ? { count: frameCount, static: true } : undefined
 
   return {
     name,
@@ -126,5 +118,5 @@ export const parseImagePaths = (paths: string[]): ImageElementData[] => {
 
   console.log(parsed)
 
-  return parsed.map(p => createDataFromParse(p, parsed)).filter(x => x) as any
+  return parsed.map(p => createDataFromParse(p, parsed)).filter(isNonNil)
 }
