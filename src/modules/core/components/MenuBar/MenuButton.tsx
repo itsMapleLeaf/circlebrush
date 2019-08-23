@@ -1,10 +1,9 @@
-import { styled } from "../../../theming/themes"
-import { Button } from "../../../../common/button/components/Button"
 import React, { useContext } from "react"
+import { Button } from "../../../../common/button/components/Button"
+import { styled } from "../../../theming/themes"
+import { MenuItemList } from "../../types/MenuItem"
 import { TITLEBAR_HEIGHT } from "../Titlebar/constants"
 import { MenuBar } from "./MenuBar"
-import { getColor } from "../../../theming/helpers"
-import { MenuItem, MenuItemList } from "../../types/MenuItem"
 import { MenuList } from "./MenuList"
 
 const Container = styled.div`
@@ -50,7 +49,7 @@ const PopoverContainer = styled.div`
   left: 0px;
 `
 
-export interface MenuButtonProps {
+export type MenuButtonProps = {
   name: string
   label: string
   items: MenuItemList

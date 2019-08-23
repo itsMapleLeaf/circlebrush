@@ -1,13 +1,13 @@
-import { IconType } from "../../icon/types/IconType"
-import { styled } from "../../../modules/theming/themes"
 import React from "react"
+import { styled } from "../../../modules/theming/themes"
 import { Icon } from "../../icon/components/Icon"
+import { IconType } from "../../icon/types/IconType"
 
-export interface ButtonVariants {
+export type ButtonVariants = {
   stretch?: boolean
 }
 
-export interface ButtonProps extends ButtonVariants {
+export type ButtonProps = ButtonVariants & {
   className?: string
   icon?: IconType
   label?: string

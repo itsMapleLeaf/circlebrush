@@ -4,7 +4,7 @@ import { styled } from "../../../theming/themes"
 import { MenuItemList } from "../../types/MenuItem"
 import { MenuItemRenderer } from "./MenuItemRenderer"
 
-export interface MenuListProps {
+export type MenuListProps = {
   items: MenuItemList
 }
 

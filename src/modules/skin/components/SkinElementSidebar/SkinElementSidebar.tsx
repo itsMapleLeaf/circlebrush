@@ -1,13 +1,13 @@
-import { styled } from "../../../theming/themes"
-import { getColor } from "../../../theming/helpers"
-import { SkinElementLike } from "../../types/SkinElementLike"
 import React from "react"
 import { ImageElement } from "../../../imagery/classes/ImageElement"
-import { PrimaryInfo } from "./PrimaryInfo"
-import { PrimaryActions } from "./PrimaryActions"
 import { ImageElementThumbnail } from "../../../imagery/components/ImageElementThumbnail"
+import { getColor } from "../../../theming/helpers"
+import { styled } from "../../../theming/themes"
+import { SkinElementLike } from "../../types/SkinElementLike"
+import { PrimaryActions } from "./PrimaryActions"
+import { PrimaryInfo } from "./PrimaryInfo"
 
-export interface SkinElementSidebarProps {
+export type SkinElementSidebarProps = {
   element: SkinElementLike
 }
 

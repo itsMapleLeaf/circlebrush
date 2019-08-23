@@ -1,8 +1,8 @@
 import React from "react"
-import { MenuItem } from "../../types/MenuItem"
-import { styled } from "../../../theming/themes"
-import { getFontColor, getTransparency, getColor } from "../../../theming/helpers"
 import { useManager } from "../../../../common/state/hooks/useManager"
+import { getColor, getFontColor, getTransparency } from "../../../theming/helpers"
+import { styled } from "../../../theming/themes"
+import { MenuItem } from "../../types/MenuItem"
 
 const Container = styled.li<{ disabled: boolean }>`
   display: flex;
@@ -36,7 +36,7 @@ const Shortcut = styled.span`
   color: ${getFontColor("muted")};
 `
 
-export interface MenuItemProps {
+export type MenuItemProps = {
   item: MenuItem
 }
 

@@ -1,14 +1,13 @@
-import { SkinElementLike } from "../types/SkinElementLike"
-import { ImageElement } from "../../imagery/classes/ImageElement"
-import React from "react"
-import { styled } from "../../theming/themes"
-import { getColor } from "../../theming/helpers"
 import { cover, ellipsis } from "polished"
-import { ImagePreview } from "../../imagery/components/ImagePreview"
-import { humanizeFilename } from "../helpers/humanizeFilename"
+import React from "react"
+import { ImageElement } from "../../imagery/classes/ImageElement"
 import { ImageElementThumbnail } from "../../imagery/components/ImageElementThumbnail"
+import { getColor } from "../../theming/helpers"
+import { styled } from "../../theming/themes"
+import { humanizeFilename } from "../helpers/humanizeFilename"
+import { SkinElementLike } from "../types/SkinElementLike"
 
-export interface SkinElementItemProps {
+export type SkinElementItemProps = {
   element: SkinElementLike
   onClick?: () => void
   active?: boolean

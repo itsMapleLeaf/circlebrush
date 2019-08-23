@@ -1,12 +1,12 @@
-import { SkinElementLike } from "../../types/SkinElementLike"
-import { styled } from "../../../theming/themes"
-import React from "react"
-import { PrimaryButton } from "../../../../common/button/components/PrimaryButton"
 import { shell } from "electron"
+import React from "react"
 import { ButtonList } from "../../../../common/button/components/ButtonList"
+import { PrimaryButton } from "../../../../common/button/components/PrimaryButton"
 import { SecondaryButton } from "../../../../common/button/components/SecondaryButton"
+import { styled } from "../../../theming/themes"
+import { SkinElementLike } from "../../types/SkinElementLike"
 
-export interface PrimaryActionsProps {
+export type PrimaryActionsProps = {
   element: SkinElementLike
 }
 

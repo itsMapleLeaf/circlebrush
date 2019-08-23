@@ -1,9 +1,9 @@
-import { ImageElement } from "../classes/ImageElement"
 import { useObserver } from "mobx-react-lite"
-import { ImagePreview } from "./ImagePreview"
 import React from "react"
+import { ImageElement } from "../classes/ImageElement"
+import { ImagePreview } from "./ImagePreview"
 
-export interface ImageElementThumbnailProps {
+export type ImageElementThumbnailProps = {
   element: ImageElement
   className?: string
 }

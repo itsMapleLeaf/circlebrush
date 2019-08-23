@@ -1,8 +1,8 @@
+import React from "react"
 import * as icons from "../icons"
 import { IconType } from "../types/IconType"
-import React from "react"
 
-export interface IconProps {
+export type IconProps = {
   className?: string
   name: IconType
 }

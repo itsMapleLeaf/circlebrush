@@ -3,7 +3,7 @@ import { Skin } from "../../../skin/classes/Skin"
 import { SkinElementList } from "../../../skin/components/SkinElementList"
 import { FilterOptions } from "./FilterOptions"
 
-export interface ElementListViewProps {
+export type ElementListViewProps = {
   skin: Skin
 }
 

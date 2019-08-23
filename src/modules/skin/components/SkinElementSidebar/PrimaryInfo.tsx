@@ -1,11 +1,11 @@
-import { SkinElementLike } from "../../types/SkinElementLike"
 import { useObserver } from "mobx-react-lite"
-import { styled } from "../../../theming/themes"
 import React from "react"
-import { humanizeFilename } from "../../helpers/humanizeFilename"
 import { getFontColor } from "../../../theming/helpers"
+import { styled } from "../../../theming/themes"
+import { humanizeFilename } from "../../helpers/humanizeFilename"
+import { SkinElementLike } from "../../types/SkinElementLike"
 
-export interface PrimaryInfoProps {
+export type PrimaryInfoProps = {
   element: SkinElementLike
 }
 

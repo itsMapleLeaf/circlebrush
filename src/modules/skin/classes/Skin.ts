@@ -1,23 +1,21 @@
-import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
-import { SkinElementLike } from "../types/SkinElementLike"
-import { ImageElement } from "../../imagery/classes/ImageElement"
-
-import { join } from "path"
-import { copy, readdir } from "fs-extra"
-import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
-import sanitizeFileName from "sanitize-filename"
-
 import { FSWatcher } from "chokidar"
-import { createSkinWatcher } from "../helpers/createSkinWatcher"
+import { copy, readdir } from "fs-extra"
+import { join } from "path"
+import sanitizeFileName from "sanitize-filename"
+import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
+import { ImageElement } from "../../imagery/classes/ImageElement"
 import { BUILD_FOLDER } from "../../project/constants"
+import { createSkinWatcher } from "../helpers/createSkinWatcher"
+import { SkinElementLike } from "../types/SkinElementLike"
+import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
 
-export interface SkinOptions {
+export type SkinOptions = {
   config: SkinConfiguration
   elements: SkinElementLike[]
   temp: string
 }
 
-export interface SerializedSkin {
+export type SerializedSkin = {
   config: SkinConfigurationData
   elements: string[]
 }

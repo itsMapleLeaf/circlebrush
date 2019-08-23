@@ -25,7 +25,7 @@ const List = styled.div`
   overflow-y: scroll;
 `
 
-export interface ProjectRendererProps {
+export type ProjectRendererProps = {
   skin: Skin
 }
 

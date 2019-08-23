@@ -1,15 +1,15 @@
-import { basename, extname } from "path"
-import { isNonNil } from "../../../common/lang/isNonNil"
-import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename"
-import { ANIMATION_NAMING_EDGECASES, HD_SUFFIX } from "../constants"
-import { ImageElementData } from "../types/ImageElementData"
+import { basename, extname } from "path";
+import { isNonNil } from "../../../common/lang/isNonNil";
+import { getStrippedFilename } from "../../../common/lang/string/getStrippedFilename";
+import { ANIMATION_NAMING_EDGECASES, HD_SUFFIX } from "../constants";
+import { ImageElementData } from "../types/ImageElementData";
 
-export interface FrameData {
+export type FrameData = {
   canonical: string
   index: number
 }
 
-export interface ImageParseData {
+export type ImageParseData = {
   name: string
   path: string
   frame?: FrameData

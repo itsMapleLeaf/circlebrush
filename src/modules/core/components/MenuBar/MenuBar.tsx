@@ -1,9 +1,8 @@
-import { PropsWithChildren, useState, useRef } from "react"
-import React from "react"
-import { styled } from "../../../theming/themes"
+import React, { PropsWithChildren, useRef, useState } from "react"
 import { useWindowEvent } from "../../../../common/dom/hooks/useWindowEvent"
+import { styled } from "../../../theming/themes"
 
-export interface MenuBarContext {
+export type MenuBarContext = {
   toggle: () => void
   setSelected: (name: string) => void
   selected: string

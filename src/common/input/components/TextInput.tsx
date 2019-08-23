@@ -1,6 +1,6 @@
-import { styled } from "../../../modules/theming/themes"
 import React, { ChangeEvent } from "react"
 import { getColor, getFontColor } from "../../../modules/theming/helpers"
+import { styled } from "../../../modules/theming/themes"
 
 const Container = styled.input`
   border: solid 1px ${getColor("divider")};
@@ -19,7 +19,7 @@ const Container = styled.input`
   }
 `
 
-export interface TextInputProps {
+export type TextInputProps = {
   placeholder?: string
   value: string
   onInput: (text: string) => void
