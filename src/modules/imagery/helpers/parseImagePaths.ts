@@ -63,7 +63,7 @@ export const createDataFromParse = (
   const { name, path, frame } = data
 
   /** Get the amount of frames associated with this element */
-  const frames = others.filter(
+  const frameCount = others.filter(
     other => other.frame && other.frame.canonical === data.name
   ).length
 
@@ -76,16 +76,24 @@ export const createDataFromParse = (
     if (hasStatic || index !== 0) return
 
     return {
-      name: canonical,
-      frames,
       path,
+      name: canonical,
+      frames: {
+        count: frameCount,
+        static: false,
+      },
     }
   }
 
   return {
     name,
     path,
-    frames,
+    frames: frameCount
+      ? {
+          count: frameCount,
+          static: true,
+        }
+      : undefined,
   }
 }
 
