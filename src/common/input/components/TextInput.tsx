@@ -33,5 +33,5 @@ export function TextInput(props: TextInputProps) {
     }
   }
 
-  return <Container {...props} onInput={handleInput} />
+  return <Container {...props} onChange={() => {}} onInput={handleInput} />
 }
