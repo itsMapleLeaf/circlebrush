@@ -38,7 +38,7 @@ export class ImageElement extends SkinElement<ImageElementData> {
 
       const element = new ImageElement(finalData, options)
 
-      const newPath = join(temp, ASSET_FOLDER, `${element.alias}.png`)
+      const newPath = join(temp, ASSET_FOLDER, `${element.name}.png`)
       await copy(element.path, newPath)
 
       element.data.path = newPath
