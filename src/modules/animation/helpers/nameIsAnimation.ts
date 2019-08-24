@@ -9,8 +9,10 @@ export const nameIsAnimation = (name: string, others: string[]) => {
   const isFrame = nameIsFrame(name)
   if (isFrame) return true
 
-  return others.some(other => {
+  const hasFrame = others.some(other => {
     const canonical = getCanonicalFromFrame(other)
     return canonical === name && nameIsFrame(other)
   })
+
+  return hasFrame
 }
