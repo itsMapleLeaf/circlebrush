@@ -6,14 +6,14 @@ export type ProgressOptions = {
 }
 
 export class Progress {
-  @observable message = "Loading..."
+  @observable private _message = "Loading..."
   @observable private progress = 0
   @observable private total = 0
 
   constructor(options: ProgressOptions) {
     const { message = "Loading...", total = 0 } = options
 
-    this.message = message
+    this._message = message
     this.total = total
   }
 
@@ -21,8 +21,17 @@ export class Progress {
     this.progress = progress
   }
 
+  public setMessage = (message: string) => {
+    this._message = message
+  }
+
   public setTotal = (total: number) => {
     this.total = total
+  }
+
+  @computed
+  public get message() {
+    return this._message
   }
 
   @computed
