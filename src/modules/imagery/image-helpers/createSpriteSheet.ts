@@ -10,7 +10,7 @@ export type BuildAnimationPreviewOptions = {
 /**
  * Builds a sprite sheet from a list of frame paths
  */
-export const buildAnimationPreview = async (options: BuildAnimationPreviewOptions) => {
+export const createSpriteSheet = async (options: BuildAnimationPreviewOptions) => {
   const { width, paths, dest } = options
 
   const items = await Promise.all(

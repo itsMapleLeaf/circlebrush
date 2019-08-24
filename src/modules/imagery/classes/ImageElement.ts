@@ -13,7 +13,7 @@ import { observable } from "mobx"
 import { buildImageElement } from "../image-helpers/buildImageElement"
 import { copyImageAsset } from "../helpers/copyImageAsset"
 import { range } from "../../../common/lang/array/range"
-import { buildAnimationPreview } from "../image-helpers/buildAnimationPreview"
+import { createSpriteSheet } from "../image-helpers/createSpriteSheet"
 import { Progress } from "../../../common/state/classes/Progress"
 
 /**
@@ -88,7 +88,7 @@ export class ImageElement extends SkinElement<ImageElementData> {
 
     const build = async () => {
       if (framePaths.length > 0) {
-        await buildAnimationPreview({
+        await createSpriteSheet({
           paths: framePaths,
           dest: newPath,
           height,
