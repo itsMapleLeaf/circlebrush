@@ -1,23 +1,12 @@
 import React from "react"
 import { styled } from "../../theming/themes"
-import { keyframes, css } from "@emotion/core"
-
-export type SpriteAnimation = {
-  width: number
-  count: number
-}
+import { SpriteAnimationProps, SpriteAnimation } from "./SpriteAnimation"
 
 export type ImagePreviewProps = {
   src: string
   className?: string
-  animation?: SpriteAnimation
+  animation?: SpriteAnimationProps
 }
-
-const createKeyFrames = (width: number) => keyframes`
-  100% {
-    background-position: -${width}px;
-  }
-`
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +22,7 @@ const Container = styled.div`
   padding: 32px;
 `
 
-const Image = styled.div<{ animation?: SpriteAnimation }>`
+const Image = styled.div`
   width: 100%;
   height: 100%;
 
@@ -41,25 +30,6 @@ const Image = styled.div<{ animation?: SpriteAnimation }>`
   background-position: center;
   background-size: contain;
   image-rendering: auto;
-
-  ${props => {
-    const { animation } = props
-    if (!animation) return ""
-
-    const { width, count } = animation
-
-    return css`
-      animation-name: ${createKeyFrames(width)};
-      animation-timing-function: steps(${count});
-      animation-iteration-count: infinite;
-      animation-duration: ${count * 32}ms;
-
-      background-position: left center;
-      background-size: auto;
-
-      width: ${width / count}px;
-    `
-  }}
 `
 
 export function ImagePreview(props: ImagePreviewProps) {
@@ -67,10 +37,11 @@ export function ImagePreview(props: ImagePreviewProps) {
 
   return (
     <Container className={className}>
-      <Image
-        animation={animation}
-        style={{ backgroundImage: `url("${CSS.escape(src)}")` }}
-      />
+      {animation ? (
+        <SpriteAnimation {...animation} />
+      ) : (
+        <Image style={{ backgroundImage: `url("${CSS.escape(src)}")` }} />
+      )}
     </Container>
   )
 }

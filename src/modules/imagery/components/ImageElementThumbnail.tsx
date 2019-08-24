@@ -12,12 +12,14 @@ export function ImageElementThumbnail(props: ImageElementThumbnailProps) {
   const { element, className } = props
 
   const getAnimation = () => {
-    const { frames, width } = element.data
+    const { frames, width, height } = element.data
     if (!frames) return
 
     return {
+      sprite: element.preview,
       count: frames.count,
-      width: frames.count * width,
+      frameHeight: height,
+      frameWidth: width,
     }
   }
 
