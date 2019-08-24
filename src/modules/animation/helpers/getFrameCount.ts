@@ -9,6 +9,6 @@ export const getFrameCount = (name: string, others: string[]) => {
     const isFrame = nameIsFrame(other)
     const canonical = getCanonicalFromFrame(other)
 
-    return isFrame && canonical
+    return isFrame && canonical === name
   }).length
 }

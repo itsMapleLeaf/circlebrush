@@ -9,6 +9,8 @@ test("getFrameCount", () => {
     "followpoint-2",
     "followpoint-3",
     "followpoint-4",
+    "hit0-0",
+    "hit0-1",
   ]
 
   expect(getFrameCount("sliderb", one)).toBe(3)
