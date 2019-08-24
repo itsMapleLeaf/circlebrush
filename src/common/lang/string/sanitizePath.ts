@@ -1,1 +1,1 @@
-export const sanitizePath = (path: string) => path.replace(/[#:]/g, "")
+export const sanitizePath = (path: string) => path.replace(/[#]/g, "")
