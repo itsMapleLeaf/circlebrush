@@ -22,8 +22,8 @@ export const nameIsFrame = (name: string) => {
   const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(canonical)
   const isAnimation = ANIMATABLE_IMAGE_NAMES.includes(canonical)
 
-  const regex = isEdgecase ? /(?<=[^-\d])\d*$/ : /-\d+$/
+  const regex = isEdgecase ? /(?<=[^-\d])\d+$/ : /-\d+$/
   const match = name.match(regex)
 
-  return match && isAnimation
+  return !!match && isAnimation
 }
