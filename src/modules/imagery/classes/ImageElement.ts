@@ -33,7 +33,9 @@ export class ImageElement extends SkinElement<ImageElementData> {
     const { temp } = options
 
     const imagePaths = paths.filter(p => p.endsWith(".png"))
-    const parsed = parseImagePaths(imagePaths)
+
+    progress.setMessage("Parsing images...")
+    const parsed = await parseImagePaths(imagePaths)
 
     let processedCount = 0
     progress.setTotal(parsed.length)
@@ -121,10 +123,12 @@ export class ImageElement extends SkinElement<ImageElementData> {
    */
   public get framePaths() {
     const { temp } = this.options
-    const { name, frames } = this.data
+    const { name, sequence } = this.data
 
-    if (!frames || frames.count === 1) return []
+    if (!sequence || sequence.frames.length === 1) return []
 
-    return range(frames.count).map(i => join(temp, ASSET_FOLDER, `${name}-${i}.png`))
+    return range(sequence.frames.length).map(i =>
+      join(temp, ASSET_FOLDER, `${name}-${i}.png`),
+    )
   }
 }

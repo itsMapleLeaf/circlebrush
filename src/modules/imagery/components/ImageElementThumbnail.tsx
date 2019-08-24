@@ -13,12 +13,12 @@ export function ImageElementThumbnail(props: ImageElementThumbnailProps) {
   const { element, className, playOnHover = false } = props
 
   const getAnimation = () => {
-    const { frames, width, height } = element.data
-    if (!frames) return
+    const { sequence, width, height } = element.data
+    if (!sequence) return
 
     return {
       sprite: element.preview,
-      count: frames.count,
+      count: sequence.frames.length,
       frameHeight: height,
       frameWidth: width,
       playOnHover,

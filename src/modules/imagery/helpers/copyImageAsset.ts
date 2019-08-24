@@ -10,18 +10,18 @@ import { range } from "../../../common/lang/array/range"
  * accounting for frames.
  */
 export const copyImageAsset = async (data: ImageElementData, temp: string) => {
-  const { name, path, frames, highDefinition } = data
+  const { name, path, sequence, highDefinition } = data
   const { dir } = parse(path)
 
   const newPath = join(temp, ASSET_FOLDER, `${name}.png`)
   await copy(path, newPath)
 
-  if (frames) {
-    const { count } = frames
+  if (sequence) {
+    const { frames } = sequence
 
     const isEdgecase = ANIMATION_NAMING_EDGECASES.includes(name)
 
-    const promises = range(count).map(async frame => {
+    const promises = range(frames.length).map(async frame => {
       /** Part of the path without suffix */
       const pathFragment = join(dir, `${name}${isEdgecase ? "" : "-"}${frame}`)
 

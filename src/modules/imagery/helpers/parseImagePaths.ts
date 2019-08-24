@@ -1,3 +1,4 @@
+import sharp from "sharp"
 import { basename, extname } from "path"
 import { isNonNil } from "../../../common/lang/isNonNil"
 import { ImageElementData } from "../types/ImageElementData"
@@ -9,6 +10,8 @@ import {
 } from "../constants"
 
 export type FrameData = {
+  width: number
+  height: number
   canonical: string
   index: number
 }
@@ -28,9 +31,12 @@ export type ImageDataFromParse = Omit<ImageElementData, "width" | "height">
 export const getCanonicalName = (name: string) => name.replace(/\-?\d*$/, "")
 
 /**
- * Returns a frame data if the image is a valid frame
+ * Returns frame data if the image is a valid frame
  */
-export const getFrameFor = (name: string): FrameData | undefined => {
+export const getFrameFor = async (
+  name: string,
+  path: string,
+): Promise<Omit<FrameData, "highDefinition"> | undefined> => {
   const safeName = getCanonicalName(name)
 
   /**
@@ -48,8 +54,16 @@ export const getFrameFor = (name: string): FrameData | undefined => {
   if (match && isAnimation) {
     const canonical = name.replace(regex, "")
 
+    /**
+     * Get the width and height so we can
+     * calculate the frame dimensions later
+     */
+    const { width, height } = await sharp(path).metadata()
+
     return {
       canonical,
+      width: width!,
+      height: height!,
       index: Number(match[0].replace("-", "")),
     }
   }
@@ -59,22 +73,29 @@ export const getFrameFor = (name: string): FrameData | undefined => {
  * Get the frame elements for an element
  */
 export const getFrames = (element: ImageParseData, items: ImageParseData[]) => {
-  return items.filter(item => {
-    /** Remove the number, so this can match */
-    return item.frame && item.frame.canonical === getCanonicalName(element.name)
-  })
+  return items
+    .filter(item => {
+      /** Remove the number, so this can match */
+      return item.frame && item.frame.canonical === getCanonicalName(element.name)
+    })
+    .map(item => {
+      const { frame, highDefinition } = item
+      const { width, height } = frame!
+
+      return { width, height, highDefinition }
+    })
 }
 
 /**
  * Parses the path and attempts to guess what the image is for
  */
-export const parseImagePath = (path: string) => {
+export const parseImagePath = async (path: string) => {
   const strippedName = getStrippedFilename(path).toLowerCase()
 
   const highDefinition = strippedName.includes(HD_SUFFIX)
   const name = strippedName.replace(HD_SUFFIX, "")
 
-  const frame = getFrameFor(name)
+  const frame = await getFrameFor(name, path)
   return { name, path, frame, highDefinition }
 }
 
@@ -88,7 +109,7 @@ export const createDataFromParse = (
   const { name, path, frame, highDefinition } = data
 
   /** Get the amount of frames associated with this element */
-  const frameCount = getFrames(data, others).length
+  const frames = getFrames(data, others)
 
   /** Include this if it's the first frame and there is not a static variant */
   if (frame) {
@@ -102,20 +123,20 @@ export const createDataFromParse = (
       path,
       name: canonical,
       highDefinition,
-      frames: {
-        count: frameCount,
+      sequence: {
+        frames,
         static: false,
       },
     }
   }
 
-  const frames = frameCount ? { count: frameCount, static: true } : undefined
+  const sequence = frames.length > 0 ? { frames, static: true } : undefined
 
   return {
     highDefinition,
     name,
     path,
-    frames,
+    sequence,
   }
 }
 
@@ -132,9 +153,9 @@ export const filterScaling = (path: string, _: any, others: string[]) => {
   return !others.find(other => other.includes(`${name}${HD_SUFFIX}`))
 }
 
-export const parseImagePaths = (paths: string[]): ImageDataFromParse[] => {
+export const parseImagePaths = async (paths: string[]): Promise<ImageDataFromParse[]> => {
   const filteredPaths = paths.filter(filterScaling)
-  const parsed = filteredPaths.map(parseImagePath)
+  const parsed = await Promise.all(filteredPaths.map(parseImagePath))
 
   return parsed.map(p => createDataFromParse(p, parsed)).filter(isNonNil)
 }
