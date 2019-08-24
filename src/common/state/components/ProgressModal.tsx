@@ -34,7 +34,7 @@ export function ProgressModal(props: ProgressModalProps) {
       <PrimaryModal.Body>
         <PrimaryInfo>
           <Message>{progress.message}</Message>
-          <Percentage>{progress.ratio * 100}%</Percentage>
+          <Percentage>{Math.floor(progress.ratio * 100)}%</Percentage>
         </PrimaryInfo>
         <ProgressBar value={progress.ratio} />
       </PrimaryModal.Body>
