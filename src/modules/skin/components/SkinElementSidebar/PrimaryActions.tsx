@@ -4,10 +4,10 @@ import { ButtonList } from "../../../../common/button/components/ButtonList"
 import { PrimaryButton } from "../../../../common/button/components/PrimaryButton"
 import { SecondaryButton } from "../../../../common/button/components/SecondaryButton"
 import { styled } from "../../../theming/themes"
-import { SkinElementLike } from "../../types/SkinElementLike"
+import { ImageElement } from "../../../imagery/classes/ImageElement"
 
 export type PrimaryActionsProps = {
-  element: SkinElementLike
+  element: ImageElement
 }
 
 const Container = styled.div``

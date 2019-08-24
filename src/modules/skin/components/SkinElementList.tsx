@@ -65,7 +65,7 @@ export function SkinElementList(props: SkinElementListProps) {
               <SkinElementItem
                 onClick={() => (projectStore.selectedElement = element)}
                 active={selected === element}
-                key={element.assetPath}
+                key={element.name}
                 element={element}
               />
             ))}

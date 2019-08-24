@@ -41,4 +41,6 @@ export abstract class SkinElement<
     const { alias, name } = this.data
     return alias ? alias : name
   }
+
+  public abstract async build(): Promise<void>
 }

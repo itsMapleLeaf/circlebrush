@@ -43,13 +43,19 @@ export function SkinElementSidebar(props: SkinElementSidebarProps) {
     }
   }
 
+  const renderActions = () => {
+    if (element instanceof ImageElement) {
+      return <PrimaryActions element={element} />
+    }
+  }
+
   return (
     <Container>
       {renderPreview()}
       <Sections>
         <PrimaryInfo element={element} />
         <Divider />
-        <PrimaryActions element={element} />
+        {renderActions()}
       </Sections>
     </Container>
   )

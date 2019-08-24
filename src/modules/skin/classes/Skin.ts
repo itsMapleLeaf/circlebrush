@@ -9,6 +9,7 @@ import { createSkinWatcher } from "../helpers/createSkinWatcher"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
 import { Progress } from "../../../common/state/classes/Progress"
+import { AnimatedImageElement } from "../../animation/classes/AnimatedImageElement"
 
 export type SkinOptions = {
   config: SkinConfiguration
@@ -36,12 +37,12 @@ export class Skin {
     progress.setMessage("Parsing skin.ini file...")
     const config = await SkinConfiguration.createFromPath(join(dir, iniName), temp)
 
-    progress.setMessage("Importing images...")
-    const elements = await ImageElement.createFromPathList(paths, { temp }, progress)
+    const images = await ImageElement.createFromPathList(paths, { temp }, progress)
+    const animations = await AnimatedImageElement.createFromPathList(paths, { temp })
 
     return new Skin({
       config,
-      elements,
+      elements: [...images, ...animations],
       temp,
     })
   }
@@ -90,7 +91,9 @@ export class Skin {
       const name = getStrippedFilename(file)
       const element = this.getElementByName(name)
 
-      if (element) element.updatePreview()
+      if (element instanceof ImageElement) {
+        element.updatePreview()
+      }
     })
   }
 
@@ -123,7 +126,7 @@ export class Skin {
   public serialize(): SerializedSkin {
     return {
       config: this.config.data,
-      elements: this.elements.map(element => element.assetPath),
+      elements: this.elements.map(element => element.name),
     }
   }
 }
