@@ -11,7 +11,6 @@ export const nameIsAnimation = (name: string, others: string[]) => {
 
   return others.some(other => {
     const canonical = getCanonicalFromFrame(other)
-
-    return canonical === name
+    return canonical === name && nameIsFrame(other)
   })
 }

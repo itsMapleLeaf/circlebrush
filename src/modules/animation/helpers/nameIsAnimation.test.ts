@@ -10,8 +10,10 @@ describe("nameIsAnimation", () => {
   })
 
   it("returns false on non-animations", () => {
-    const list = ["hit300", "hit0"]
+    const one = ["hit300", "hit0"]
+    const two = ["followpoint", "hitcircle"]
 
-    expect(nameIsAnimation("hit300", list)).toBe(false)
+    expect(nameIsAnimation("hit300", one)).toBe(false)
+    expect(nameIsAnimation("followpoint", two)).toBe(false)
   })
 })
