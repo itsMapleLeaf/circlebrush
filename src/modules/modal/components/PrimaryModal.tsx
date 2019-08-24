@@ -31,8 +31,14 @@ const CloseButton = styled(Button)`
 
   margin-left: 32px;
 
+  opacity: 0.5;
+
   > .icon {
     ${size(16)};
+  }
+
+  &:hover {
+    opacity: 1;
   }
 `
 
