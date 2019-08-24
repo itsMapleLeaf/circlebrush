@@ -4,6 +4,7 @@ import { remove, mkdirp } from "fs-extra"
 
 import sanitizeFileName from "sanitize-filename"
 import { TEMP_ROOT, ASSET_FOLDER, BUILD_FOLDER, PREVIEW_FOLDER } from "../constants"
+import { sanitizePath } from "../../../common/lang/string/sanitizePath"
 
 /**
  * Ensures an empty temp folder exists, and returns the directory name and path
@@ -13,7 +14,7 @@ export const ensureTempFolder = async (folder: string) => {
   const sanitized = sanitizeFileName(name)
 
   const temp = join(remote.app.getPath("temp"), TEMP_ROOT)
-  const fullPath = join(temp, sanitized)
+  const fullPath = sanitizePath(join(temp, sanitized))
 
   await remove(fullPath)
   await mkdirp(fullPath)
