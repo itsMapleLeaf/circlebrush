@@ -7,6 +7,7 @@ import { styled } from "../../theming/themes"
 import { getColor } from "../../theming/helpers"
 import { Body } from "./Body"
 import { useTitle } from "../hooks/useTitle"
+import { ModalOverlay } from "../../modal/components/ModalOverlay"
 
 const Container = styled.div`
   background: ${getColor("background")};
@@ -32,6 +33,7 @@ export function App() {
         <Titlebar />
         <Body />
       </Container>
+      <ModalOverlay />
     </ThemeProvider>
   )
 }
