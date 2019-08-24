@@ -6,10 +6,11 @@ import { ImagePreview } from "./ImagePreview"
 export type ImageElementThumbnailProps = {
   element: ImageElement
   className?: string
+  playOnHover?: boolean
 }
 
 export function ImageElementThumbnail(props: ImageElementThumbnailProps) {
-  const { element, className } = props
+  const { element, className, playOnHover = false } = props
 
   const getAnimation = () => {
     const { frames, width, height } = element.data
@@ -20,6 +21,7 @@ export function ImageElementThumbnail(props: ImageElementThumbnailProps) {
       count: frames.count,
       frameHeight: height,
       frameWidth: width,
+      playOnHover,
     }
   }
 

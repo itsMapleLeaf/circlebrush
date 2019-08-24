@@ -5,6 +5,7 @@ import { useCanvasAnimation } from "../../../common/dom/hooks/useCanvasAnimation
 import { getAspectRatioScale } from "../helpers/getAspectRatioScale"
 
 export type SpriteAnimationProps = {
+  enabled?: boolean
   sprite: string
   count: number
   frameWidth: number
@@ -17,12 +18,11 @@ const Container = styled.canvas`
 `
 
 export function SpriteAnimation(props: SpriteAnimationProps) {
-  const { sprite, count, frameHeight, frameWidth } = props
-
+  const { enabled = true, sprite, count, frameHeight, frameWidth } = props
   const ref = useRef<HTMLCanvasElement>(null)
-  const frameRef = useRef(0)
 
   const [loaded, setLoaded] = useState(false)
+  const [renderedPreview, setRenderedPreview] = useState(false)
   const [image] = useState(() => new Image())
 
   useEffect(() => {
@@ -35,6 +35,17 @@ export function SpriteAnimation(props: SpriteAnimationProps) {
       image.onload = null
     }
   }, [sprite])
+
+  useEffect(() => {
+    const { current: canvas } = ref
+
+    if (canvas && loaded && !renderedPreview) {
+      const context = canvas.getContext("2d")!
+
+      runCanvasFrame(context, canvas, 0)
+      setRenderedPreview(true)
+    }
+  }, [loaded, renderedPreview])
 
   const runCanvasFrame = (
     context: CanvasRenderingContext2D,
@@ -76,7 +87,7 @@ export function SpriteAnimation(props: SpriteAnimationProps) {
     context.restore()
   }
 
-  useCanvasAnimation(ref, runCanvasFrame, loaded)
+  useCanvasAnimation(ref, runCanvasFrame, loaded && enabled)
 
   return <Container ref={ref} />
 }

@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import { styled } from "../../theming/themes"
 import { SpriteAnimationProps, SpriteAnimation } from "./SpriteAnimation"
 
 export type ImagePreviewProps = {
   src: string
   className?: string
-  animation?: SpriteAnimationProps
+  animation?: SpriteAnimationProps & {
+    playOnHover?: boolean
+  }
 }
 
 const Container = styled.div`
@@ -35,13 +37,25 @@ const Image = styled.div`
 export function ImagePreview(props: ImagePreviewProps) {
   const { src, className, animation } = props
 
+  const [hovering, setHovering] = useState(false)
+
+  const renderImage = () => {
+    if (animation) {
+      const { playOnHover = false } = animation
+
+      return <SpriteAnimation enabled={!playOnHover || hovering} {...animation} />
+    }
+
+    return <Image style={{ backgroundImage: `url("${CSS.escape(src)}")` }} />
+  }
+
   return (
-    <Container className={className}>
-      {animation ? (
-        <SpriteAnimation {...animation} />
-      ) : (
-        <Image style={{ backgroundImage: `url("${CSS.escape(src)}")` }} />
-      )}
+    <Container
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      className={className}
+    >
+      {renderImage()}
     </Container>
   )
 }
