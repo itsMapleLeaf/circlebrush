@@ -1,15 +1,13 @@
 import { computed, observable } from "mobx"
-import { join } from "path"
-import { ASSET_FOLDER } from "../../project/constants"
 
-export type SkinElementData = {
+export type SkinElementData<T extends string = "element"> = {
+  type: T
   path: string
   name: string
   alias?: string
   description?: string
   category?: string
   tags?: string[]
-  upscaled?: boolean
 }
 
 export type SkinElementOptions = {
@@ -18,19 +16,14 @@ export type SkinElementOptions = {
 }
 
 /** Represents an element in a skin */
-export abstract class SkinElement<T extends SkinElementData = SkinElementData> {
-  @observable public data: T
+export abstract class SkinElement<
+  T extends string,
+  D extends SkinElementData<T> = SkinElementData<T>
+> {
+  @observable public data: D
 
-  constructor(data: T, protected options: SkinElementOptions) {
+  constructor(data: D, protected options: SkinElementOptions) {
     this.data = data
-  }
-
-  @computed
-  public get assetPath() {
-    const { temp } = this.options
-    const { name } = this.data
-
-    return join(temp, ASSET_FOLDER, `${name}.png`).replace(/\\/g, "/")
   }
 
   @computed

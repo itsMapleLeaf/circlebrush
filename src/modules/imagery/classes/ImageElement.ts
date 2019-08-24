@@ -5,21 +5,18 @@ import { SkinElement, SkinElementOptions } from "../../skin/classes/SkinElement"
 import { ImageElementData } from "../types/ImageElementData"
 import sharp from "sharp"
 
-import { builtInMeta } from "../../skin/builtins"
 import { parseImagePaths } from "../helpers/parseImagePaths"
 import { PREVIEW_FOLDER, BUILD_FOLDER, ASSET_FOLDER } from "../../project/constants"
 import { getHash } from "../../../common/lang/string/getHash"
-import { observable } from "mobx"
+import { observable, computed } from "mobx"
 import { buildImageElement } from "../image-helpers/buildImageElement"
 import { copyImageAsset } from "../helpers/copyImageAsset"
-import { range } from "../../../common/lang/array/range"
-import { createSpriteSheet } from "../image-helpers/createSpriteSheet"
 import { Progress } from "../../../common/state/classes/Progress"
 
 /**
  * Represents a skin image element, such as a .png
  */
-export class ImageElement extends SkinElement<ImageElementData> {
+export class ImageElement extends SkinElement<"image", ImageElementData> {
   @observable public preview: string = ""
 
   /**
@@ -38,21 +35,15 @@ export class ImageElement extends SkinElement<ImageElementData> {
     const parsed = await parseImagePaths(imagePaths)
 
     let processedCount = 0
+
     progress.setTotal(parsed.length)
     progress.setMessage("Processing images...")
 
     const result = await Promise.all(
       parsed.map(async data => {
-        const { name, path } = data
-        const { width, height } = await sharp(path).metadata()
-
-        const builtinData = builtInMeta.find(data => data.name === name) || {}
-
         const finalData = {
-          width: width!,
-          height: height!,
+          type: "image" as const,
           ...data,
-          ...builtinData,
         }
 
         await copyImageAsset(finalData, temp)
@@ -74,8 +65,7 @@ export class ImageElement extends SkinElement<ImageElementData> {
    * Refresh the preview image for the element
    */
   public async updatePreview() {
-    const { framePaths, options, data } = this
-    const { width, height } = data
+    const { options } = this
     const { temp } = options
 
     if (this.preview) {
@@ -86,22 +76,7 @@ export class ImageElement extends SkinElement<ImageElementData> {
     const name = `${this.alias}-${hash}.png`
     const newPath = join(temp, PREVIEW_FOLDER, name)
 
-    const build = async () => {
-      if (framePaths.length > 0) {
-        await createSpriteSheet({
-          paths: framePaths,
-          dest: newPath,
-          height,
-          width,
-        })
-
-        return
-      }
-
-      await copy(this.assetPath, newPath)
-    }
-
-    await build()
+    await copy(this.assetPath, newPath)
     this.preview = newPath
   }
 
@@ -119,16 +94,13 @@ export class ImageElement extends SkinElement<ImageElementData> {
   }
 
   /**
-   * Returns the calculated paths to each frame
+   * The path to the asset
    */
-  public get framePaths() {
+  @computed
+  public get assetPath() {
     const { temp } = this.options
-    const { name, sequence } = this.data
+    const { name } = this.data
 
-    if (!sequence || sequence.frames.length === 1) return []
-
-    return range(sequence.frames.length).map(i =>
-      join(temp, ASSET_FOLDER, `${name}-${i}.png`),
-    )
+    return join(temp, ASSET_FOLDER, `${name}.png`).replace(/\\/g, "/")
   }
 }

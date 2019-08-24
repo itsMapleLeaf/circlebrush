@@ -67,7 +67,7 @@ export function SkinElementItem(props: SkinElementItemProps) {
 
   const renderContent = () => {
     if (element instanceof ImageElement) {
-      return <Image playOnHover element={element} />
+      return <Image element={element} />
     }
   }
 
