@@ -13,12 +13,7 @@ class ProjectStore implements Store<SerializedProjectStore> {
   @observable project?: Project
   @observable selectedElement?: SkinElementLike
 
-  public async createFromSkinFolder(path: string) {
-    const progress = new Progress({
-      message: "Importing skin folder...",
-      total: 0,
-    })
-
+  public async createFromSkinFolder(path: string, progress: Progress) {
     const project = await Project.createFromSkinFolder(path, progress)
     this.project = project
   }
