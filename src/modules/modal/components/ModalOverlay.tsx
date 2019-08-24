@@ -29,7 +29,7 @@ export function ModalOverlay() {
   return (
     <Container active={active}>
       {modals.map(modal => (
-        <ModalItem modal={modal} />
+        <ModalItem key={modal.name} modal={modal} />
       ))}
     </Container>
   )
