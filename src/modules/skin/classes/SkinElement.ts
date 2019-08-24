@@ -1,4 +1,5 @@
 import { computed, observable } from "mobx"
+import { builtInMeta } from "../builtins"
 
 export type SkinElementData<T extends string = "element"> = {
   type: T
@@ -28,17 +29,29 @@ export abstract class SkinElement<
 
   @computed
   public get name() {
-    return this.data.name
+    return this.withBuiltin.name
   }
 
   @computed
   public get alias() {
-    const { alias, name } = this.data
+    const { alias, name } = this.withBuiltin
     return alias || name
   }
 
+  @computed
+  public get withBuiltin() {
+    const { name } = this.data
+
+    const builtin = builtInMeta.find(meta => meta.name === name)
+
+    return {
+      ...this.data,
+      ...builtin,
+    }
+  }
+
   public get displayName() {
-    const { alias, name } = this.data
+    const { alias, name } = this.withBuiltin
     return alias ? alias : name
   }
 

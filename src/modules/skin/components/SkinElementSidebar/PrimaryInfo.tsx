@@ -30,8 +30,8 @@ export function PrimaryInfo(props: PrimaryInfoProps) {
   const { element } = props
 
   const { name, description } = useObserver(() => ({
-    name: element.data.name,
-    description: element.data.description,
+    name: element.withBuiltin.name,
+    description: element.withBuiltin.description,
   }))
 
   const renderDescription = () => {
