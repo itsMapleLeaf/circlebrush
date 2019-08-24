@@ -14,12 +14,16 @@ const HeaderContainer = styled.div`
   padding: 24px;
   padding-bottom: 0px;
 
-  font-weight: bold;
-  font-size: 1em;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
+`
+
+const HeaderTitle = styled.h1`
+  margin-right: 32px;
+
+  font-weight: bold;
+  font-size: 1em;
 `
 
 const CloseButton = styled(Button)`
@@ -28,8 +32,6 @@ const CloseButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  margin-left: 32px;
 
   opacity: 0.5;
 
@@ -52,7 +54,7 @@ export function Header(props: HeaderProps) {
 
   return (
     <HeaderContainer>
-      <h3>{title}</h3>
+      <HeaderTitle>{title}</HeaderTitle>
       <CloseButton icon="close" onClick={dismiss} />
     </HeaderContainer>
   )
