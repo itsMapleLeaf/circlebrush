@@ -1,5 +1,5 @@
 import { SkinElementData } from "../../skin/classes/SkinElement"
-import { ImageFrameData } from "./ImageFrameData"
+import { FrameData } from "./FrameData"
 
 export type ImageElementData = SkinElementData & {
   highDefinition: boolean
@@ -7,7 +7,7 @@ export type ImageElementData = SkinElementData & {
   height: number
   sequence?: {
     /** The frames of this element */
-    frames: ImageFrameData[]
+    frames: FrameData[]
     /** Determines if the animation has a static image as well */
     static: boolean
   }
