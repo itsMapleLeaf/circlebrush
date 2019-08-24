@@ -3,6 +3,7 @@ import { join } from "path"
 import { SerializedSkin, Skin } from "../../skin/classes/Skin"
 import { TEMP_ROOT } from "../constants"
 import { ensureTempFolder } from "../helpers/ensureTempFolder"
+import { Progress } from "../../../common/state/classes/Progress"
 
 export type ProjectData = {
   name: string
@@ -22,9 +23,12 @@ export type SerializedProject = {
 export class Project {
   @observable data: ProjectData
 
-  public static async createFromSkinFolder(path: string) {
+  public static async createFromSkinFolder(path: string, progress: Progress) {
+    progress.setMessage("Creating temporary directories...")
     const [tempName, tempPath] = await ensureTempFolder(path)
-    const skin = await Skin.createFromPath(path, tempPath)
+
+    progress.setMessage("Importing skin folder...")
+    const skin = await Skin.createFromPath(path, tempPath, progress)
 
     const { name } = skin.config.data
 
@@ -39,6 +43,7 @@ export class Project {
   }
 
   public static async createFromHydration(data: SerializedProject) {
+    /**
     const { name, description, tempName } = data
 
     const tempPath = join(TEMP_ROOT, tempName)
@@ -50,6 +55,7 @@ export class Project {
       tempName,
       description,
     })
+     */
   }
 
   constructor(data: ProjectData) {

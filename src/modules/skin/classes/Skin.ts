@@ -8,6 +8,7 @@ import { BUILD_FOLDER } from "../../project/constants"
 import { createSkinWatcher } from "../helpers/createSkinWatcher"
 import { SkinElementLike } from "../types/SkinElementLike"
 import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
+import { Progress } from "../../../common/state/classes/Progress"
 
 export type SkinOptions = {
   config: SkinConfiguration
@@ -25,15 +26,18 @@ export class Skin {
   /**
    * Create a Skin instance from an existing osu! skin folder
    */
-  public static async createFromPath(dir: string, temp: string) {
+  public static async createFromPath(dir: string, temp: string, progress: Progress) {
     const files = await readdir(dir)
     const paths = files.map(f => join(dir, f))
 
     const iniName = files.find(x => x === "skin.ini")
     if (!iniName) throw new Error("A skin.ini file was not found")
 
+    progress.setMessage("Parsing skin.ini file...")
     const config = await SkinConfiguration.createFromPath(join(dir, iniName), temp)
-    const elements = await ImageElement.createFromPathList(paths, { temp })
+
+    progress.setMessage("Importing images...")
+    const elements = await ImageElement.createFromPathList(paths, { temp }, progress)
 
     return new Skin({
       config,
@@ -43,6 +47,8 @@ export class Skin {
   }
 
   public static async createFromHydration(data: SerializedSkin, temp: string) {
+    /*
+    
     const config = new SkinConfiguration(data.config)
     const elements = await ImageElement.createFromPathList(data.elements, { temp })
 
@@ -51,6 +57,8 @@ export class Skin {
       elements,
       temp,
     })
+    
+    **/
   }
 
   public config: SkinConfiguration

@@ -1,7 +1,8 @@
-import { observable } from "mobx";
-import { Store } from "../../../common/state/types/Store";
-import { SkinElementLike } from "../../skin/types/SkinElementLike";
-import { Project, SerializedProject } from "../classes/Project";
+import { observable } from "mobx"
+import { Store } from "../../../common/state/types/Store"
+import { SkinElementLike } from "../../skin/types/SkinElementLike"
+import { Project, SerializedProject } from "../classes/Project"
+import { Progress } from "../../../common/state/classes/Progress"
 
 export type SerializedProjectStore = {
   project?: SerializedProject
@@ -13,7 +14,12 @@ class ProjectStore implements Store<SerializedProjectStore> {
   @observable selectedElement?: SkinElementLike
 
   public async createFromSkinFolder(path: string) {
-    const project = await Project.createFromSkinFolder(path)
+    const progress = new Progress({
+      message: "Importing skin folder...",
+      total: 0,
+    })
+
+    const project = await Project.createFromSkinFolder(path, progress)
     this.project = project
   }
 

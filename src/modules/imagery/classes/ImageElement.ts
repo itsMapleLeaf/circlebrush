@@ -14,6 +14,7 @@ import { buildImageElement } from "../image-helpers/buildImageElement"
 import { copyImageAsset } from "../helpers/copyImageAsset"
 import { range } from "../../../common/lang/array/range"
 import { buildAnimationPreview } from "../image-helpers/buildAnimationPreview"
+import { Progress } from "../../../common/state/classes/Progress"
 
 /**
  * Represents a skin image element, such as a .png
@@ -24,11 +25,19 @@ export class ImageElement extends SkinElement<ImageElementData> {
   /**
    * Creates ImageElements from a list of existing skin image element paths
    */
-  public static async createFromPathList(paths: string[], options: SkinElementOptions) {
+  public static async createFromPathList(
+    paths: string[],
+    options: SkinElementOptions,
+    progress: Progress,
+  ) {
     const { temp } = options
 
     const imagePaths = paths.filter(p => p.endsWith(".png"))
     const parsed = parseImagePaths(imagePaths)
+
+    let processedCount = 0
+    progress.setTotal(parsed.length)
+    progress.setMessage("Processing images...")
 
     const result = await Promise.all(
       parsed.map(async data => {
@@ -48,6 +57,9 @@ export class ImageElement extends SkinElement<ImageElementData> {
 
         const element = new ImageElement(finalData, options)
         await element.updatePreview()
+
+        processedCount += 1
+        progress.setProgress(processedCount)
 
         return element
       }),
