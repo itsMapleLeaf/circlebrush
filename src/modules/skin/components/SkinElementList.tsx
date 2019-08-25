@@ -1,5 +1,5 @@
 import { useObserver } from "mobx-react-lite"
-import React from "react"
+import React, { useMemo } from "react"
 import { categorize } from "../../../common/lang/array/categorize"
 import { useStores } from "../../../common/state/hooks/useStores"
 import { getColor } from "../../theming/helpers"
@@ -50,10 +50,13 @@ export function SkinElementList(props: SkinElementListProps) {
   const { projectStore } = useStores()
 
   const selected = useObserver(() => projectStore.selectedElement)
-  const categories = categorize(
-    elements,
-    element => element.withBuiltin.category || "Uncategorized",
-  )
+
+  const categories = useMemo(() => {
+    return categorize(
+      elements,
+      element => element.withBuiltin.category || "Uncategorized",
+    )
+  }, [elements])
 
   return (
     <>
