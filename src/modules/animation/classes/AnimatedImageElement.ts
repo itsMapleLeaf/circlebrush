@@ -66,5 +66,17 @@ export class AnimatedImageElement extends SkinElement<
     })
   }
 
+  public get frameDimensions() {
+    const { frames } = this
+
+    const frameWidth = Math.max(...frames.map(x => x.width))
+    const frameHeight = Math.max(...frames.map(x => x.height))
+
+    return {
+      width: frameWidth,
+      height: frameHeight,
+    }
+  }
+
   public async build() {}
 }

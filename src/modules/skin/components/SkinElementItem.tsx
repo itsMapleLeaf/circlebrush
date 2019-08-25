@@ -6,6 +6,7 @@ import { getColor } from "../../theming/helpers"
 import { styled } from "../../theming/themes"
 import { humanizeFilename } from "../helpers/humanizeFilename"
 import { SkinElementLike } from "../types/SkinElementLike"
+import { SkinElementThumbnail } from "./SkinElementThumbnail"
 
 export type SkinElementItemProps = {
   element: SkinElementLike
@@ -49,7 +50,7 @@ const Content = styled.div`
   align-items: center;
 `
 
-const Image = styled(ImageElementThumbnail)`
+const Image = styled(SkinElementThumbnail)`
   ${cover()}
 `
 
@@ -65,15 +66,11 @@ const PrimaryInfo = styled.div`
 export function SkinElementItem(props: SkinElementItemProps) {
   const { element, onClick, active } = props
 
-  const renderContent = () => {
-    if (element instanceof ImageElement) {
-      return <Image element={element} />
-    }
-  }
-
   return (
     <Container active={active} onClick={onClick}>
-      <Content>{renderContent()}</Content>
+      <Content>
+        <Image element={element} />
+      </Content>
       <PrimaryInfo>{humanizeFilename(element.displayName)}</PrimaryInfo>
     </Container>
   )

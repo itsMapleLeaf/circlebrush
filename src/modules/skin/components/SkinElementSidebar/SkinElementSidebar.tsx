@@ -6,6 +6,7 @@ import { styled } from "../../../theming/themes"
 import { SkinElementLike } from "../../types/SkinElementLike"
 import { PrimaryActions } from "./PrimaryActions"
 import { PrimaryInfo } from "./PrimaryInfo"
+import { SkinElementThumbnail } from "../SkinElementThumbnail"
 
 export type SkinElementSidebarProps = {
   element: SkinElementLike
@@ -22,7 +23,7 @@ const Sections = styled.div`
   padding: 0px 32px;
 `
 
-const Image = styled(ImageElementThumbnail)`
+const Image = styled(SkinElementThumbnail)`
   height: 350px;
 `
 
@@ -37,12 +38,6 @@ const Divider = styled.div`
 export function SkinElementSidebar(props: SkinElementSidebarProps) {
   const { element } = props
 
-  const renderPreview = () => {
-    if (element instanceof ImageElement) {
-      return <Image element={element} />
-    }
-  }
-
   const renderActions = () => {
     if (element instanceof ImageElement) {
       return <PrimaryActions element={element} />
@@ -51,7 +46,7 @@ export function SkinElementSidebar(props: SkinElementSidebarProps) {
 
   return (
     <Container>
-      {renderPreview()}
+      <Image element={element} />
       <Sections>
         <PrimaryInfo element={element} />
         <Divider />
