@@ -42,7 +42,9 @@ export abstract class SkinElement<
   public get withBuiltin() {
     const { name } = this.data
 
-    const builtin = builtInMeta.find(meta => meta.name === name)
+    const builtin = builtInMeta.find(
+      meta => meta.name.toLowerCase() === name.toLowerCase(),
+    )
 
     return {
       ...this.data,
