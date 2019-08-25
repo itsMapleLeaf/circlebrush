@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { styled } from "../../theming/themes"
 import React from "react"
 import { useCanvasAnimation } from "../../../common/dom/hooks/useCanvasAnimation"
-import { getAspectRatioScale } from "../helpers/getAspectRatioScale"
+import { getAspectRatioScale } from "../../imagery/helpers/getAspectRatioScale"
 
 export type SpriteAnimationProps = {
   enabled?: boolean

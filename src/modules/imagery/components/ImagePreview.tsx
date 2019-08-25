@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import { styled } from "../../theming/themes"
-import { SpriteAnimationProps, SpriteAnimation } from "./SpriteAnimation"
+import {
+  SpriteAnimationProps,
+  SpriteAnimation,
+} from "../../animation/components/SpriteAnimation"
 
 export type ImagePreviewProps = {
   src: string
