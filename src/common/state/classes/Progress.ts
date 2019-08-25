@@ -49,6 +49,10 @@ export class Progress<T extends string = "default"> {
   }
 
   public setProgress = (progress: number) => {
+    if (progress > 1 || progress < 0) {
+      throw new Error("Progress must be between 1 and 0")
+    }
+
     this.selected.progress = progress
   }
 
@@ -60,7 +64,8 @@ export class Progress<T extends string = "default"> {
     this.selected.total = total
   }
 
-  public setSection = (section: T) => {
+  public nextSection = (section: T) => {
+    this.selected.progress = 1
     this.selectedSection = section
   }
 
