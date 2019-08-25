@@ -50,7 +50,7 @@ export const createDataFromParse = async (
 export const parseImagePaths = async (paths: string[]): Promise<ImageDataFromParse[]> => {
   const filteredPaths = paths.filter((path, _, others) => {
     const name = getStrippedImageName(path)
-    const isAnimation = nameIsAnimation(name, others)
+    const isAnimation = nameIsAnimation(name, others.map(getStrippedImageName))
 
     return filterDownscaled(path, _, others) && !isAnimation
   })
