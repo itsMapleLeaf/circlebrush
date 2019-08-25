@@ -1,9 +1,5 @@
 import sharp from "sharp"
-import { FrameData } from "../types/FrameData"
-
-export type FrameDataWithPath = FrameData & {
-  path: string
-}
+import { FrameDataWithPath } from "../types/FrameData"
 
 export type BuildAnimationPreviewOptions = {
   frames: FrameDataWithPath[]

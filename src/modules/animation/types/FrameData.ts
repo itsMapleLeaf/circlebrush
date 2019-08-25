@@ -3,3 +3,7 @@ export type FrameData = {
   width: number
   height: number
 }
+
+export type FrameDataWithPath = FrameData & {
+  path: string
+}
