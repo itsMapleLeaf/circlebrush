@@ -6,7 +6,6 @@ import { copy } from "fs-extra"
 
 /**
  * Copies an image element correctly to the asset folder
- * accounting for frames.
  */
 export const copyImageAsset = async (data: ImageElementData, temp: string) => {
   const { name, path } = data
