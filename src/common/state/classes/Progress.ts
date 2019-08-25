@@ -1,8 +1,7 @@
-import { observable, computed } from "mobx"
+import { observable, computed, toJS } from "mobx"
 
 export type ProgressOptions<T extends string> = {
   message?: string
-  total?: number
   sections?: T[]
 }
 
@@ -25,7 +24,7 @@ export class Progress<T extends string = "default"> {
   @observable private sections: Record<T, ProgressSection> = defaultSections as any
 
   constructor(options: ProgressOptions<T>) {
-    const { message = "Loading...", total = 0, sections } = options
+    const { message = "Loading...", sections } = options
 
     this._message = message
 
@@ -38,7 +37,7 @@ export class Progress<T extends string = "default"> {
                 x,
                 {
                   progress: 0,
-                  total: 0,
+                  total: 1,
                 },
               ] as const,
           ),
@@ -49,10 +48,6 @@ export class Progress<T extends string = "default"> {
   }
 
   public setProgress = (progress: number) => {
-    if (progress > 1 || progress < 0) {
-      throw new Error("Progress must be between 1 and 0")
-    }
-
     this.selected.progress = progress
   }
 
@@ -65,7 +60,7 @@ export class Progress<T extends string = "default"> {
   }
 
   public nextSection = (section: T) => {
-    this.selected.progress = 1
+    this.selected.progress = this.selected.total
     this.selectedSection = section
   }
 
@@ -86,7 +81,7 @@ export class Progress<T extends string = "default"> {
     const sum = sections.reduce((acc, section) => {
       const { progress, total } = section
 
-      if (total === 0) return 0
+      if (total === 0) return acc
 
       return acc + progress / total
     }, 0)
