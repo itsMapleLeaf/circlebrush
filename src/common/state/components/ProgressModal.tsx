@@ -6,7 +6,7 @@ import { styled } from "../../../modules/theming/themes"
 import { ProgressBar } from "./ProgressBar"
 
 export type ProgressModalProps = {
-  progress: Progress
+  progress: Progress<any>
 }
 
 const Container = styled(PrimaryModal.Base)`

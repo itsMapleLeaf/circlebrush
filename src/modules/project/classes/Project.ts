@@ -4,6 +4,7 @@ import { SerializedSkin, Skin } from "../../skin/classes/Skin"
 import { TEMP_ROOT } from "../constants"
 import { ensureTempFolder } from "../helpers/ensureTempFolder"
 import { Progress } from "../../../common/state/classes/Progress"
+import { ImportSkinFolderProgressSections } from "../actions/importSkinFolder"
 
 export type ProjectData = {
   name: string
@@ -23,11 +24,13 @@ export type SerializedProject = {
 export class Project {
   @observable data: ProjectData
 
-  public static async createFromSkinFolder(path: string, progress: Progress) {
+  public static async createFromSkinFolder(
+    path: string,
+    progress: Progress<ImportSkinFolderProgressSections>,
+  ) {
     progress.setMessage("Creating temporary directories...")
     const [tempName, tempPath] = await ensureTempFolder(path)
 
-    progress.setMessage("Importing skin folder...")
     const skin = await Skin.createFromPath(path, tempPath, progress)
 
     const { name } = skin.config.data

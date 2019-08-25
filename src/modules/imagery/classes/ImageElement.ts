@@ -1,9 +1,9 @@
+import sharp from "sharp"
 import { join } from "path"
 import { copy, remove } from "fs-extra"
 
 import { SkinElement, SkinElementOptions } from "../../skin/classes/SkinElement"
 import { ImageElementData } from "../types/ImageElementData"
-import sharp from "sharp"
 
 import { parseImagePaths } from "../helpers/parseImagePaths"
 import { BUILD_FOLDER, ASSET_FOLDER } from "../../project/constants"
@@ -12,6 +12,8 @@ import { buildImageElement } from "../image-helpers/buildImageElement"
 import { copyImageAsset } from "../helpers/copyImageAsset"
 import { Progress } from "../../../common/state/classes/Progress"
 import { getPreviewPath } from "../helpers/getPreviewPath"
+import { ImportSkinFolderProgressSections } from "../../project/actions/importSkinFolder"
+import { progressArray } from "../../../common/state/helpers/progressArray"
 
 /**
  * Represents a skin image element, such as a .png
@@ -25,40 +27,36 @@ export class ImageElement extends SkinElement<"image", ImageElementData> {
   public static async createFromPathList(
     paths: string[],
     options: SkinElementOptions,
-    progress: Progress,
+    progress: Progress<ImportSkinFolderProgressSections>,
   ) {
     const { temp } = options
-
     const imagePaths = paths.filter(p => p.endsWith(".png"))
 
     progress.setMessage("Parsing images...")
     const parsed = await parseImagePaths(imagePaths)
 
-    let processedCount = 0
-
-    progress.setTotal(parsed.length)
-    progress.setMessage("Processing images...")
-
-    const result = await Promise.all(
-      parsed.map(async data => {
+    return progressArray(
+      async data => {
         const finalData = {
           type: "image" as const,
           ...data,
         }
 
+        progress.setMessage(`Copying ${data.name}...`)
         await copyImageAsset(finalData, temp)
 
         const element = new ImageElement(finalData, options)
+
+        progress.setMessage(`Creating preview for ${data.name}...`)
         await element.updatePreview()
 
-        processedCount += 1
-        progress.setProgress(processedCount)
-
         return element
-      }),
+      },
+      {
+        progress,
+        arr: parsed,
+      },
     )
-
-    return result
   }
 
   /**

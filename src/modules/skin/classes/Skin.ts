@@ -10,6 +10,7 @@ import { SkinElementLike } from "../types/SkinElementLike"
 import { SkinConfiguration, SkinConfigurationData } from "./SkinConfiguration"
 import { Progress } from "../../../common/state/classes/Progress"
 import { AnimatedImageElement } from "../../animation/classes/AnimatedImageElement"
+import { ImportSkinFolderProgressSections } from "../../project/actions/importSkinFolder"
 
 export type SkinOptions = {
   config: SkinConfiguration
@@ -27,18 +28,31 @@ export class Skin {
   /**
    * Create a Skin instance from an existing osu! skin folder
    */
-  public static async createFromPath(dir: string, temp: string, progress: Progress) {
+  public static async createFromPath(
+    dir: string,
+    temp: string,
+    progress: Progress<ImportSkinFolderProgressSections>,
+  ) {
+    progress.nextSection("reading-directory")
     const files = await readdir(dir)
     const paths = files.map(f => join(dir, f))
 
     const iniName = files.find(x => x === "skin.ini")
     if (!iniName) throw new Error("A skin.ini file was not found")
 
+    progress.nextSection("parsing-ini")
     progress.setMessage("Parsing skin.ini file...")
     const config = await SkinConfiguration.createFromPath(join(dir, iniName), temp)
 
+    progress.nextSection("processing-images")
     const images = await ImageElement.createFromPathList(paths, { temp }, progress)
-    const animations = await AnimatedImageElement.createFromPathList(paths, { temp })
+
+    progress.nextSection("processing-animations")
+    const animations = await AnimatedImageElement.createFromPathList(
+      paths,
+      { temp },
+      progress,
+    )
 
     return new Skin({
       config,

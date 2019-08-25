@@ -9,6 +9,9 @@ import { join } from "path"
 import { ASSET_FOLDER } from "../../project/constants"
 import { FrameData } from "../types/FrameData"
 import { copyFrameAssets } from "../helpers/copyFrameAssets"
+import { Progress } from "../../../common/state/classes/Progress"
+import { ImportSkinFolderProgressSections } from "../../project/actions/importSkinFolder"
+import { progressArray } from "../../../common/state/helpers/progressArray"
 
 export class AnimatedImageElement extends SkinElement<
   "animation",
@@ -20,22 +23,33 @@ export class AnimatedImageElement extends SkinElement<
   /**
    * Creates AnimatedImageElements from a list of existing skin image element paths
    */
-  public static async createFromPathList(paths: string[], options: SkinElementOptions) {
+  public static async createFromPathList(
+    paths: string[],
+    options: SkinElementOptions,
+    progress: Progress<ImportSkinFolderProgressSections>,
+  ) {
     const { temp } = options
-
     const imagePaths = paths.filter(p => p.endsWith(".png"))
+
+    progress.setMessage("Parsing animations...")
     const parsed = await parseFramePaths(imagePaths, temp)
 
-    return Promise.all(
-      parsed.map(async data => {
+    return progressArray(
+      async data => {
+        progress.setMessage(`Copying frame assets for ${data.name}...`)
         await copyFrameAssets(data.name, data.frames, temp)
+
         const element = new AnimatedImageElement(data, options)
 
-        // do stuff here
+        progress.setMessage(`Creating animation sprite sheet for ${data.name}...`)
         await element.updatePreview()
 
         return element
-      }),
+      },
+      {
+        progress,
+        arr: parsed,
+      },
     )
   }
 

@@ -4,6 +4,13 @@ import { Progress } from "../../../common/state/classes/Progress"
 import { ProgressModal } from "../../../common/state/components/ProgressModal"
 import React from "react"
 
+export type ImportSkinFolderProgressSections =
+  | "create-temp-folders"
+  | "reading-directory"
+  | "parsing-ini"
+  | "processing-images"
+  | "processing-animations"
+
 export const importSkinFolder = async (manager: StoreManager) => {
   const { dialog } = remote
   const { projectStore } = manager.stores
@@ -15,9 +22,15 @@ export const importSkinFolder = async (manager: StoreManager) => {
   const { filePaths } = result
 
   if (filePaths && filePaths.length > 0) {
-    const progress = new Progress({
+    const progress = new Progress<ImportSkinFolderProgressSections>({
       message: "Importing skin folder...",
-      total: 0,
+      sections: [
+        "create-temp-folders",
+        "reading-directory",
+        "parsing-ini",
+        "processing-images",
+        "processing-animations",
+      ],
     })
 
     const close = manager.stores.modalStore.spawn({

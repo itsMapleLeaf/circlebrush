@@ -21,7 +21,7 @@ export class Progress<T extends string = "default"> {
   @observable private _message = "Loading..."
 
   @observable private selectedSection: T
-  @observable private sections: Record<T, ProgressSection> = defaultSections as any
+  @observable private sections: Record<T, ProgressSection>
 
   constructor(options: ProgressOptions<T>) {
     const { message = "Loading...", sections } = options
@@ -42,7 +42,7 @@ export class Progress<T extends string = "default"> {
               ] as const,
           ),
         ) as any)
-      : undefined
+      : defaultSections
 
     this.selectedSection = Object.keys(this.sections)[0] as T
   }
@@ -80,10 +80,7 @@ export class Progress<T extends string = "default"> {
 
     const sum = sections.reduce((acc, section) => {
       const { progress, total } = section
-
-      if (total === 0) return acc
-
-      return acc + progress / total
+      return acc + (progress / total || 0)
     }, 0)
 
     return sum / sections.length
