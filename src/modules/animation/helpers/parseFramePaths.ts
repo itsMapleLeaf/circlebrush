@@ -15,6 +15,7 @@ import { FrameData } from "../types/FrameData"
 
 import { ANIMATABLE_IMAGE_NAMES } from "../constants"
 import { HD_SUFFIX } from "../../imagery/constants"
+import { getFrameIndexFromName } from "./getFrameIndexFromName"
 
 export type FrameParseData = {
   name: string
@@ -24,14 +25,21 @@ export type FrameParseData = {
 }
 
 export const getFramePaths = (canonical: string, paths: string[]) => {
-  return paths.filter(path => {
-    const name = getStrippedImageName(path)
+  return paths
+    .filter(path => {
+      const name = getStrippedImageName(path)
 
-    const isFrame = nameIsFrame(name)
-    const pathCanonical = getCanonicalFromFrame(name)
+      const isFrame = nameIsFrame(name)
+      const pathCanonical = getCanonicalFromFrame(name)
 
-    return isFrame && canonical === pathCanonical
-  })
+      return isFrame && canonical === pathCanonical
+    })
+    .sort((a, b) => {
+      const aIndex = getFrameIndexFromName(getStrippedImageName(a))
+      const bIndex = getFrameIndexFromName(getStrippedImageName(b))
+
+      return aIndex > bIndex ? 1 : -1
+    })
 }
 
 /**
