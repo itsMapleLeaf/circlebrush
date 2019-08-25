@@ -19,6 +19,8 @@ const Fill = styled.div`
 
   background: ${getColor("accent")};
   transform-origin: 0;
+
+  transition: 500ms ease transform;
 `
 
 export function ProgressBar(props: ProgressBarProps) {
