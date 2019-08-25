@@ -6,12 +6,12 @@ import { ImageElementData } from "../types/ImageElementData"
 import sharp from "sharp"
 
 import { parseImagePaths } from "../helpers/parseImagePaths"
-import { PREVIEW_FOLDER, BUILD_FOLDER, ASSET_FOLDER } from "../../project/constants"
-import { getHash } from "../../../common/lang/string/getHash"
+import { BUILD_FOLDER, ASSET_FOLDER } from "../../project/constants"
 import { observable, computed } from "mobx"
 import { buildImageElement } from "../image-helpers/buildImageElement"
 import { copyImageAsset } from "../helpers/copyImageAsset"
 import { Progress } from "../../../common/state/classes/Progress"
+import { getPreviewPath } from "../helpers/getPreviewPath"
 
 /**
  * Represents a skin image element, such as a .png
@@ -72,11 +72,9 @@ export class ImageElement extends SkinElement<"image", ImageElementData> {
       await remove(this.preview)
     }
 
-    const hash = getHash(16)
-    const name = `${this.alias}-${hash}.png`
-    const newPath = join(temp, PREVIEW_FOLDER, name)
-
+    const newPath = getPreviewPath(temp, this.name, "png")
     await copy(this.assetPath, newPath)
+
     this.preview = newPath
   }
 
