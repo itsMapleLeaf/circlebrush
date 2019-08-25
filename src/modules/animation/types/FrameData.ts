@@ -1,9 +1,8 @@
 export type FrameData = {
+  path: string
   highDefinition: boolean
   width: number
   height: number
 }
 
-export type FrameDataWithPath = FrameData & {
-  path: string
-}
+export type SerializedFrame = Omit<FrameData, "path">

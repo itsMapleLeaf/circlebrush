@@ -92,6 +92,7 @@ export const createDataFromParse = async (
         const { width, height } = await sharp(path).metadata()
 
         return {
+          path,
           highDefinition,
           width: width!,
           height: height!,
