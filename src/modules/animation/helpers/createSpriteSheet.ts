@@ -32,5 +32,7 @@ export const createSpriteSheet = async (options: BuildAnimationPreviewOptions) =
 
   try {
     await image.toFile(dest)
-  } catch {}
+  } catch {
+    console.log("Failed to create spritesheet")
+  }
 }
