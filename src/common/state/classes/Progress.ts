@@ -1,24 +1,55 @@
 import { observable, computed } from "mobx"
 
-export type ProgressOptions = {
+export type ProgressOptions<T extends string> = {
   message?: string
   total?: number
+  sections?: T[]
 }
 
-export class Progress {
-  @observable private _message = "Loading..."
-  @observable private progress = 0
-  @observable private total = 0
+export type ProgressSection = {
+  total: number
+  progress: number
+}
 
-  constructor(options: ProgressOptions) {
-    const { message = "Loading...", total = 0 } = options
+const defaultSections = {
+  default: {
+    total: 0,
+    progress: 0,
+  },
+}
+
+export class Progress<T extends string = "default"> {
+  @observable private _message = "Loading..."
+
+  @observable private selectedSection: T
+  @observable private sections: Record<T, ProgressSection> = defaultSections as any
+
+  constructor(options: ProgressOptions<T>) {
+    const { message = "Loading...", total = 0, sections } = options
 
     this._message = message
-    this.total = total
+
+    /** God save me from the pain */
+    this.sections = sections
+      ? (Object.fromEntries(
+          sections.map(
+            x =>
+              [
+                x,
+                {
+                  progress: 0,
+                  total: 0,
+                },
+              ] as const,
+          ),
+        ) as any)
+      : undefined
+
+    this.selectedSection = Object.keys(this.sections)[0] as T
   }
 
   public setProgress = (progress: number) => {
-    this.progress = progress
+    this.selected.progress = progress
   }
 
   public setMessage = (message: string) => {
@@ -26,7 +57,16 @@ export class Progress {
   }
 
   public setTotal = (total: number) => {
-    this.total = total
+    this.selected.total = total
+  }
+
+  public setSection = (section: T) => {
+    this.selectedSection = section
+  }
+
+  private get selected() {
+    const selected = this.sections[this.selectedSection]
+    return selected
   }
 
   @computed
@@ -36,7 +76,16 @@ export class Progress {
 
   @computed
   public get ratio() {
-    if (this.total === 0) return 0
-    return this.progress / this.total
+    const sections = Object.values<ProgressSection>(this.sections)
+
+    const sum = sections.reduce((acc, section) => {
+      const { progress, total } = section
+
+      if (total === 0) return 0
+
+      return acc + progress / total
+    }, 0)
+
+    return sum / sections.length
   }
 }
